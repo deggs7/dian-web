@@ -15,19 +15,38 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    /* 3rd Party Modules */
+    'ui.router'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+
+  .factory('authInterceptor', ['$q', '$cookies', '$location', function ($q, $cookies, $location) {
+    return {
+      request: function (config) {
+        config.headers = config.headers || {};
+        if ($cookies.token) {
+          config.headers.Authorization = 'Token ' + $cookies.token;
+        }
+        return config;
+      },
+      responseError: function (response) {
+        if (response.status == 401) {
+          $location.path('/login');
+        }
+        return $q.reject(response);
+      }
+    };
+  }])
+
+  .config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+    //$httpProvider.defaults.withCredentials = true;
+  }])
+
+  .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.otherwise('/');
+    // $urlRouterProvider.when('/', '/login');
+  }])
+
+
