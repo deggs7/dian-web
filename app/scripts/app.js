@@ -27,6 +27,9 @@ angular
         if ($cookies.token) {
           config.headers.Authorization = 'Token ' + $cookies.token;
         }
+        if ($cookies.restaurant_id) {
+          config.headers['X-Restaurant-Id'] = $cookies.restaurant_id;
+        }
         return config;
       },
       responseError: function (response) {
@@ -48,5 +51,6 @@ angular
     $urlRouterProvider.otherwise('/');
     // $urlRouterProvider.when('/', '/login');
   }])
+
 
 

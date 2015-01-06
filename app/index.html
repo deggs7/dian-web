@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="dianApp">
   <head>
     <meta charset="utf-8">
     <title></title>
@@ -15,13 +15,56 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="dianApp">
+  <body ng-controller="MainCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+    <div class="" data-ng-show="isSpecificPage()" data-ng-cloak>
+      <div ui-view=""></div>
+    </div>
 
     <!-- Add your site or application content here -->
-    <div ui-view=""></div>
+    <div class="off-canvas-wrap" data-offcanvas data-ng-hide="isSpecificPage()" data-ng-cloak>
+      <div class="inner-wrap">
+        <nav class="tab-bar">
+          <section class="left-small">
+            <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+          </section>
+
+          <section class="middle tab-bar-section">
+            <h1 class="title">{{restaurant.name}}</h1>
+          </section>
+
+          <section class="right-small">
+            <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+          </section>
+        </nav>
+
+        <aside class="left-off-canvas-menu">
+          <ul class="off-canvas-list">
+            <li><label>点快</label></li>
+            <li><a href="#">营业大厅</a></li>
+            <li><a href="#">餐桌管理</a></li>
+            <li><a href="#">餐厅配置</a></li>
+          </ul>
+        </aside>
+
+        <aside class="right-off-canvas-menu">
+          <ul class="off-canvas-list">
+            <li><label>{{account.username}}</label></li>
+            <li><a href="#">修改个人信息</a></li>
+            <li><a href="#">注销</a></li>
+          </ul>
+        </aside>
+
+        <section class="main-section" style="min-height: 600px;">
+          <div ui-view=""></div>
+        </section>
+
+      <a class="exit-off-canvas"></a>
+
+      </div>
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -58,13 +101,20 @@
     <script src="bower_components/foundation/js/foundation.js"></script>
     <script src="bower_components/angular-foundation/mm-foundation-tpls.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
     <!-- endbower -->
     <script src="scripts/config.js"></script>
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/overview.js"></script>
+    <!-- endbuild -->
+
+    <script>
+      $(document).foundation();
+    </script>
+
 </body>
 </html>
