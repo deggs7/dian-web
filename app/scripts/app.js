@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     /* 3rd Party Modules */
-    'ui.router'
+    'ui.router',
+    'mm.foundation'
   ])
 
   .factory('authInterceptor', ['$q', '$cookies', '$location', function ($q, $cookies, $location) {
@@ -47,10 +48,9 @@ angular
   }])
 
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-
     $urlRouterProvider.otherwise('/');
     // $urlRouterProvider.when('/', '/login');
-  }])
+  }]);
 
 
 

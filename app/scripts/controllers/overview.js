@@ -20,4 +20,4 @@ angular.module('dianApp')
 
 
   .controller('OverviewCtrl', ['$scope', '$http', '$cookies', '$state', function ($scope, $http, $cookies, $state) {
-  }])
+  }]);

@@ -1,0 +1,144 @@
+<div class="right">
+    <div class="button-group">
+        <button class="button" ng-click="add()">
+            <i class="fi-plus"></i> 添加
+        </button>
+        <button class="button">
+            <i class="fi-save"></i> 保存更新
+        </button>
+    </div>
+</div>
+
+
+<tabset>
+    <tab heading="餐桌管理" active="tab[0].active">
+        <table>
+            <thead>
+            <tr>
+                <th width="250">餐桌号码（名称）</th>
+                <th width="250">餐桌类型</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="table in tables">
+                <td>
+                    {{ table.table_number }}
+                </td>
+                <td>
+                    {{ table.table_type.name }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </tab>
+    <tab heading="餐桌类型管理" active="tab[1].active">
+            <table>
+            <thead>
+            <tr>
+                <th width="200">类型名称</th>
+                <th width="150">最少就餐人数</th>
+                <th width="150">最多就餐人数</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="table_type in table_types">
+                <td>
+                    {{ table_type.name }}
+                </td>
+                <td>
+                    {{ table_type.min_seats }}
+                </td>
+                <td>
+                    {{ table_type.max_seats }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </tab>
+</tabset>
+
+
+<script type="text/ng-template" id="add_table.html">
+    <h4>添加新餐桌</h4>
+    <hr>
+    <form>
+        <div class="row">
+            <div class="small-8 columns">
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="table_number" class="right inline">餐桌号码（名称）</label>
+                    </div>
+                    <div class="small-9 columns">
+                        <input type="text" id="table_number" ng-model="table_form.table_number">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="ttype" class="right inline">餐桌类型{{ tab }}</label>
+                    </div>
+                    <div class="small-9 columns">
+                        <select ng-options="item.slug for item in table_types"
+                                ng-model="$parent.table_form.table_type" name="ttype">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <hr>
+
+    <div class="button-group">
+        <button class="button" ng-click="confirm()">确认</button>
+        <button class="button secondary" ng-click="cancel()">取消</button>
+    </div>
+
+</script>
+
+<script type="text/ng-template" id="add_table_type.html">
+    <h4>添加新餐桌类型</h4>
+    <hr>
+    <form>
+        <div class="row">
+            <div class="small-8 columns">
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="type_name" class="right inline">类型名称</label>
+                    </div>
+                    <div class="small-9 columns">
+                        <input type="text" id="type_name" ng-model="type_form.name">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="type_min" class="right inline">最少就餐人数</label>
+                    </div>
+                    <div class="small-9 columns">
+                        <input type="text" id="type_min" ng-model="type_form.min_seats">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="type_max" class="right inline">最多就餐人数</label>
+                    </div>
+                    <div class="small-9 columns">
+                        <input type="text" id="type_max" ng-model="type_form.max_seats">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <hr>
+
+    <div class="button-group">
+        <button class="button" ng-click="confirm()">确认</button>
+        <button class="button secondary" ng-click="cancel()">取消</button>
+    </div>
+
+</script>

@@ -18,6 +18,13 @@ angular.module('dianApp')
       })
   }])
 
+  .config(['$stateProvider', function ($stateProvider) {
+    $stateProvider
+      .state('main', {
+        url: '/',
+        controller: 'MainCtrl'
+      })
+  }])
 
   .controller('MainCtrl', ['$scope', '$http', '$location', '$cookies', function ($scope, $http, $location, $cookies) {
 
@@ -37,7 +44,6 @@ angular.module('dianApp')
     $http({url: config.api_url + '/restaurant/default-restaurant/', method: 'GET'})
       .success(function (data, status, headers, config) {
         $scope.restaurant = data;
-        console.log(data);
         $cookies.restaurant_id = data['id'];
       });
 
@@ -58,4 +64,4 @@ angular.module('dianApp')
           // Handle login errors here
         });
     };
-  }])
+  }]);
