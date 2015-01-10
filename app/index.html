@@ -21,7 +21,10 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div class="" data-ng-show="isSpecificPage()" data-ng-cloak>
-      <div ui-view=""></div>
+        <div class="row">
+            <div class="large-12 columns" ui-view>
+            </div>
+        </div>
     </div>
 
     <!-- Add your site or application content here -->
@@ -44,9 +47,10 @@
         <aside class="left-off-canvas-menu">
           <ul class="off-canvas-list">
             <li><label>点快</label></li>
-            <li><a href="#">营业大厅</a></li>
+            <li><a ui-sref="overview">营业大厅</a></li>
             <li><a ui-sref="table">餐桌管理</a></li>
             <li><a href="#">餐厅配置</a></li>
+            <li><a ui-sref="registration">取号主页</a></li>
           </ul>
         </aside>
 
@@ -115,6 +119,7 @@
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/overview.js"></script>
     <script src="scripts/controllers/table.js"></script>
+    <script src="scripts/controllers/registration.js"></script>
     <!-- endbuild -->
 
     <script>

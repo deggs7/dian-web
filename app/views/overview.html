@@ -1,1 +1,43 @@
-<h1 style="text-align: center">概述页面</h1>
+        <table>
+            <thead>
+            <tr>
+                <th width="150">餐桌号码</th>
+                <th width="150">餐桌类型</th>
+                <th width="150">已叫号码</th>
+                <th width="150">状态</th>
+                <th width="200">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="table in tables">
+                <td>
+                    {{ table.table_number }}
+                </td>
+                <td>
+                    {{ table.table_type.name }}
+                </td>
+                <td>
+                    <span ng-show="table.registration">
+                        {{ table.table_type.name + " "+ table.registration.queue_number }}
+                    </span>
+                </td>
+                <td>
+                    {{ status_desc[table.status] }}
+                </td>
+                <td>
+                    <div class="button-group"  ng-show="table.status=='waiting'">
+                        <button class="button tiny" ng-click="status_change(table, 'dining')">就餐</button>
+                        <button class="button tiny" ng-click="status_change(table, 'waiting')">过号</button>
+                    </div>
+
+                    <div class="button-group" ng-show="table.status=='dining'">
+                        <button class="button tiny" ng-click="status_change(table, 'waiting')">已结账，叫新号</button>
+                    </div>
+
+                    <div class="button-group" ng-show="table.status=='idle'">
+                        <button class="button tiny" ng-click="status_change(table, 'waiting')">叫号</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>

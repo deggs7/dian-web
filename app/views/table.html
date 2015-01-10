@@ -25,7 +25,7 @@
                     {{ table.table_number }}
                 </td>
                 <td>
-                    {{ table.table_type.name }}
+                    {{ table.table_type_info.name }}
                 </td>
             </tr>
             </tbody>
@@ -34,7 +34,7 @@
 
     </tab>
     <tab heading="餐桌类型管理" active="tab[1].active">
-            <table>
+        <table>
             <thead>
             <tr>
                 <th width="200">类型名称</th>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="small-9 columns">
                         <select ng-options="item.slug for item in table_types"
-                                ng-model="$parent.table_form.table_type" name="ttype">
+                                ng-model="table_form.table_type" name="ttype">
                         </select>
                     </div>
                 </div>

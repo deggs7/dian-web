@@ -30,7 +30,7 @@ angular.module('dianApp')
 
     $scope.isSpecificPage = function(){
         var path = $location.path();
-        return _.contains(['/login', ], path);
+        return _.contains(['/login', '/registration'], path);
     };
 
     $scope.account = null;

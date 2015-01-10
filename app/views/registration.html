@@ -1,0 +1,52 @@
+<h2>点快 - 自助取号系统</h2>
+<hr>
+<div class="row" data-equalizer>
+    <div class="large-6 columns">
+        <form>
+            <div class="row">
+                <div class="large-9 columns">
+                    <label>手机号码
+                        <input type="text" placeholder="" ng-model="my_form.phone"/>
+                    </label>
+                </div>
+            </div>
+
+            <select
+                    data-ng-model="my_form.table_type"
+                    data-ng-options="ttype.slug for ttype in table_types"
+                    data-ng-attr-size="{{ table_types.length }}">
+            </select>
+
+            <button class="button expand tiny" ng-click="register()">取号</button>
+
+        </form>
+
+    </div>
+    <div class="large-6 columns">
+        <div class="panel">
+            <h4 class="text-center">{{ restaurant.name }} 欢迎您</h4>
+            <table>
+                <thead>
+                    <th width="150">餐桌类型</th>
+                    <th width="150">已叫号码</th>
+                    <th width="150">桌号</th>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="ttype_regs in table_type_regs">
+                        <td>{{ ttype_regs.name }}</td>
+                        <td ng-if="ttype_regs.registration">{{ ttype_regs.registration.queue_number }}</td>
+                        <td ng-if="ttype_regs.registration==null">空闲</td>
+                        <td ng-if="ttype_regs.table_number">{{ ttype_regs.table_number }}</td>
+                        <td ng-if="ttype_regs.table_number==null">无</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/ng-template" id="return_registration.html">
+    {{ registration }}
+</script>

@@ -90,7 +90,10 @@ angular.module('dianApp')
 
             $scope.confirm = function(){
                 $http
-                    .post(config.api_url + '/restaurant/table/', $scope.table_form)
+                    .post(config.api_url + '/restaurant/table/', {
+                        "table_type": $scope.table_form.table_type.id,
+                        "table_number": $scope.table_form.table_number
+                    })
                     .success(function (data, status, headers, config) {
                         $modalInstance.close(data);
                     })
