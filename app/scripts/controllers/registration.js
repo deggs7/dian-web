@@ -18,7 +18,7 @@ angular.module('dianApp')
     .controller('RegistrationCtrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
         $scope.my_form = {
             "table_type": null,
-            "phone": ""
+            "phone": null
         };
 
         $http({url: config.api_url + '/restaurant/table-type-registration/', method: 'GET'})
@@ -50,6 +50,9 @@ angular.module('dianApp')
                         resolve: {
                             "registration": function(){
                                 return data;
+                            },
+                            "restaurant": function(){
+                                return $scope.restaurant;
                             }
                         }
                     });
@@ -65,7 +68,21 @@ angular.module('dianApp')
 
     }])
 
-    .controller('ModalReturnRegCtrl', ['$scope', '$modalInstance', 'registration',
-        function ($scope, $modalInstance, registration) {
+    .controller('ModalReturnRegCtrl', ['$scope', '$http', '$modalInstance', 'registration', 'restaurant',
+        function ($scope, $http, $modalInstance, registration, restaurant) {
             $scope.registration = registration;
+            $scope.restaurant = restaurant;
+            $http({
+                url: config.api_url + '/restaurant/table-type/' + $scope.registration.table_type + '/',
+                method: 'GET'
+            })
+                .success(function(data, status, headers, config){
+                    $scope.table_type = data;
+                })
+                .error(function (data, status, headers, config) {
+                });
+
+            $scope.close = function(){
+                $modalInstance.close();
+            }
     }]);

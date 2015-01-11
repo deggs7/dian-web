@@ -16,7 +16,8 @@
     "angular-ui-router": "~0.2.13",
     "underscore": "~1.7.0",
     "foundation-icons": "*",
-    "foundation-icon-fonts": "*"
+    "foundation-icon-fonts": "*",
+    "angular-ui-utils": "bower"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.0",

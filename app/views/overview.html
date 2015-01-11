@@ -14,11 +14,11 @@
                     {{ table.table_number }}
                 </td>
                 <td>
-                    {{ table.table_type.name }}
+                    {{ table.table_type_info.name }}
                 </td>
                 <td>
                     <span ng-show="table.registration">
-                        {{ table.table_type.name + " "+ table.registration.queue_number }}
+                        {{ table.table_type_info.name + " "+ table.registration.queue_number }}
                     </span>
                 </td>
                 <td>

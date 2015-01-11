@@ -2,12 +2,15 @@
 <hr>
 <div class="row" data-equalizer>
     <div class="large-6 columns">
-        <form>
+        <form name="reg_form">
             <div class="row">
                 <div class="large-9 columns">
-                    <label>手机号码
-                        <input type="text" placeholder="" ng-model="my_form.phone"/>
+                    <label ng-class="{error: reg_form.phoneInput.$invalid==true}">手机号码
+                        <input placeholder="请输入手机号" ng-model="my_form.phone"
+                               ng-maxlength="13" type="number"
+                               name="phoneInput"/>
                     </label>
+                    <small class="error" ng-show="reg_form.phoneInput.$invalid">请输入正确地电话号码</small>
                 </div>
             </div>
 
@@ -17,7 +20,7 @@
                     data-ng-attr-size="{{ table_types.length }}">
             </select>
 
-            <button class="button expand tiny" ng-click="register()">取号</button>
+            <button class="button expand tiny" ng-click="register()" ng-disabled="reg_form.phoneInput.$invalid || my_form.phone==null">取号</button>
 
         </form>
 
@@ -48,5 +51,7 @@
 
 
 <script type="text/ng-template" id="return_registration.html">
-    {{ registration }}
+    <p>欢迎光临{{ restaurant.name }}，您选择了餐桌类型{{ table_type.name }}，获取了号码{{ registration.queue_number }}</p>
+    <hr>
+    <button class="button tiny right" ng-click="close()">OK</button>
 </script>

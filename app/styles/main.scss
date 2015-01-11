@@ -47,6 +47,13 @@ table .button {
   background: none;
 }
 
+td > select {
+  margin: 0;
+  padding: 0;
+}
+
 select {
   height: inherit;
 }
+
+

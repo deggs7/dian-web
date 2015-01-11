@@ -18,6 +18,7 @@ angular
     'ngTouch',
     /* 3rd Party Modules */
     'ui.router',
+    'ui.utils',
     'mm.foundation'
   ])
 

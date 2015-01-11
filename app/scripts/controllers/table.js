@@ -31,6 +31,11 @@ angular.module('dianApp')
             })
             .success(function (data, status, headers, config) {
                 $scope.tables= data;
+                angular.forEach($scope.tables, function(table){
+                    table.show_edit = false;
+                    table.editing = false;
+                    table.changed = false;
+                })
             });
 
         $http(
@@ -40,9 +45,6 @@ angular.module('dianApp')
             })
             .success(function(data, status, headers, config){
                 $scope.table_types = data;
-                angular.forEach($scope.table_types, function(ttype) {
-                    ttype['slug'] = ttype.name + "（" + ttype.min_seats + "-" + ttype.max_seats + "人）";
-            });
         });
 
         $scope.add = function(){
@@ -77,7 +79,52 @@ angular.module('dianApp')
                     $log.info('Modal dismissed at: ' + new Date());
                 });
             }
-        }
+        };
+
+        $scope.mouse_enter_to_table_type = function(evt, table) {
+            table.show_edit = true;
+        };
+
+        $scope.mouse_leave_to_table_type = function(evt, table) {
+            table.show_edit = false;
+        };
+
+        $scope.blurSelect= function(evt, table) {
+            table.show_edit = false;
+            table.editing = false;
+            table.table_type = table.table_type_info.id;
+        };
+
+        $scope.to_edit = function(table) {
+            table.editing = true;
+            table.show_edit = false;
+            table.changed = true;
+
+            angular.forEach($scope.table_types, function(table_type){
+                if (table_type.id == table.table_type){
+                    table.table_type_info = table_type;
+                }
+            });
+        };
+
+        $scope.update = function() {
+            angular.forEach($scope.tables, function(table){
+                if (table.changed) {
+                    $http
+                        .put(config.api_url + '/restaurant/table/' + table.id + '/', {
+                            "table_type": table.table_type
+                        })
+                        .success(function(data, status, headers, config){
+                            // TODO: growl
+                        })
+                        .error(function(data, status, headers, config){
+                            // TODO: growl
+                        });
+
+                }
+            });
+        };
+
     }])
 
     .controller('ModalAddTableCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_types',
