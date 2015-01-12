@@ -45,6 +45,18 @@ angular.module('dianApp')
             })
             .success(function(data, status, headers, config){
                 $scope.table_types = data;
+                angular.forEach($scope.table_types, function(table_type){
+                    table_type['min'] = {
+                        show_edit: false,
+                        editing: false,
+                    };
+                    table_type['max'] = {
+                        show_edit: false,
+                        editing: false,
+                    };
+
+                    table_type.changed = false;
+                });
         });
 
         $scope.add = function(){
@@ -81,12 +93,12 @@ angular.module('dianApp')
             }
         };
 
-        $scope.mouse_enter_to_table_type = function(evt, table) {
-            table.show_edit = true;
+        $scope.mouse_enter_to_td = function(obj) {
+            obj.show_edit = true;
         };
 
-        $scope.mouse_leave_to_table_type = function(evt, table) {
-            table.show_edit = false;
+        $scope.mouse_leave_from_td = function(obj) {
+            obj.show_edit = false;
         };
 
         $scope.blurSelect= function(evt, table) {
@@ -107,6 +119,26 @@ angular.module('dianApp')
             });
         };
 
+        $scope.to_edit_min_seats = function(table_type) {
+            table_type.min.editing = true;
+            table_type.min.show_edit = false;
+            table_type.changed = true;
+        };
+
+        $scope.to_edit_max_seats = function(table_type) {
+            table_type.max.editing = true;
+            table_type.max.show_edit = false;
+            table_type.changed = true;
+        };
+
+        $scope.blurInput = function(evt, table_type) {
+            table_type.min.editing = false;
+            table_type.min.show_edit = false;
+
+            table_type.max.editing = false;
+            table_type.max.show_edit = false;
+        };
+
         $scope.update = function() {
             angular.forEach($scope.tables, function(table){
                 if (table.changed) {
@@ -121,6 +153,22 @@ angular.module('dianApp')
                             // TODO: growl
                         });
 
+                }
+            });
+
+            angular.forEach($scope.table_types, function(table_type){
+                if (table_type.changed) {
+                    $http
+                        .put(config.api_url + '/restaurant/table-type/' + table_type.id + '/', {
+                            "min_seats": table_type.min_seats,
+                            "max_seats": table_type.max_seats
+                        })
+                        .success(function(data, status, headers, config){
+                            // TODO: growl
+                        })
+                        .error(function(data, status, headers, config){
+                            // TODO: growl
+                        });
                 }
             });
         };

@@ -24,8 +24,7 @@
                 <td >
                     {{ table.table_number }}
                 </td>
-                <td ui-event="{ mouseenter: 'mouse_enter_to_table_type($event, table)',
-                                mouseleave: 'mouse_leave_to_table_type($event, table)'}">
+                <td ng-mouseenter="mouse_enter_to_td(table)" ng-mouseleave="mouse_leave_from_td(table)">
                     <span ng-show="!table.editing">{{ table.table_type_info.slug }}</span>
                     <a ng-show="table.show_edit && !table.editing" ng-click="to_edit(table)"><i class="fi-page-edit"></i></a>
                     <select ng-show="table.editing" ng-options="item.slug for item in table_types"
@@ -53,11 +52,20 @@
                 <td>
                     {{ table_type.name }}
                 </td>
-                <td>
-                    {{ table_type.min_seats }}
+                <td ng-mouseenter="mouse_enter_to_td(table_type.min)" ng-mouseleave="mouse_leave_from_td(table_type.min)">
+                    <span ng-show="!table_type.min.editing">{{ table_type.min_seats }}</span>
+                    <a ng-show="table_type.min.show_edit && !table_type.min.editing" ng-click="to_edit_min_seats(table_type)"><i class="fi-page-edit"></i></a>
+                    <input type="number" ng-model="table_type.min_seats" number="true" ng-show="table_type.min.editing"
+                           ui-event="{ blur: 'blurInput($event, table_type)'}">
+                    <small class="error" ng-show="table_type.min_seats > table_type.max_seats">最多就餐人数必须大于最少就餐人数</small>
                 </td>
-                <td>
-                    {{ table_type.max_seats }}
+
+                <td ng-mouseenter="mouse_enter_to_td(table_type.max)" ng-mouseleave="mouse_leave_from_td(table_type.max)">
+                    <span ng-show="!table_type.max.editing">{{ table_type.max_seats}}</span>
+                    <a ng-show="table_type.max.show_edit && !table_type.max.editing" ng-click="to_edit_max_seats(table_type)"><i class="fi-page-edit"></i></a>
+                    <input type="number" ng-model="table_type.max_seats" number="true" ng-show="table_type.max.editing"
+                           ui-event="{ blur: 'blurInput($event, table_type)'}">
+                    <small class="error" ng-show="table_type.min_seats > table_type.max_seats">最多就餐人数必须大于最少就餐人数</small>
                 </td>
             </tr>
             </tbody>

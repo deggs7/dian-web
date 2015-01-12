@@ -56,4 +56,6 @@ select {
   height: inherit;
 }
 
-
+td > input[type="number"] {
+  margin: 0;
+}
