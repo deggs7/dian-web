@@ -38,7 +38,7 @@ angular.module('dianApp')
 
           // 上传文件部分
           var file = $scope.background;
-          var uploadUrl = "http://upload.qiniu.com/";
+          var uploadUrl = config.qiniu_upload_url;
           var key = 'restaurant-'+$scope.$parent.restaurant.id;
           fileUpload.uploadFileToUrl(file, uploadUrl, $scope.uptoken, key, function () {
             console.log('upload completed');
