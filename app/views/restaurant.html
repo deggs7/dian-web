@@ -1,16 +1,19 @@
 <form ng-submit="update()">
 
-    <div>
-    餐厅名称
-    <input type="text" ng-model="restaurant_update.name" placeholder="{{ restaurant.name }}" />
-    <!--
-    <input type="hidden" ng-model="restaurant_update.id" value="{{ restaurant.id }}" />
-    -->
+    <div class="row">
+        <div class="large-9 columns">
+            <label>餐厅名称
+                <input type="text" ng-model="restaurant_update.name" placeholder="{{ restaurant.name }}" />
+            </label>
+        </div>
     </div>
 
-    <div>
-    餐厅背景图
-    <input type="file" file-upload="background"/>
+    <div class="row">
+        <div class="large-9 columns">
+            <label>餐厅背景图
+                <input type="file" file-upload="background"/>
+            </label>
+        </div>
     </div>
 
     <div>

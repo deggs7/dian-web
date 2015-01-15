@@ -21,17 +21,9 @@ angular.module('dianApp')
             "phone": null
         };
 
-        $http({url: config.api_url + '/restaurant/table-type-registration/', method: 'GET'})
-            .success(function(data, status, headers, config){
-                $scope.table_type_regs = data;
-            });
-
-        $http({url: config.api_url + '/restaurant/table-type/', method: 'GET'})
+        $http({url: config.api_url + '/restaurant/table-type-details/', method: 'GET'})
             .success(function(data, status, headders, config){
                 $scope.table_types = data;
-                angular.forEach($scope.table_types, function(ttype) {
-                    ttype['slug'] = ttype.name + "（" + ttype.min_seats + "-" + ttype.max_seats + "人）";
-                });
                 if ($scope.table_types){
                     $scope.my_form.table_type = $scope.table_types[0];
                 }

@@ -1,45 +1,59 @@
-
-
+<tabset>
+    <tab heading="{{ table_type.name }}" active="$first" ng-repeat="table_type in table_types">
+        <h4>当前号码</h4>
         <table>
             <thead>
             <tr>
-                <th width="150">餐桌号码</th>
-                <th width="150">餐桌类型</th>
-                <th width="150">已叫号码</th>
-                <th width="150">状态</th>
-                <th width="200">操作</th>
+                <th>号码</th>
+                <th>手机尾号</th>
+                <th>操作</th>
             </tr>
             </thead>
+
             <tbody>
-            <tr ng-repeat="table in tables">
-                <td>
-                    {{ table.table_number }}
-                </td>
-                <td>
-                    {{ table.table_type_info.name }}
-                </td>
-                <td>
-                    <span ng-show="table.registration">
-                        {{ table.table_type_info.name + " "+ table.registration.queue_number }}
+            <tr>
+                <td width="200px">
+                    <span ng-if="table_type.current_registration==null">空闲</span>
+                    <span ng-if="table_type.current_registration">
+                        {{ table_type.current_registration.queue_number }}
                     </span>
                 </td>
-                <td>
-                    {{ status_desc[table.status] }}
+
+                <td width="200px">
+                    <span ng-if="table_type.current_registration==null">无</span>
+                    <span ng-if="table_type.current_registration">
+                        {{ table_type.current_registration.phone }}
+                    </span>
                 </td>
+
                 <td>
-                    <div class="button-group"  ng-show="table.status=='waiting'">
-                        <button class="button tiny" ng-click="status_change(table, 'dining')">就餐</button>
-                        <button class="button tiny" ng-click="status_change(table, 'waiting')">过号</button>
-                    </div>
-
-                    <div class="button-group" ng-show="table.status=='dining'">
-                        <button class="button tiny" ng-click="status_change(table, 'waiting')">已结账，叫新号</button>
-                    </div>
-
-                    <div class="button-group" ng-show="table.status=='idle'">
-                        <button class="button tiny" ng-click="status_change(table, 'waiting')">叫号</button>
-                    </div>
+                    <span ng-if="table_type.queue_registrations.length==0 && table_type.current_registration==null">等待客户中...</span>
+                    <button class="button tiny" ng-if="table_type.current_registration==null && table_type.queue_registrations.length != 0" ng-click="next_reg('start', table_type)">开始叫号</button>
+                    <button class="button tiny" ng-if="table_type.current_registration!=null" ng-click="next_reg('expired', table_type)">就餐</button>
+                    <button class="button tiny" ng-if="table_type.current_registration!=null" ng-click="next_reg('passed', table_type)">过号</button>
                 </td>
             </tr>
             </tbody>
         </table>
+
+        <h4>排队中</h4>
+        <table>
+            <thead>
+            <tr>
+                <th width="150">号码</th>
+                <th width="150">等待时间</th>
+                <th width="150">手机尾号</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="reg in table_type.queue_registrations">
+                <td>{{ reg.queue_number }}</td>
+                <td>{{ reg.waiting_time }}</td>
+                <td>{{ reg.last4_phone }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </tab>
+</tabset>

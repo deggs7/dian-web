@@ -31,29 +31,33 @@
         </form>
 
     </div>
-    <div class="large-6 columns">
-        <div class="panel">
-            <h4 class="text-center">{{ restaurant.name }} 欢迎您</h4>
-            <table>
-                <thead>
-                    <th width="150">餐桌类型</th>
-                    <th width="150">已叫号码</th>
-                    <th width="150">桌号</th>
-                </thead>
-
-                <tbody>
-                    <tr ng-repeat="ttype_regs in table_type_regs">
-                        <td>{{ ttype_regs.name }}</td>
-                        <td ng-if="ttype_regs.registration">{{ ttype_regs.registration.queue_number }}</td>
-                        <td ng-if="ttype_regs.registration==null">空闲</td>
-                        <td ng-if="ttype_regs.table_number">{{ ttype_regs.table_number }}</td>
-                        <td ng-if="ttype_regs.table_number==null">无</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>餐桌类型</th>
+                        <th ng-repeat="table_type in table_types">
+                           {{ table_type.slug }}
+                        </th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>当前号码</td>
+                        <td ng-repeat="table_type in table_types">
+                            <span ng-if="table_type.current_registration==null">空闲</span>
+                            <span ng-if="table_type.current_registration!=null">{{ table_type.current_registration.queue_number }}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 
 
 <script type="text/ng-template" id="return_registration.html">
