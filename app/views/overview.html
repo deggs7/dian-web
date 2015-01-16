@@ -1,5 +1,5 @@
 <tabset>
-    <tab heading="{{ table_type.name }}" active="$first" ng-repeat="table_type in table_types">
+    <tab heading="{{ table_type.name }} ({{ table_type.queue_registrations.length }})" active="$first" ng-repeat="table_type in table_types">
         <h4>当前号码</h4>
         <table>
             <thead>
