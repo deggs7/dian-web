@@ -10,10 +10,10 @@
 angular.module('dianApp')
     .config(["$stateProvider", function($stateProvider){
         $stateProvider
-            .state('table', {
+            .state('console.table', {
                 url: "/table",
                 controller: "TableCtrl",
-                templateUrl: "views/table.html"
+                templateUrl: "views/console_table.html"
             })
 
     }])

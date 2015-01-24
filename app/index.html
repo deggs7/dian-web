@@ -16,63 +16,14 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-controller="MainCtrl">
+  <body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div class="" data-ng-show="isSpecificPage()" data-ng-cloak>
-        <div class="row">
-            <div class="large-12 columns" ui-view>
-            </div>
-        </div>
-    </div>
 
     <!-- Add your site or application content here -->
-    <div class="off-canvas-wrap" ng-hide="isSpecificPage()" ng-cloak>
-      <div class="inner-wrap">
-        <nav class="tab-bar">
-          <section class="left-small">
-            <a class="left-off-canvas-toggle menu-icon"><span></span></a>
-          </section>
+    <div ui-view></div>
 
-          <section class="middle tab-bar-section">
-            <h1 class="title">{{restaurant.name}}</h1>
-          </section>
-
-          <section class="right-small">
-            <a class="right-off-canvas-toggle menu-icon"><span></span></a>
-          </section>
-        </nav>
-
-        <aside class="left-off-canvas-menu">
-          <ul class="off-canvas-list">
-            <li><label>点快</label></li>
-            <li><a ui-sref="overview">营业大厅</a></li>
-            <li><a ui-sref="table">餐桌类型管理</a></li>
-            <li><a ui-sref="restaurant">餐厅配置</a></li>
-            <li><a ui-sref="registration">取号主页</a></li>
-          </ul>
-        </aside>
-
-        <aside class="right-off-canvas-menu">
-          <ul class="off-canvas-list">
-            <li><label>{{account.username}}</label></li>
-            <li><a href="#">修改个人信息</a></li>
-            <li><a href="#">注销</a></li>
-          </ul>
-        </aside>
-
-        <section class="main-section" style="min-height: 600px;">
-          <div class="row">
-              <div class="large-12 columns" ui-view>
-              </div>
-          </div>
-        </section>
-
-      <a class="exit-off-canvas"></a>
-
-      </div>
-    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <!--<script>-->
@@ -117,11 +68,15 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/overview.js"></script>
-    <script src="scripts/controllers/table.js"></script>
+    <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/registration.js"></script>
-    <script src="scripts/controllers/restaurant.js"></script>
+    <script src="scripts/controllers/retrieve_passwd.js"></script>
+    <script src="scripts/controllers/reset_passwd.js"></script>
+    <script src="scripts/controllers/console.js"></script>
+    <script src="scripts/controllers/console.overview.js"></script>
+    <script src="scripts/controllers/console.table.js"></script>
+    <script src="scripts/controllers/console.restaurant.js"></script>
+    <script src="scripts/controllers/console.change_passwd.js"></script>
     <script src="scripts/directives/fileupload.js"></script>
     <script src="scripts/services/fileupload.js"></script>
     <!-- endbuild -->

@@ -11,9 +11,9 @@ angular.module('dianApp')
 
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('overview', {
+            .state('console.overview', {
                 url: '/overview',
-                templateUrl: 'views/overview.html',
+                templateUrl: 'views/console_overview.html',
                 controller: 'OverviewCtrl'
             })
     }])

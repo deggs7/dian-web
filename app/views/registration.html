@@ -1,37 +1,40 @@
-<h2>点快 - 自助取号系统</h2>
-<hr>
 
-<div style="padding:10px;border:1px solid #333;">
-  <p>restaurant background</p>
-  <img src="http://7u2ghq.com1.z0.glb.clouddn.com/restaurant-{{ restaurant.id }}" alt="{{ restaurant.name }}">
-</div>
+<div class="row" data-ng-cloak>
+    <div class="large-12 columns">
+        <h2>点快 - 自助取号系统</h2>
+        <hr>
 
-<div class="row" data-equalizer>
-    <div class="large-6 columns">
-        <form name="reg_form">
-            <div class="row">
-                <div class="large-9 columns">
-                    <label ng-class="{error: reg_form.phoneInput.$invalid==true}">手机号码
-                        <input placeholder="请输入手机号" ng-model="my_form.phone"
-                               ng-maxlength="13" type="number"
-                               name="phoneInput"/>
-                    </label>
-                    <small class="error" ng-show="reg_form.phoneInput.$invalid">请输入正确地电话号码</small>
-                </div>
+        <div style="padding:10px;border:1px solid #333;">
+            <p>restaurant background</p>
+            <img src="http://7u2ghq.com1.z0.glb.clouddn.com/restaurant-{{ restaurant.id }}" alt="{{ restaurant.name }}">
+        </div>
+
+        <div class="row" data-equalizer>
+            <div class="large-6 columns">
+                <form name="reg_form">
+                    <div class="row">
+                        <div class="large-9 columns">
+                            <label ng-class="{error: reg_form.phoneInput.$invalid==true}">手机号码
+                                <input placeholder="请输入手机号" ng-model="my_form.phone"
+                                       ng-maxlength="13" type="number"
+                                       name="phoneInput"/>
+                            </label>
+                            <small class="error" ng-show="reg_form.phoneInput.$invalid">请输入正确地电话号码</small>
+                        </div>
+                    </div>
+
+                    <select
+                            data-ng-model="my_form.table_type"
+                            data-ng-options="ttype.slug for ttype in table_types"
+                            data-ng-attr-size="{{ table_types.length }}">
+                    </select>
+
+                    <button class="button expand tiny" ng-click="register()" ng-disabled="reg_form.phoneInput.$invalid || my_form.phone==null">取号</button>
+
+                </form>
+
             </div>
-
-            <select
-                    data-ng-model="my_form.table_type"
-                    data-ng-options="ttype.slug for ttype in table_types"
-                    data-ng-attr-size="{{ table_types.length }}">
-            </select>
-
-            <button class="button expand tiny" ng-click="register()" ng-disabled="reg_form.phoneInput.$invalid || my_form.phone==null">取号</button>
-
-        </form>
-
-    </div>
-</div>
+        </div>
 
         <div class="row">
             <div class="large-12 columns">
@@ -40,7 +43,7 @@
                     <tr>
                         <th>餐桌类型</th>
                         <th ng-repeat="table_type in table_types">
-                           {{ table_type.slug }}
+                            {{ table_type.slug }}
                         </th>
                     </tr>
 
@@ -57,6 +60,8 @@
                 </table>
             </div>
         </div>
+    </div>
+</div>
 
 
 
@@ -65,3 +70,4 @@
     <hr>
     <button class="button tiny right" ng-click="close()">OK</button>
 </script>
+
