@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
+    <link rel="stylesheet" href="styles/app.css" />
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/foundation/css/foundation.css" />
     <link rel="stylesheet" href="bower_components/foundation-icon-fonts/foundation-icons.css" />
     <!-- endbower -->
     <!-- endbuild -->
@@ -22,7 +22,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div ui-view></div>
+    <div ui-view class="window"></div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -81,9 +81,5 @@
     <script src="scripts/services/fileupload.js"></script>
     <!-- endbuild -->
 
-    <script>
-      $(document).foundation();
-    </script>
-
-</body>
+  </body>
 </html>

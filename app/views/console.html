@@ -1,46 +1,62 @@
 <div class="off-canvas-wrap" ng-cloak>
-    <div class="inner-wrap">
-        <nav class="tab-bar">
-            <section class="left-small">
-                <a class="left-off-canvas-toggle menu-icon"><span></span></a>
-            </section>
 
-            <section class="middle tab-bar-section">
-                <h1 class="title">{{restaurant.name}}</h1>
-            </section>
+  <top-bar>
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="#">点快</a></h1>
+      </li>
+      <li toggle-top-bar class="menu-icon"><a href="#">Menu<i class="fi-widget large"></i></a></li>
+    </ul>
 
-            <section class="right-small">
-                <a class="right-off-canvas-toggle menu-icon"><span></span></a>
-            </section>
-        </nav>
+    <section class="middle tab-bar-section">
+        <p class="title">{{restaurant.name}}</p>
+    </section>
 
-        <aside class="left-off-canvas-menu">
-            <ul class="off-canvas-list">
-                <li><label>点快</label></li>
-                <li><a ui-sref=".overview">营业大厅</a></li>
-                <li><a ui-sref=".table">餐桌类型管理</a></li>
-                <li><a ui-sref=".restaurant">餐厅配置</a></li>
-                <li><a ui-sref="registration">取号主页</a></li>
-            </ul>
-        </aside>
+    <top-bar-section>
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="active"><a ui-sref="registration">取号主页</a></li>
+        <li><a class="right-off-canvas-toggle"><i class="fi-widget large"></i></a></li>
+      </ul>
+    </top-bar-section>
+  </top-bar>
 
-        <aside class="right-off-canvas-menu">
-            <ul class="off-canvas-list">
-                <li><label>{{account.username}}</label></li>
-                <li><a ui-sref=".change_passwd">修改密码</a></li>
-                <li><a href="#">修改个人信息</a></li>
-                <li><a ng-click="logout()">注销</a></li>
-            </ul>
-        </aside>
+  <div class="inner-wrap">
 
-        <section class="main-section" style="min-height: 600px;">
-            <div class="row">
-                <div class="large-12 columns" ui-view>
-                </div>
-            </div>
-        </section>
-
-        <a class="exit-off-canvas"></a>
-
+    <div class="icon-bar small-vertical three-up">
+      <a ui-sref=".overview" class="item">
+        <i class="fi-home"></i>
+        <label for="">营业</label>
+      </a>
+      <a class="item">
+        <i class="fi-info"></i>
+        <label for="">历史</label>
+      </a>
+      <a class="item">
+        <i class="fi-mail"></i>
+        <label for="">分析</label>
+      </a>
     </div>
+
+    <section id="content">
+      <div class="row">
+        <div class="small-12 columns" ui-view>
+        </div>
+      </div>
+    </section>
+
+    <aside class="right-off-canvas-menu">
+      <ul class="off-canvas-list">
+        <li><label>{{account.username}}</label></li>
+        <li><a ui-sref=".table">餐桌类型管理</a></li>
+        <li><a ui-sref=".restaurant">餐厅配置</a></li>
+        <li><a ui-sref=".change_passwd">修改密码</a></li>
+        <li><a ng-click="logout()">注销</a></li>
+      </ul>
+    </aside>
+
+    <a class="exit-off-canvas"></a>
+
+  </div>
+
 </div>
