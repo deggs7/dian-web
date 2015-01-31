@@ -25,10 +25,12 @@ body .window {
   box-sizing: border-box;
   width: 100%;
   border: 1px solid #333;
+  height: 130px;
   .key {
     float: left;
     box-sizing: border-box;
     width: 30%;
+    height: 30px;
     border: 1px solid red;
   }
 }
