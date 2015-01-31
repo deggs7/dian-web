@@ -19,3 +19,16 @@ body .window {
 #content {
   margin-left: 68px;
 }
+
+/* registration.html */
+.dial {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #333;
+  .key {
+    float: left;
+    box-sizing: border-box;
+    width: 30%;
+    border: 1px solid red;
+  }
+}

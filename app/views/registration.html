@@ -16,11 +16,20 @@
                         <div class="large-9 columns">
                             <label ng-class="{error: reg_form.phoneInput.$invalid==true}">手机号码
                                 <input placeholder="请输入手机号" ng-model="my_form.phone"
-                                       ng-maxlength="13" type="number"
-                                       name="phoneInput"/>
+                                       ng-maxlength="13" name="phoneInput"/>
                             </label>
                             <small class="error" ng-show="reg_form.phoneInput.$invalid">请输入正确地电话号码</small>
                         </div>
+                    </div>
+                    <div class="row">
+                      <div class="small-6 columns">
+                        {{ my_form.phone }}
+                      </div>
+                      <div class="small-6 columns">
+                        <div class="dial">
+                          <div class="key" ng-repeat="key in dial_keys" value="{{ key.value }}" ng-click="touch_key(key)">{{ key.name }}</div>
+                        </div>
+                      </div>
                     </div>
 
                     <select
