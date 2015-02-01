@@ -53,10 +53,15 @@ angular.module('dianApp')
                         table_type.current_registration = header_reg;
 
                         // 发短信通知当前queue中排在第二位置的客户
+                        var msg_type = {
+                            "expired": "one_left",
+                            "passed": "next"
+                        };
                         if (table_type.queue_registrations[1]){
                             $http
                                 .post(config.api_url + '/registration/msg-task/', {
-                                    "registration": table_type.queue_registrations[1].id
+                                    "registration": table_type.queue_registrations[1].id,
+                                    "msg_type": msg_type[action]
                                 })
                                 .success(function(data, status, headers, config){
 
