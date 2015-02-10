@@ -1,0 +1,20 @@
+<table>
+    <thead>
+    <tr>
+        <th width="150">客户手机号</th>
+        <th width="150">所得号码</th>
+        <th width="150">开始时间</th>
+        <th width="150">结束时间</th>
+        <th width="150">状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="reg in registrations">
+        <td>{{ reg.phone }}</td>
+        <td>{{ reg.queue_number }}</td>
+        <td>{{ reg.create_time }}</td>
+        <td>{{ reg.end_time }}</td>
+        <td>{{ reg.status }}</td>
+    </tr>
+    </tbody>
+</table>
