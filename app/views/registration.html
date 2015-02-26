@@ -1,75 +1,87 @@
-
-<div class="row" data-ng-cloak>
-    <div class="large-12 columns">
-        <h2>点快 - 自助取号系统</h2>
-        <hr>
-
-        <div style="padding:10px;border:1px solid #333;">
-            <p>restaurant background</p>
-            <img src="http://7u2ghq.com1.z0.glb.clouddn.com/restaurant-{{ restaurant.id }}" alt="{{ restaurant.name }}">
-        </div>
-
-        <div class="row" data-equalizer>
-            <div class="large-6 columns">
-                <form name="reg_form">
-                    <div class="row">
-                        <div class="large-9 columns">
-                            <label ng-class="{error: reg_form.phoneInput.$invalid==true}">手机号码
-                                <input placeholder="请输入手机号" ng-model="my_form.phone"
-                                       ng-maxlength="13" name="phoneInput"/>
-                            </label>
-                            <small class="error" ng-show="reg_form.phoneInput.$invalid">请输入正确地电话号码</small>
-                        </div>
-                    </div>
-                    <div class="row">
-                      <div class="small-6 columns">
-                        {{ my_form.phone }}
-                      </div>
-                      <div class="small-6 columns">
-                        <div class="dial">
-                          <div class="key" ng-repeat="key in dial_keys" value="{{ key.value }}" ng-click="touch_key(key)">{{ key.name }}</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <select
-                            data-ng-model="my_form.table_type"
-                            data-ng-options="ttype.slug for ttype in table_types"
-                            data-ng-attr-size="{{ table_types.length }}">
-                    </select>
-
-                    <button class="button expand tiny" ng-click="register()" ng-disabled="reg_form.phoneInput.$invalid || my_form.phone==null">取号</button>
-
-                </form>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="large-12 columns">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>餐桌类型</th>
-                        <th ng-repeat="table_type in table_types">
-                            {{ table_type.slug }}
-                        </th>
-                    </tr>
-
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>当前号码</td>
-                        <td ng-repeat="table_type in table_types">
-                            <span ng-if="table_type.current_registration==null">空闲</span>
-                            <span ng-if="table_type.current_registration!=null">{{ table_type.current_registration.queue_number }}</span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="registration-wrap">
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="hero-wrap">
+        <h2 class="text-center">{{ restaurant.name }}</h2>
+      </div>
     </div>
+  </div>
+
+  <div class="row" data-equalizer>
+      <div class="small-12 medium-6 columns">
+        <div class="hero-wrap">
+          <form name="reg_form">
+            <div class="tables-area">
+              <div class="table-type-wrap" ng-repeat="ttype in table_types">
+                <input type="radio" ng-model="my_form.table_type" name="table_type" ng-value="ttype" id="table_type_{{ttype.id}}">
+                <label for="table_type_{{ttype.id}}" ng-class="{true: 'active', false: 'inactive'}[my_form.table_type==ttype]">{{ ttype.slug }}</label>
+              </div>
+              <!--
+              <select
+                      data-ng-model="my_form.table_type"
+                      data-ng-options="ttype.slug for ttype in table_types"
+                      data-ng-attr-size="{{ table_types.length }}">
+              </select>
+              -->
+            </div>
+
+            <div class="hide-for-small-only">
+              <div class="phone-input phone-error">
+                {{ my_form.phone }}
+              </div>
+            </div>
+
+            <div class="show-for-small-only">
+              <label ng-class="{error: reg_form.phoneInput.$invalid==true}">手机号码
+                  <input placeholder="请输入手机号" ng-model="my_form.phone"
+                         ng-maxlength="13" name="phoneInput"/>
+              </label>
+              <small class="error" ng-show="reg_form.phoneInput.$invalid">请输入正确地电话号码</small>
+            </div>
+
+            <button class="button success expand large" ng-click="register()"
+              ng-disabled="reg_form.phoneInput.$invalid || my_form.phone==null"><i class="fi-page-edit"></i>&nbsp;取号</button>
+
+          </form>
+        </div>
+      </div>
+
+      <div class="medium-6 columns hide-for-small-only">
+        <div class="dial hero-wrap">
+          <div class="key-wrap" ng-repeat="key in dial_keys">
+            <div class="key" value="{{ key.value }}" ng-click="touch_key(key)">{{ key.name }}</div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+  <div class="row">
+      <div class="small-12 columns">
+        <div class="hero-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>餐桌类型</th>
+                <th ng-repeat="table_type in table_types">
+                  {{ table_type.slug }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>当前号码</td>
+                <td ng-repeat="table_type in table_types">
+                  <span ng-if="table_type.current_registration==null">空闲</span>
+                  <span ng-if="table_type.current_registration!=null">{{ table_type.current_registration.queue_number }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+
 </div>
 
 
@@ -79,4 +91,3 @@
     <hr>
     <button class="button tiny right" ng-click="close()">OK</button>
 </script>
-

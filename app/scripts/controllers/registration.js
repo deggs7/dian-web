@@ -15,7 +15,19 @@ angular.module('dianApp')
             controller: 'RegistrationCtrl'
         })
     }])
+
     .controller('RegistrationCtrl', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
+
+      var cdn_file_url = config.cdn_file_url;
+
+      $http({url: config.api_url + '/restaurant/default-restaurant/', method: 'GET'})
+        .success(function (data, status, headers, config) {
+          $scope.restaurant = data;
+          $('div.registration-wrap')
+            .css('background-image', 'url(\'' + cdn_file_url + '/restaurant-'+ $scope.restaurant.id + '\')');
+        });
+
+
         $scope.my_form = {
             "table_type": null,
             "phone": '' 
@@ -25,7 +37,7 @@ angular.module('dianApp')
             .success(function(data, status, headders, config){
                 $scope.table_types = data;
                 if ($scope.table_types){
-                    $scope.my_form.table_type = $scope.table_types[0];
+                  $scope.my_form.table_type = $scope.table_types[1];
                 }
             });
 
@@ -39,13 +51,15 @@ angular.module('dianApp')
           {name:'7', value:'7'},
           {name:'8', value:'8'},
           {name:'9', value:'9'},
-          {name:'del', value:'del'},
+          {name:'清空', value:'clear'},
           {name:'0', value:'0'},
-          {name:'ok', value:'ok'},
+          {name:'删除', value:'del'},
         ];
 
         $scope.touch_key = function (key) {
           if (key.value === 'del') {
+            $scope.my_form.phone = $scope.my_form.phone.substring(0, $scope.my_form.phone.length - 1);
+          }else if (key.value === 'clear') {
             $scope.my_form.phone = $scope.my_form.phone.substring(0, $scope.my_form.phone.length - 1);
           }else if (key.value === 'ok') {
             $scope.register();
@@ -53,7 +67,6 @@ angular.module('dianApp')
             $scope.my_form.phone = $scope.my_form.phone + key.value;
           }
         };
-
 
         $scope.register = function(){
             $http
