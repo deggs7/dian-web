@@ -10,7 +10,7 @@ body .window {
     height: 100%;
     .inner-wrap {
       height: 100%;
-      .dk-icon-bar {
+      .dk-vertical-icon-bar {
         position: absolute;
         height: 321px;
         top: 160px;
@@ -21,6 +21,10 @@ body .window {
         a:last-child {
           border-radius: 0 0 10px 0;
         }
+      }
+      .dk-icon-bar {
+        position: fixed;
+        bottom: 0;
       }
     }
   }
@@ -51,10 +55,10 @@ body .window {
   width: 100%;
   position: absolute;
   text-align: center;
-  .restaurant-title {
-    font-size: 24px;
-    color: #666;
-  }
+}
+.restaurant-title {
+  font-size: 24px;
+  color: #666;
 }
 
 .top-bar-section ul li>a.registration-button {
@@ -66,7 +70,10 @@ body .window {
 
 #content {
   /*margin-left: 68px;*/
+  height: 100%;
+  overflow: auto;
   padding-top: 15px;
+  padding-bottom: 140px;
 }
 
 
