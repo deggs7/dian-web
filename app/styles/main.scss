@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+// Custom Settings
+  @import "settings";
+
 // basic skeleton
 body .window {
   height: 100%;
@@ -55,10 +58,10 @@ body .window {
 }
 
 .top-bar-section ul li>a.registration-button {
-  background: #009900 !important;
+  background: $dk-green !important;
 }
 .top-bar-section ul li>a.registration-button:hover {
-  background: #00CC00 !important;
+  background: $dk-green-light !important;
 }
 
 #content {
