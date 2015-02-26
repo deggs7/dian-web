@@ -1,24 +1,71 @@
+@charset "UTF-8";
+
+// basic skeleton
 body .window {
   height: 100%;
   .off-canvas-wrap {
     height: 100%;
     .inner-wrap {
       height: 100%;
-      .icon-bar {
+      .dk-icon-bar {
         position: absolute;
+        height: 321px;
+        top: 160px;
+        border-radius: 0 10px 10px 0;
+        a:first-child {
+          border-radius: 0 10px 0 0;
+        }
+        a:last-child {
+          border-radius: 0 0 10px 0;
+        }
       }
     }
   }
 }
 
-.title-area h1 {
-  padding-left: 50px;
-  background: url("/images/white48.png") no-repeat left top;
+// website logo
+.title-area li .name {
+  min-width: 64px;
+  background: url("/images/orange48.png") no-repeat 8px center;
+  font-family: "Microsoft YaHei";
+  color: #FF7700;
+  div.logo-title {
+    font-size: 24px;
+    line-height: 24px;
+    padding-left: 64px;
+    padding-top: 8px;
+    margin-bottom: 6px;
+  }
+  div.logo-subtitle {
+    font-size: 16px;
+    line-height: 16px;
+    padding-left: 64px;
+  }
+}
+
+// restaurant title area
+.restaurant-title-wrap {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  .restaurant-title {
+    font-size: 24px;
+    color: #666;
+  }
+}
+
+.top-bar-section ul li>a.registration-button {
+  background: #009900 !important;
+}
+.top-bar-section ul li>a.registration-button:hover {
+  background: #00CC00 !important;
 }
 
 #content {
-  margin-left: 68px;
+  /*margin-left: 68px;*/
+  padding-top: 15px;
 }
+
 
 /* registration.html */
 .dial {
@@ -34,3 +81,5 @@ body .window {
     border: 1px solid red;
   }
 }
+
+
