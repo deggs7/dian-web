@@ -239,3 +239,13 @@ table.current-registration {
     text-align: center;
   }
 }
+
+.register-notify {
+  text-align: center;
+  font-size: 16px;
+  .register-number {
+    color: $dk-green;
+    font-size: 36px;
+    padding: 0 10px;
+  }
+}
