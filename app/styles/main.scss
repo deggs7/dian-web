@@ -242,7 +242,9 @@ table.current-registration {
 
 .register-notify {
   text-align: center;
-  font-size: 16px;
+  p {
+    font-size: 20px;
+  }
   .register-number {
     color: $dk-green;
     font-size: 36px;
