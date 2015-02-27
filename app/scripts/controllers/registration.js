@@ -57,7 +57,7 @@ angular.module('dianApp')
           .success(function(data, status, headders, config){
               $scope.table_types = data;
               if ($scope.table_types){
-                $scope.my_form.table_type = $scope.table_types[1];
+                $scope.my_form.table_type = $scope.table_types[0];
               }
           });
 
@@ -93,6 +93,9 @@ angular.module('dianApp')
       }
 
       $scope.register = function(){
+        if (!$scope.invalidMobile()) {
+          return;
+        };
           $http
               .post(config.api_url + '/registration/registration/', {
                   "table_type": $scope.my_form.table_type.id,
