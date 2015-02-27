@@ -1,8 +1,8 @@
 <div class="registration-wrap">
   <div class="row">
     <div class="small-12 columns">
-      <div class="hero-wrap">
-        <h2 class="text-center">{{ restaurant.name }}</h2>
+      <div class="hero-wrap small-hero-wrap">
+        <h2 class="text-center">{{ restaurant.name }} - 自助取号</h2>
       </div>
     </div>
   </div>
@@ -11,7 +11,8 @@
       <div class="small-12 medium-7 columns">
         <div class="hero-wrap">
           <form name="reg_form">
-            <div class="tables-area">
+            <div class="tables-area clearfix">
+              <h4>第一步：选择餐桌</h4>
               <div class="table-type-wrap" ng-repeat="ttype in table_types">
                 <input type="radio" ng-model="my_form.table_type" name="table_type" ng-value="ttype" id="table_type_{{ttype.id}}">
                 <label for="table_type_{{ttype.id}}" ng-class="{true: 'active', false: 'inactive'}[my_form.table_type==ttype]">{{ ttype.slug }}</label>
@@ -24,23 +25,22 @@
               </select>
               -->
             </div>
+            <h4>第二步：输入手机号</h4>
 
             <div class="hide-for-small-only">
-              <div class="phone-input phone-error">
+              <div class="phone-input">
                 {{ my_form.phone }}
               </div>
             </div>
 
             <div class="show-for-small-only">
-              <label ng-class="{error: reg_form.phoneInput.$invalid==true}">手机号码
-                  <input placeholder="请输入手机号" ng-model="my_form.phone"
-                         ng-maxlength="13" name="phoneInput"/>
+              <label for="">
+                <input placeholder="请输入手机号" ng-model="my_form.phone" ng-maxlength="13"/>
               </label>
-              <small class="error" ng-show="reg_form.phoneInput.$invalid">请输入正确地电话号码</small>
             </div>
 
-            <button class="button success expand large" ng-click="register()"
-              ng-disabled="reg_form.phoneInput.$invalid || my_form.phone==null"><i class="fi-page-edit"></i>&nbsp;取号</button>
+            <button class="register-btn button success expand large" ng-click="register()"
+              ng-disabled="!invalidMobile"><i class="fi-page-edit"></i>&nbsp;取号</button>
 
           </form>
         </div>
@@ -59,25 +59,38 @@
   <div class="row">
       <div class="small-12 columns">
         <div class="hero-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>餐桌类型</th>
-                <th ng-repeat="table_type in table_types">
-                  {{ table_type.slug }}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>当前号码</td>
-                <td ng-repeat="table_type in table_types">
-                  <span ng-if="table_type.current_registration==null">空闲</span>
-                  <span ng-if="table_type.current_registration!=null">{{ table_type.current_registration.queue_number }}</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="row">
+            <div class="medium-10 small-12 columns">
+
+              <table class="current-registration">
+                <thead>
+                  <tr>
+                    <th>
+                    </th>
+                    <th ng-repeat="table_type in table_types">
+                      {{ table_type.name }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="next-one">下一位</td>
+                    <td ng-repeat="table_type in table_types">
+                      <span ng-if="table_type.current_registration==null">空闲</span>
+                      <span ng-if="table_type.current_registration!=null">{{ table_type.current_registration.queue_number }}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+            <div class="medium-2 small-12 columns">
+              <div class="support-logo">
+                <p>提供技术支持</p>
+                <p><i class="fi-telephone"></i>&nbsp;13020145329</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
   </div>
