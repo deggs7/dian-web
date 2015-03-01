@@ -365,7 +365,7 @@ module.exports = function (grunt) {
             'foundation-icons.ttf',
             'foundation-icons.woff'
           ],
-          dest: '<%= yeoman.dist %>'
+          dest: '<%= yeoman.dist %>/styles'
         }]
       },
       styles: {
