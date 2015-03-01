@@ -356,6 +356,16 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
           dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: 'bower_components/foundation-icon-fonts',
+          src: [
+            'foundation-icons.eot',
+            'foundation-icons.svg',
+            'foundation-icons.ttf',
+            'foundation-icons.woff'
+          ],
+          dest: '<%= yeoman.dist %>'
         }]
       },
       styles: {
