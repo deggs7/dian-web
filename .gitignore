@@ -5,3 +5,4 @@ dist
 *.swp
 bower_components
 .idea
+app/scripts/config.js
