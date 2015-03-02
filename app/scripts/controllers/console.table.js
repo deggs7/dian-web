@@ -62,9 +62,8 @@ angular.module('dianApp')
                 $http
                     .put(config.api_url + '/restaurant/table-type/' + data.id + '/', data)
                     .success(function (data, status, headers, config) {
-                        $scope.table_types.push(data);
                         angular.forEach($scope.table_types, function(table_type){
-                            if (table_type.id = data.id){
+                            if (table_type.id == data.id){
                                 table_type.name = data.name;
                                 table_type.min_seats = data.min_seats;
                                 table_type.max_seats = data.max_seats;
