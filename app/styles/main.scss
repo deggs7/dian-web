@@ -3,6 +3,12 @@
 // Custom Settings
   @import "settings";
 
+// common
+
+table {
+  width: 100%;
+}
+
 // basic skeleton
 body .window {
   height: 100%;
@@ -252,6 +258,23 @@ table.current-registration {
   }
 }
 
-table {
-  width: 100%;
+/* console_overview.html */
+.registration-table {
+  .tabs dd {
+    margin-bottom: 2px !important;
+    a {
+      position: relative;
+      border-radius: 10px 0 0 10px;
+      border-right: 1px solid $dk-orange;
+    }
+    span.round.label {
+      position: absolute;
+      right: 15px;;
+    }
+  }
+  .tabs-content {
+    border: 2px solid $dk-orange;
+    min-height: 650px;
+  }
 }
+
