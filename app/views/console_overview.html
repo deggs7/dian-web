@@ -31,9 +31,9 @@
 
                 <td>
                     <span ng-if="table_type.queue_registrations.length==0 && table_type.current_registration==null">等待客户中...</span>
-                    <button class="button tiny" ng-if="table_type.current_registration==null && table_type.queue_registrations.length != 0" ng-click="next_reg('start', table_type)">开始叫号</button>
-                    <button class="button tiny" ng-if="table_type.current_registration!=null" ng-click="next_reg('expired', table_type)">就餐</button>
-                    <button class="button tiny" ng-if="table_type.current_registration!=null" ng-click="next_reg('passed', table_type)">过号</button>
+                    <button class="button success tiny" ng-if="table_type.current_registration==null && table_type.queue_registrations.length != 0" ng-click="next_reg('start', table_type)"><i class="fi-play"></i> 开始叫号</button>
+                    <button class="button success tiny" ng-if="table_type.current_registration!=null" ng-click="next_reg('expired', table_type)"><i class="fi-check"></i> 就餐</button>
+                    <button class="button alert tiny" ng-if="table_type.current_registration!=null" ng-click="next_reg('passed', table_type)"><i class="fi-eject"></i> 过号</button>
                 </td>
             </tr>
             </tbody>
