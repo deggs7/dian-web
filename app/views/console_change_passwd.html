@@ -4,21 +4,26 @@
 <form ng-submit="change_passwd()">
     <div class="row">
         <div class="medium-9 columns">
+            <label>旧密码
+                <input placeholder="请输入旧密码" ng-model="old_password"
+                       ng-maxlength="24" type="password"
+                       name="old_password"/>
+            </label>
+
             <label>新密码
-                <input placeholder="请输入密码" ng-model="password1"
+                <input placeholder="请输入新密码" ng-model="password1"
                        ng-maxlength="24" type="password"
                        name="password1"/>
             </label>
 
             <label ng-class="{error: password1!=password2}">请再次输入
-                <input placeholder="请输入密码" ng-model="password2"
+                <input placeholder="请再次输入新密码" ng-model="password2"
                        ng-maxlength="24" type="password"
                        name="password2"/>
             </label>
             <small class="error" ng-show="password1!=password2">请保持两次输入一致</small>
 
-
-            <input type="submit" name="" value="确定" class="button expand tiny" ng-disabled="password1!=password2 || password1==null">
+            <input type="submit" name="" value="确定" class="button expand tiny" ng-disabled="password1!=password2 || password1==null || old_password==null">
         </div>
     </div>
 
@@ -26,6 +31,12 @@
 
 <script type="text/ng-template" id="return_change_password.html">
     <p>密码修改成功</p>
+    <hr>
+    <button class="button tiny right" ng-click="confirm()">OK</button>
+</script>
+
+<script type="text/ng-template" id="change_password_error.html">
+    <p>密码修改失败，请输入正确地旧密码</p>
     <hr>
     <button class="button tiny right" ng-click="confirm()">OK</button>
 </script>
