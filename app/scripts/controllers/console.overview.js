@@ -55,7 +55,8 @@ angular.module('dianApp')
                         // 发短信通知当前queue中排在第二位置的客户
                         var msg_type = {
                             "expired": "one_left",
-                            "passed": "next"
+                            "passed": "next",
+                            "start": "one_left"
                         };
                         if (table_type.queue_registrations[1]){
                             $http
