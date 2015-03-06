@@ -24,7 +24,14 @@ angular.module('dianApp')
                 $scope.uptoken = data.uptoken;
             });
 
-        $scope.restaurant_update = {};
+        $http({url: config.api_url + '/restaurant/default-restaurant/', method: 'GET'})
+            .success(function (data, status, headers, config) {
+                $scope.restaurant = data;
+                $scope.restaurant_update = {
+                    "name": $scope.restaurant.name
+                };
+            });
+
 
         $scope.update = function () {
             // 更新数据库部分
