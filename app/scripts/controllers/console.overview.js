@@ -19,13 +19,30 @@ angular.module('dianApp')
     }])
 
 
-    .controller('OverviewCtrl', ['$scope', '$http', '$cookies', '$state', '$stateParams',
-        function ($scope, $http, $cookies, $state, $stateParams) {
+    .controller('OverviewCtrl', ['$scope', '$http', '$cookies', '$state', '$stateParams', '$timeout',
+        function ($scope, $http, $cookies, $state, $stateParams, $timeout) {
 
         $http({url: config.api_url + '/restaurant/table-type-details/', method: 'GET'})
             .success(function (data, status, headers, config) {
                 $scope.table_types = data;
             });
+
+        // 定时刷新器
+        var refresh_info = function(){
+            $timeout.cancel($scope.refresh);
+
+            $http({url: config.api_url + '/restaurant/table-type-details/', method: 'GET'})
+                .success(function (data, status, headers, config) {
+                    $scope.table_types = data;
+                });
+
+            $scope.refresh = $timeout(refresh_info, config.interval);
+        };
+        $scope.refresh = $timeout(refresh_info, config.interval);
+        // 记得销毁
+        $scope.$on('$destroy', function(){
+            $timeout.cancel($scope.refresh);
+        });
 
         $scope.next_reg = function(action, table_type){
             if (action == 'expired' || action == 'passed'){
