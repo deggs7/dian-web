@@ -10,6 +10,11 @@
             <label>餐厅背景图
                 <input type="file" file-upload="background"/>
             </label>
+            <p>
+              <span class="label" ng-show="upload_status==1"><i class="fi-upload"></i> 正在上传...</span>
+              <span class="label success" ng-show="upload_status==2"><i class="fi-check"></i> 上传成功！</span>
+              <span class="label alert" ng-show="upload_status==-1">上传失败，请重试</span>
+            </p>
             <input type="submit" name="" value="更新" class="button expand tiny"/>
         </div>
     </div>

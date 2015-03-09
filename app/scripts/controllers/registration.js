@@ -45,7 +45,7 @@ angular.module('dianApp')
             .success(function (data, status, headers, config) {
                 $scope.restaurant = data;
                 $('div.registration-wrap')
-                    .css('background-image', 'url(\'' + cdn_file_url + '/restaurant-'+ $scope.restaurant.id + '\')');
+                    .css('background-image', 'url(\'' + cdn_file_url + '/'+ $scope.restaurant.file_key + '\')');
             });
 
 
