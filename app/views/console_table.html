@@ -50,8 +50,8 @@
                     </div>
                     <div class="small-9 columns">
                         <input type="number" id="type_max" ng-model="type_form.max_seats" number="true">
+                        <small class="error" ng-show="type_form.min_seats > type_form.max_seats">最多就餐人数必须大于最少就餐人数</small>
                     </div>
-                    <small class="error" ng-show="type_form.min_seats > type_form.max_seats">最多就餐人数必须大于最少就餐人数</small>
                 </div>
             </div>
         </div>
