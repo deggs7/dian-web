@@ -1,39 +1,42 @@
 <tabset vertical="true" class='registration-table'>
-  <tab active="$first" ng-repeat="table_type in table_types">
+  <tab active="$first" ng-repeat="just_for_index in copy_of_table_types">
     <tab-heading>
-      {{ table_type.name }}<span class="round success label">{{ table_type.queue_registrations.length }}</span>
+      {{ table_types[$index].name }}
+      <span class="round success label">
+        {{ table_types[$index].current_registration?(table_types[$index].queue_registrations.length + 1):(table_types[$index].queue_registrations.length) }}
+      </span>
     </tab-heading>
         <h4>当前号码</h4>
         <table>
             <thead>
             <tr>
-                <th>号码</th>
-                <th>手机尾号</th>
+                <th>等位号</th>
+                <th>手机号</th>
                 <th>操作</th>
             </tr>
             </thead>
 
             <tbody>
             <tr>
-                <td width="200px">
-                    <span ng-if="table_type.current_registration==null">空闲</span>
-                    <span ng-if="table_type.current_registration">
-                        {{ table_type.current_registration.queue_number }}
-                    </span>
-                </td>
-
-                <td width="200px">
-                    <span ng-if="table_type.current_registration==null">无</span>
-                    <span ng-if="table_type.current_registration">
-                        {{ table_type.current_registration.phone }}
+                <td>
+                    <span ng-if="table_types[$index].current_registration==null">无</span>
+                    <span ng-if="table_types[$index].current_registration">
+                        {{ table_types[$index].current_registration.queue_number }}
                     </span>
                 </td>
 
                 <td>
-                    <span ng-if="table_type.queue_registrations.length==0 && table_type.current_registration==null">等待客户中...</span>
-                    <button class="button success tiny" ng-if="table_type.current_registration==null && table_type.queue_registrations.length != 0" ng-click="next_reg('start', table_type)"><i class="fi-play"></i> 开始叫号</button>
-                    <button class="button success tiny" ng-if="table_type.current_registration!=null" ng-click="next_reg('expired', table_type)"><i class="fi-check"></i> 就餐</button>
-                    <button class="button alert tiny" ng-if="table_type.current_registration!=null" ng-click="next_reg('passed', table_type)"><i class="fi-eject"></i> 过号</button>
+                    <span ng-if="table_types[$index].current_registration==null">无</span>
+                    <span ng-if="table_types[$index].current_registration">
+                        {{ table_types[$index].current_registration.phone_display }}
+                    </span>
+                </td>
+
+                <td>
+                    <span ng-if="table_types[$index].queue_registrations.length==0 && table_types[$index].current_registration==null">无</span>
+                    <button class="button success tiny" ng-if="table_types[$index].current_registration==null && table_types[$index].queue_registrations.length != 0" ng-click="next_reg('start', table_types[$index])"><i class="fi-play"></i> 开始叫号</button>
+                    <button class="button success tiny" ng-if="table_types[$index].current_registration!=null" ng-click="next_reg('expired', table_types[$index])"><i class="fi-check"></i> 就餐</button>
+                    <button class="button alert tiny" ng-if="table_types[$index].current_registration!=null" ng-click="next_reg('passed', table_types[$index])"><i class="fi-eject"></i> 过号</button>
                 </td>
             </tr>
             </tbody>
@@ -43,17 +46,17 @@
         <table>
             <thead>
             <tr>
-                <th width="150">号码</th>
-                <th width="150">等待时间</th>
-                <th width="150">手机尾号</th>
+                <th>等位号</th>
+                <th>手机号</th>
+                <th>等待时间</th>
             </tr>
             </thead>
 
             <tbody>
-            <tr ng-repeat="reg in table_type.queue_registrations">
+            <tr ng-repeat="reg in table_types[$index].queue_registrations">
                 <td>{{ reg.queue_number }}</td>
+                <td>{{ reg.phone_display}}</td>
                 <td>{{ reg.waiting_time }}</td>
-                <td>{{ reg.last4_phone }}</td>
             </tr>
 
             </tbody>

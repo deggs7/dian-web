@@ -60,6 +60,7 @@ angular.module('dianApp')
                 if ($scope.table_types){
                     $scope.my_form.table_type = $scope.table_types[0];
                 }
+                $scope.update_table_types = data;
             });
 
         // 定时刷新器
@@ -68,10 +69,7 @@ angular.module('dianApp')
 
             $http({url: config.api_url + '/restaurant/table-type-details/', method: 'GET'})
                 .success(function (data, status, headers, config) {
-                    $scope.table_types = data;
-                    if ((!$scope.my_form.table_type) && $scope.table_types){
-                        $scope.my_form.table_type = $scope.table_types[0];
-                    }
+                    $scope.update_table_types = data;
                 });
 
             $scope.refresh = $timeout(refresh_info, config.interval);

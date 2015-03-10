@@ -25,6 +25,7 @@ angular.module('dianApp')
         $http({url: config.api_url + '/restaurant/table-type-details/', method: 'GET'})
             .success(function (data, status, headers, config) {
                 $scope.table_types = data;
+                $scope.copy_of_table_types = $scope.table_types;
             });
 
         // 定时刷新器
