@@ -36,6 +36,13 @@ body .window {
   }
 }
 
+// off-canvas
+ul.off-canvas-list {
+  li.divider {
+    border-bottom: 3px solid #BBB;
+  }
+}
+
 // website logo
 .title-area li .name {
   min-width: 64px;

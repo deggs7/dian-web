@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="small-4 columns">
                         <label for="reward_info" class="right inline" ng-show="strategy.reward_type=='gift'">礼物名称（例如：小菜一份）</label>
-                        <label for="reward_info" class="right inline" ng-show="strategy.reward_type=='discount'">请输入折扣比例（1-100 %）</label>
+                        <label for="reward_info" class="right inline" ng-show="strategy.reward_type=='discount'">折扣百分比（范围：1-100）</label>
                     </div>
                     <div class="small-8 columns">
                         <input type="text" id="reward_info" data-ng-model="strategy.reward_info">
@@ -63,7 +63,7 @@
 
     <div class="button-group">
         <button class="button" ng-click="confirm()"
-                ng-disabled="strategy.reward_info == '' || strategy.time_wait == null">确认</button>
+                ng-disabled="strategy.reward_info == null || strategy.time_wait == null || (strategy.reward_type=='discount' && (strategy.reward_info <1 || strategy.reward_info > 100))">确认</button>
         <button class="button secondary" ng-click="cancel()">取消</button>
     </div>
 
