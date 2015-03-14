@@ -43,6 +43,41 @@ ul.off-canvas-list {
   }
 }
 
+// login page
+
+.login-title {
+  background: url("/images/main_logo.png") no-repeat top left;
+  background-size: 150px 60px;
+  color: $dk-orange;
+  margin-top: 80px;
+  padding-top: 100px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid $dk-orange;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+  a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 150px;
+    height: 60px;
+  }
+}
+
+.copyright {
+  margin-top: 80px;
+  border-top: 2px solid $dk-gray;
+  padding-top: 20px;
+  color: #888;
+  h4 {
+    color: $dk-orange;
+  }
+
+}
+
+
 // website logo
 .title-area li .name {
   min-width: 64px;

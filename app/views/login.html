@@ -1,46 +1,42 @@
-
-<div class="row" data-ng-cloak>
-    <div class="large-12 columns">
-
-        <h2>登陆页面</h2>
-
-        <form ng-submit="login()">
-            <div class="row">
-                <div class="large-6 columns">
-                    <label>手机号
-                        <input ng-model="user.username"
-                               type="number"
-                               name="username"
-                               id="username"
-                               required
-                               placeholder="请输入手机号"/>
-                    </label>
-
-                    <label>密码
-                        <input ng-model="user.password"
-                               type="password"
-                               name="password"
-                               id="password"
-                               required
-                               placeholder="密码">
-                    </label>
-
-
-                    <div class="row">
-                        <div class="large-4 columns">
-                            <input type="submit" name="" value="确定" class="button expand tiny" ng-disabled="!user.password || !user.username">
-                        </div>
-
-                        <div class="large-4 columns">
-                            <input value="忘记密码" class="button secondary tiny" ng-click="go_retrieve_passwd()">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </form>
+<div class="row">
+  <form ng-submit="login()">
+    <div class="medium-8 medium-offset-2 columns">
+      <h3 class="login-title"><a ui-sref="login"></a>登录</h3>
+      <label>手机号
+        <input ng-model="user.username"
+        type="number"
+        name="username"
+        id="username"
+        required
+        placeholder="请输入手机号"/>
+      </label>
+      <label>密码
+        <input ng-model="user.password"
+        type="password"
+        name="password"
+        id="password"
+        required
+        placeholder="密码">
+      </label>
+      <div class="row">
+        <div class="medium-6 columns">
+          <input type="submit" name="" value="确定" class="button expand" ng-disabled="!user.password || !user.username">
+        </div>
+        <div class="medium-6 columns">
+          <input value="忘记密码" class="button expand secondary" ng-click="go_retrieve_passwd()">
+        </div>
+      </div>
     </div>
+
+  </form>
 </div>
 
-
+<div class="row">
+  <div class="medium-8 medium-offset-2 columns">
+    <div class="copyright text-center">
+      <h4>业务咨询、市场合作&nbsp;&nbsp;&nbsp;&nbsp;<i class="fi-telephone"></i>&nbsp;13021045329</h4>
+      <div>Copyright &copy; 2015&nbsp;&nbsp;北京邦邦科技有限公司</div>
+      <div>京ICP备15011685号</div>
+    </div>
+  </div>
+</div>
