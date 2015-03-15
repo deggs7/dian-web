@@ -57,7 +57,8 @@ angular.module('dianApp')
                 controller: 'ModalStrategyCtrl',
                 resolve: {
                     "strategy": function(){
-                        return strategy;
+                        // 需给编辑表单传递原值的copy，不然修改后，取消编辑时，原值的显示也会跟着变
+                        return angular.copy(strategy);
                     }
                 }
             });
@@ -65,9 +66,13 @@ angular.module('dianApp')
             strategy_modify_modalInstance.result.then(function (data) {
                 $http
                     .put(config.api_url + '/restaurant/strategy/' + data.id + '/', data)
-                    .success(function (data, status, headers, config) {
+                    .success(function (rt_data, status, headers, config) {
+                      // 对原对象进行修改
+                      strategy.time_wait = data.time_wait;
+                      strategy.reward_type = data.reward_type;
+                      strategy.reward_info = data.reward_info;
                     })
-                    .error(function (data, status, headers, config) {
+                    .error(function (rt_data, status, headers, config) {
                     });
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
