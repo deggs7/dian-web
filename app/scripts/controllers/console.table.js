@@ -53,7 +53,7 @@ angular.module('dianApp')
                 controller: 'ModalEditTableTypeCtrl',
                 resolve: {
                     "table_type": function(){
-                        return table_type;
+                        return angular.copy(table_type);
                     }
                 }
             });
