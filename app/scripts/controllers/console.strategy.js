@@ -20,95 +20,104 @@ angular.module('dianApp')
 
     .controller('StrategyCtrl', ['$scope', '$http', '$modal', '$state', '$stateParams', '$log',
         function ($scope, $http, $modal, $state, $stateParams, $log) {
-        $http(
-            {
-                url: config.api_url + '/restaurant/strategy/',
-                method: 'GET'
-            })
-            .success(function(data, status, headers, config){
-                $scope.strategies = data;
-        });
-
-        $scope.add = function(){
-            var strategy_new_modalInstance = $modal.open({
-                templateUrl: 'strategy_info.html',
-                controller: 'ModalStrategyCtrl',
-                resolve: {
-                    "strategy": null
-                }
-            });
-
-            strategy_new_modalInstance.result.then(function (data) {
-                $http
-                    .post(config.api_url + '/restaurant/strategy/', data)
-                    .success(function (data, status, headers, config) {
-                        $scope.strategies.push(data);
-                    })
-                    .error(function (data, status, headers, config) {
-                    });
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-        };
-
-        $scope.modify = function(strategy){
-            var strategy_modify_modalInstance = $modal.open({
-                templateUrl: 'strategy_info.html',
-                controller: 'ModalStrategyCtrl',
-                resolve: {
-                    "strategy": function(){
-                        // 需给编辑表单传递原值的copy，不然修改后，取消编辑时，原值的显示也会跟着变
-                        return angular.copy(strategy);
-                    }
-                }
-            });
-
-            strategy_modify_modalInstance.result.then(function (data) {
-                $http
-                    .put(config.api_url + '/restaurant/strategy/' + data.id + '/', data)
-                    .success(function (rt_data, status, headers, config) {
-                      // 对原对象进行修改
-                      strategy.time_wait = data.time_wait;
-                      strategy.reward_type = data.reward_type;
-                      strategy.reward_info = data.reward_info;
-                    })
-                    .error(function (rt_data, status, headers, config) {
-                    });
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-
-        };
-
-        $scope.del = function(strategy){
-            $http
-                .delete(config.api_url + '/restaurant/strategy/' + strategy.id + '/')
+            $http(
+                {
+                    url: config.api_url + '/restaurant/strategy/',
+                    method: 'GET'
+                })
                 .success(function(data, status, headers, config){
-                    $state.transitionTo($state.current, $stateParams, {
-                        reload: true,
-                        inherit: false,
-                        notify: true
-                    });
-                })
-                .error(function(data, status, headers, config){
+                    $scope.strategies = data;
+                });
 
-                })
-        }
+            $scope.add = function(){
+                var strategy_new_modalInstance = $modal.open({
+                    templateUrl: 'strategy_info.html',
+                    controller: 'ModalStrategyCtrl',
+                    resolve: {
+                        "strategy": null
+                    }
+                });
 
-    }])
+                strategy_new_modalInstance.result.then(function (data) {
+                    $http
+                        .post(config.api_url + '/restaurant/strategy/', data)
+                        .success(function (data, status, headers, config) {
+                            $scope.strategies.push(data);
+                        })
+                        .error(function (data, status, headers, config) {
+                        });
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            };
+
+            $scope.modify = function(strategy){
+                var strategy_modify_modalInstance = $modal.open({
+                    templateUrl: 'strategy_info.html',
+                    controller: 'ModalStrategyCtrl',
+                    resolve: {
+                        "strategy": function(){
+                            // 需给编辑表单传递原值的copy，不然修改后，取消编辑时，原值的显示也会跟着变
+                            return angular.copy(strategy);
+                        }
+                    }
+                });
+
+                strategy_modify_modalInstance.result.then(function (data) {
+                    $http
+                        .put(config.api_url + '/restaurant/strategy/' + data.id + '/', data)
+                        .success(function (rt_data, status, headers, config) {
+                            // 对原对象进行修改
+                            strategy.time_wait = data.time_wait;
+                            strategy.reward_type = data.reward_type;
+                            strategy.reward_info = data.reward_info;
+                        })
+                        .error(function (rt_data, status, headers, config) {
+                        });
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+
+            };
+
+            $scope.del = function(strategy){
+                var strategy_del_modalInstance = $modal.open({
+                    templateUrl: 'strategy_del.html',
+                    controller: 'ModalStrategyDelCtrl'
+                });
+
+                strategy_del_modalInstance.result.then(function (data) {
+                    $http
+                        .delete(config.api_url + '/restaurant/strategy/' + strategy.id + '/')
+                        .success(function(data, status, headers, config){
+                            $state.transitionTo($state.current, $stateParams, {
+                                reload: true,
+                                inherit: false,
+                                notify: true
+                            });
+                        })
+                        .error(function(data, status, headers, config){
+
+                        })
+                }, function(){
+
+                });
+            }
+
+        }])
 
     .controller('ModalStrategyCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'strategy',
         function ($scope, $http, $modal, $modalInstance, strategy) {
             $scope.reward_types = [
-                        {
-                            "type": "gift",
-                            "name": "赠送礼物"
-                        },
-                        {
-                            "type": "discount",
-                            "name": "消费折扣"
-                        }
-                    ];
+                {
+                    "type": "gift",
+                    "name": "赠送礼物"
+                },
+                {
+                    "type": "discount",
+                    "name": "消费折扣"
+                }
+            ];
             $scope.strategy = strategy;
 
             if ($scope.strategy == null){
@@ -126,4 +135,15 @@ angular.module('dianApp')
             $scope.cancel = function(){
                 $modalInstance.dismiss();
             };
-        }]);
+        }])
+
+    .controller('ModalStrategyDelCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance){
+
+        $scope.confirm = function(){
+            $modalInstance.close();
+        };
+
+        $scope.cancel = function(){
+            $modalInstance.dismiss();
+        }
+    }]);
