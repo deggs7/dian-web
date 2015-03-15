@@ -103,7 +103,7 @@
 <script type="text/ng-template" id="return_registration.html">
   <div class="register-notify">
     <p>您已获取 <span class="register-number">{{ table_type.name }}&nbsp;{{ registration.queue_number }}</span>号</p>
-    <p>您前面还有{{ registration.front_left }}位正在等待</p>
+    <p>您前面还有{{ table_type.front_left }}位正在等待</p>
     <p>稍后您会收到确认短信，祝您用餐愉快！</p>
     <hr>
     <button class="button expand medium" ng-click="close()">知道了，好嗨森！</button>

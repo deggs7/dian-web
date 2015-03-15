@@ -1,3 +1,7 @@
+<button class="button" ng-click="reset()">
+    <i class="fi-refresh"></i> 重置号码序号
+</button>
+
 <tabset vertical="true" class='registration-table'>
   <tab active="$first" ng-repeat="just_for_index in copy_of_table_types">
     <tab-heading>
@@ -63,3 +67,14 @@
         </table>
     </tab>
 </tabset>
+
+<script type="text/ng-template" id="reset_confirm.html">
+    <p>确认重置所有类型桌子的起始号码么？</p>
+    <hr>
+
+    <div class="button-group">
+        <button class="button" ng-click="confirm()">确认</button>
+        <button class="button secondary" ng-click="cancel()">取消</button>
+    </div>
+
+</script>
