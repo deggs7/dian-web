@@ -3,12 +3,13 @@
     <div class="small-12 columns">
       <div class="hero-wrap small-hero-wrap">
         <h2 class="text-center">{{ restaurant.name }} - 自助取号</h2>
-        <a class="wp-logo right" ng-click="register_qrcode()"></a>
+        <a class="register-type-icon wp-logo" ng-click="switch_register_type(1)"></a>
+        <a class="register-type-icon sms-logo" ng-click="switch_register_type(0)"><i class="fi-mobile-signal"></i></a>
       </div>
     </div>
   </div>
 
-  <div class="row" data-equalizer>
+  <div class="row" data-equalizer ng-show="register_type==0">
       <div class="small-12 medium-7 columns">
         <div class="hero-wrap">
           <form name="reg_form">
@@ -56,6 +57,15 @@
         </div>
       </div>
 
+  </div>
+
+  <div class="row" data-equalizer ng-show="register_type==1">
+    <div class="small-12 columns">
+      <div class="hero-wrap text-center">
+        <div class="register-qrcode"></div>
+        <h2>微信扫一扫，取号有惊喜！</h2>
+      </div>
+    </div>
   </div>
 
   <div class="row">

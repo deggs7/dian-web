@@ -135,9 +135,10 @@ ul.off-canvas-list {
 }
 
 .register-qrcode {
+  display: inline-block;
   width: 400px;
   height: 400px;
-  background-color: $dk-orange-light;
+  background-color: $white;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   padding: 10px;
@@ -165,8 +166,10 @@ ul.off-canvas-list {
   padding: 5px;
 }
 
-.wp-logo {
+.register-type-icon {
   position: absolute;
+}
+.wp-logo {
   top: 15px;
   right: 30px;
   background-image: url("/images/wp_logo.jpeg");
@@ -174,6 +177,12 @@ ul.off-canvas-list {
   background-size: 100% 100%;
   padding: 20px;
 }
+.sms-logo {
+  top: 12px;
+  right: 90px;
+  font-size: 28px;
+}
+
 .tables-area {
   width: 100%;
   margin-bottom: 15px;

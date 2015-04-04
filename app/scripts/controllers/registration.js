@@ -21,6 +21,9 @@ angular.module('dianApp')
 
         var cdn_file_url = config.cdn_file_url;
 
+        // default register type: 1=wp
+        $scope.register_type = 1;
+
         $scope.dial_keys = [
             {name:'1', value:'1'},
             {name:'2', value:'2'},
@@ -40,12 +43,24 @@ angular.module('dianApp')
             mobile: /^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/
         };
 
+        $scope.switch_register_type = function (type) {
+          $scope.register_type = type;
+        };
 
         $http({url: config.api_url + '/restaurant/default-restaurant/', method: 'GET'})
             .success(function (data, status, headers, config) {
                 $scope.restaurant = data;
                 $('div.registration-wrap')
                     .css('background-image', 'url(\'' + cdn_file_url + '/'+ $scope.restaurant.file_key + '\')');
+            });
+
+        $http
+            .get(config.api_url + '/wp/register-qrcode/')
+            .success(function (data, status, headers, config) {
+              $('div.register-qrcode')
+                  .css('background-image', 'url(\'' + cdn_file_url + '/'+ data.file_key + '\')');
+            })
+            .error(function (data, status, headers, config) {
             });
 
 
@@ -154,28 +169,6 @@ angular.module('dianApp')
                 .error(function (data, status, headers, config) {
                 });
         }
-        $scope.register_qrcode = function(){
-            $http
-                .get(config.api_url + '/wp/register-qrcode/')
-                .success(function (data, status, headers, config) {
-                    var modalInstance = $modal.open({
-                        templateUrl: 'wp_register.html',
-                        controller: 'ModalRegisterQrcodeCtrl',
-                        resolve: {
-                            "file_key": function(){
-                                return data.file_key;
-                            }
-                        }
-                    });
-
-                    modalInstance.result.then(function (data) {
-                    }, function () {
-                    });
-
-                })
-                .error(function (data, status, headers, config) {
-                });
-        }
 
     }])
 
@@ -198,12 +191,3 @@ angular.module('dianApp')
             }
         }])
 
-    .controller('ModalRegisterQrcodeCtrl', ['$scope', '$http', '$modalInstance', 'file_key',
-        function ($scope, $http, $modalInstance, file_key) {
-            var cdn_file_url = config.cdn_file_url;
-            $('div.register-qrcode')
-                .css('background-image', 'url(\'' + cdn_file_url + '/'+ file_key + '\')');
-            $scope.close = function(){
-                $modalInstance.close();
-            }
-        }]);
