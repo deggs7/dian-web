@@ -53,6 +53,7 @@ angular.module('dianApp')
             "table_type": null,
             "phone": ''
         };
+        $scope.is_inputting = false;
 
         $http({url: config.api_url + '/restaurant/table-type-details/', method: 'GET'})
             .success(function(data, status, headders, config){
@@ -80,6 +81,12 @@ angular.module('dianApp')
             $timeout.cancel($scope.refresh);
         });
 
+        $scope.in_inputting = function () {
+          if (!$scope.is_inputting) {
+            $scope.is_inputting = true;
+          }
+        };
+
         $scope.touch_key = function (key) {
             if (key.value === 'del') {
                 $scope.my_form.phone = $scope.my_form.phone.substring(0, $scope.my_form.phone.length - 1);
@@ -93,11 +100,13 @@ angular.module('dianApp')
         };
 
         $scope.$watch('my_form.phone', function () {
+            /*
             if ($scope.my_form.phone === '') {
                 $('.phone-input').addClass('phone-waiting');
             }else {
                 $('.phone-input').removeClass('phone-waiting');
             }
+            */
             if ($scope.invalidMobile()) {
                 $('.phone-input').addClass('phone-success');
                 $('.register-btn').removeClass('disabled');
@@ -137,6 +146,29 @@ angular.module('dianApp')
                     modalInstance.result.then(function (data) {
                         $scope.my_form.table_type = $scope.table_types[0];
                         $scope.my_form.phone = '';
+                        $scope.is_inputting = false;
+                    }, function () {
+                    });
+
+                })
+                .error(function (data, status, headers, config) {
+                });
+        }
+        $scope.register_qrcode = function(){
+            $http
+                .get(config.api_url + '/wp/register-qrcode/')
+                .success(function (data, status, headers, config) {
+                    var modalInstance = $modal.open({
+                        templateUrl: 'wp_register.html',
+                        controller: 'ModalRegisterQrcodeCtrl',
+                        resolve: {
+                            "file_key": function(){
+                                return data.file_key;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function (data) {
                     }, function () {
                     });
 
@@ -161,6 +193,16 @@ angular.module('dianApp')
                 .error(function (data, status, headers, config) {
                 });
 
+            $scope.close = function(){
+                $modalInstance.close();
+            }
+        }])
+
+    .controller('ModalRegisterQrcodeCtrl', ['$scope', '$http', '$modalInstance', 'file_key',
+        function ($scope, $http, $modalInstance, file_key) {
+            var cdn_file_url = config.cdn_file_url;
+            $('div.register-qrcode')
+                .css('background-image', 'url(\'' + cdn_file_url + '/'+ file_key + '\')');
             $scope.close = function(){
                 $modalInstance.close();
             }

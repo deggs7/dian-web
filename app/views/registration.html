@@ -3,6 +3,7 @@
     <div class="small-12 columns">
       <div class="hero-wrap small-hero-wrap">
         <h2 class="text-center">{{ restaurant.name }} - 自助取号</h2>
+        <a class="wp-logo right" ng-click="register_qrcode()"></a>
       </div>
     </div>
   </div>
@@ -28,7 +29,7 @@
             <h4>第二步：输入手机号</h4>
 
             <div class="hide-for-small-only">
-              <div class="phone-input">
+              <div class="phone-input" ng-class="{true: '', false: 'phone-waiting'}[is_inputting]" ng-click="in_inputting()">
                 {{ my_form.phone }}
               </div>
             </div>
@@ -39,6 +40,7 @@
               </label>
             </div>
 
+            <h4>第三步：确认取号</h4>
             <button class="register-btn button success expand large" ng-click="register()"
               ng-disabled="!invalidMobile"><i class="fi-page-edit"></i>&nbsp;取号</button>
 
@@ -47,7 +49,7 @@
       </div>
 
       <div class="medium-5 columns hide-for-small-only">
-        <div class="dial hero-wrap">
+        <div class="dial hero-wrap" ng-class="{true: '', false: 'not-inputting'}[is_inputting]" ng-click="in_inputting()">
           <div class="key-wrap" ng-repeat="key in dial_keys">
             <div class="key" value="{{ key.value }}" ng-click="touch_key(key)">{{ key.name }}</div>
           </div>
@@ -58,6 +60,7 @@
 
   <div class="row">
       <div class="small-12 columns">
+
         <div class="hero-wrap">
           <div class="row">
             <div class="medium-10 small-12 columns">
@@ -92,7 +95,8 @@
               </div>
             </div>
           </div>
-        </div>
+        </div><!-- end of hero-wrap -->
+
       </div>
   </div>
 
@@ -107,5 +111,10 @@
     <p>稍后您会收到确认短信，祝您用餐愉快！</p>
     <hr>
     <button class="button expand medium" ng-click="close()">知道了，好嗨森！</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="wp_register.html">
+  <div class="register-qrcode">
   </div>
 </script>

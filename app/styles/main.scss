@@ -134,6 +134,15 @@ ul.off-canvas-list {
   padding: 10px;
 }
 
+.register-qrcode {
+  width: 400px;
+  height: 400px;
+  background-color: $dk-orange-light;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 10px;
+}
+
 .hero-wrap {
   background-color: #FFFFFF;
   opacity: 0.9;
@@ -156,6 +165,15 @@ ul.off-canvas-list {
   padding: 5px;
 }
 
+.wp-logo {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  background-image: url("/images/wp_logo.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 20px;
+}
 .tables-area {
   width: 100%;
   margin-bottom: 15px;
@@ -246,6 +264,9 @@ ul.off-canvas-list {
       overflow: hidden;
     }
   }
+}
+.not-inputting {
+  opacity: 0.3;
 }
 
 
