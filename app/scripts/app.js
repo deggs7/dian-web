@@ -12,25 +12,35 @@ angular
     .module('dianApp', [
         'ngAnimate',
         'ngCookies',
-        'ngResource',
         'ngRoute',
         'ngSanitize',
         'ngTouch',
         /* 3rd Party Modules */
+        'LocalStorageModule',
         'ui.router',
         'ui.utils',
         'mm.foundation'
     ])
 
-    .factory('authInterceptor', ['$q', '$cookies', '$location', function ($q, $cookies, $location) {
+    .factory('authInterceptor', ['$q', '$cookies', '$location', 'localStorageService', function ($q, $cookies, $location, localStorageService) {
         return {
             request: function (config) {
                 config.headers = config.headers || {};
-                if ($cookies.token) {
-                    config.headers.Authorization = 'Token ' + $cookies.token;
-                }
-                if ($cookies.restaurant_id) {
-                    config.headers['X-Restaurant-Id'] = $cookies.restaurant_id;
+                if(localStorageService.isSupported) {
+                  if (localStorageService.get('token')) {
+                      config.headers.Authorization = 'Token ' + localStorageService.get('token');
+                  }
+                  if (localStorageService.get('restaurant_id')) {
+                      config.headers['X-Restaurant-Id'] = localStorageService.get('restaurant_id');
+                  }
+                }else {
+                  // 对不支持html5的浏览器
+                  if ($cookies.token) {
+                      config.headers.Authorization = 'Token ' + $cookies.token;
+                  }
+                  if ($cookies.restaurant_id) {
+                      config.headers['X-Restaurant-Id'] = $cookies.restaurant_id;
+                  }
                 }
                 return config;
             },
@@ -50,9 +60,13 @@ angular
 
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/login');
-    }]).
+    }])
 
-    run(['$state', '$rootScope', function($state, $rootScope){
+    .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
+      localStorageServiceProvider.setPrefix('diankuai');
+    }])
+
+    .run(['$state', '$rootScope', function($state, $rootScope){
         $rootScope.$state = $state;
     }]);
 

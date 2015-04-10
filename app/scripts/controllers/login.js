@@ -18,23 +18,35 @@ angular.module('dianApp')
             })
     }])
 
-    .controller('LoginCtrl', ['$scope', '$http', '$cookies', '$state',
-        function ($scope, $http, $cookies, $state) {
+    .controller('LoginCtrl', ['$scope', '$http', '$cookies', '$state', 'localStorageService',
+        function ($scope, $http, $cookies, $state, localStorageService) {
         $scope.login = function () {
             $http
                 .post(config.api_url + '/api-token-auth/', $scope.user)
                 .success(function (data, status, headers, h_config) {
-                    $cookies.token = data.token;
+                    if(localStorageService.isSupported) {
+                      localStorageService.set('token', data.token);
+                    }else {
+                      $cookies.token = data.token;
+                    }
 
                     $http({url: config.api_url + '/restaurant/default-restaurant/', method: 'GET'})
                         .success(function (data, status, headers, config) {
-                            $cookies.restaurant_id = data['id'];
+                            if(localStorageService.isSupported) {
+                              localStorageService.set('restaurant_id', data['id']);
+                            }else {
+                              $cookies.restaurant_id = data['id'];
+                            }
                             $state.go('console.overview');
                         });
                 })
                 .error(function (data, status, headers, config) {
                     // Erase the token if the user fails to log in
-                    delete $cookies.token;
+                    if(localStorageService.isSupported) {
+                      localStorageService.remove('token');
+                    }else {
+                      delete $cookies.token;
+                    }
                     // Handle login errors here
                 });
         };
