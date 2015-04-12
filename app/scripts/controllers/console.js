@@ -20,8 +20,8 @@ angular.module('dianApp')
     }])
 
 
-    .controller('ConsoleCtrl', ['$scope', '$state', '$http', '$location', '$cookies',
-        function ($scope, $state, $http, $location, $cookies) {
+    .controller('ConsoleCtrl', ['$scope', '$state', '$http', '$location', '$cookies', 'localStorageService',
+        function ($scope, $state, $http, $location, $cookies, localStorageService) {
 
             $scope.account = null;
             $scope.restaurant = null;
@@ -37,8 +37,13 @@ angular.module('dianApp')
                 });
 
             $scope.logout = function(){
-                delete $cookies.restaurant_id;
-                delete $cookies.token;
+                if(localStorageService.isSupported) {
+                  localStorageService.remove('restaurant_id');
+                  localStorageService.remove('token');
+                }else {
+                  delete $cookies.restaurant_id;
+                  delete $cookies.token;
+                }
 
                 $state.go('login');
             };

@@ -59,7 +59,7 @@ angular
     }])
 
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/console/overview');
     }])
 
     .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
