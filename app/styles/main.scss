@@ -96,6 +96,15 @@ ul.off-canvas-list {
     line-height: 16px;
     padding-left: 64px;
   }
+  a.home-link {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    display: inline-block;
+    width: 150px;
+    height: 50px;
+    z-index: 10;
+  }
 }
 
 // restaurant title area
