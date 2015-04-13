@@ -4,11 +4,15 @@
 .part{ position: relative; }
 .part p{ font-size: 14px; color: #666666; text-align: center; line-height: 24px; }
 
-.part_0{ height: 540px; padding-top: 30px; border-bottom: 1px solid #eeeeee; }
+.part_0{ height: 580px; padding-top: 30px; border-bottom: 1px solid #eeeeee; }
 .part_0 p{ margin-bottom: 50px; }
-.part_img_0{ width: 440px; height: 200px; padding: 0px 0 0 26px; margin: 0 auto; }
+.part_img_0{ width: 440px; height: 200px; padding: 0px 0 0 26px; background: url(../feature_files/index_57.png) no-repeat center top; margin: 0 auto; }
+.part_img_0 a{ display: block; float: left; width: 84px; height: 20px; padding-top: 100px; margin-right: 26px; text-align: center; color: #666666; font-size: 14px; }
+/*
 .part_img_0 a{ display: block; float: left; width: 84px; height: 20px; padding-top: 50px; margin-right: 26px; text-align: center; color: #666666; font-size: 18px; }
-.part_img_0 a:hover{ background: url(/static/index6/images/index_19.png) no-repeat; }
+*/
+.part_img_0 a:hover{ background: url(../feature_files/index_19.png) no-repeat; }
+
 a.part_img_0_0:hover{ background-position: 0 0; }
 a.part_img_0_1:hover{ background-position: -110px 0; }
 a.part_img_0_2:hover{ background-position: -220px 0; }
