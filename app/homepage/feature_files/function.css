@@ -102,8 +102,9 @@ p.part_img_8_right{  right: 5px; }
 .part_img_10{ width: 870px; height: 490px; margin: 0 auto; position: relative; background: url(/static/index6/images/index_70.png) no-repeat center center;  }
 .part_img_10 p{ position: absolute; top: 200px; width: 300px; left: 580px; }
 
-/* index.html */
 
+
+/* index.html */
 .theme-by {
   float: right;
   color: #999;
@@ -182,3 +183,11 @@ p.part_img_8_right{  right: 5px; }
   font-size: 24px;
   color: #f70;
 }
+
+
+
+/* hide cnzz icon */
+#cnzz_stat_icon_1254773847 {
+  display: none;
+}
+
