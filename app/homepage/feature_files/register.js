@@ -26,7 +26,7 @@ $(function () {
     var form_valid = check_seed_user_form(title, address, name, phone);
 
     if (form_valid === true) {
-      var url = "http://127.0.0.1:8000/account/create-seed-user/";
+      var url = "http://api.diankuai.cn/account/create-seed-user/";
       var posting = $.post(
         url,
         {
