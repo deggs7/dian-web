@@ -102,10 +102,92 @@ p.part_img_8_right{  right: 5px; }
 .part_img_10{ width: 870px; height: 490px; margin: 0 auto; position: relative; background: url(/static/index6/images/index_70.png) no-repeat center center;  }
 .part_img_10 p{ position: absolute; top: 200px; width: 300px; left: 580px; }
 
-#cnzz_stat_icon_1254773847 {
-  display: none;
+
+
+/* index.html */
+.theme-by {
+  float: right;
+  color: #999;
+  padding-right: 50px;
+}
+.theme-by a {
+  color: #999;
+}
+
+/* restaurant register page */
+.register-part {
+  height: 650px;
+}
+.register-form {
+  width: 400px;
+  margin:0 auto;
+}
+.register-form h4 {
+  margin-bottom: 20px;
+}
+.register-form .input-field {
+  margin-bottom: 10px;
+}
+.register-form label {
+  font-size: 16px;
+  line-height: 28px;
+}
+.register-form input, .register-form textarea {
+  display: inline-block;
+  font-size: 16px;
+  box-sizing: border-box;
+  width: 300px;
+  float: right;
+  height: 28px;
+}
+.register-form button {
+  width: 100%;
+  background-color: #ff7700;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  height: 40px;
+  cursor: pointer;
+}
+
+.price-table {
+  width: 700px;
+  margin: 40px auto;
+}
+
+.price-table table{
+  width: 100%;
+}
+.price-table table td, .price-table table th{
+  width: 50%;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #F70;
+  padding: 15px;
+  font-size: 18px;
+}
+
+.price-table table th{
+  background: #f70;
+  color: #fff;
+  border: 1px solid #fff;
+  font-size: 20px;
+}
+.price-table .check-icon {
+  padding: 0 10px;
+  font-weight: 20px;
+  font-size: 20px;
+  color: #f70;
+}
+.price-table .price-text {
+  font-size: 24px;
+  color: #f70;
 }
 
 
 
+/* hide cnzz icon */
+#cnzz_stat_icon_1254773847 {
+  display: none;
+}
 
