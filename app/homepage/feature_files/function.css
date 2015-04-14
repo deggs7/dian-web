@@ -149,3 +149,36 @@ p.part_img_8_right{  right: 5px; }
   cursor: pointer;
 }
 
+.price-table {
+  width: 700px;
+  margin: 40px auto;
+}
+
+.price-table table{
+  width: 100%;
+}
+.price-table table td, .price-table table th{
+  width: 50%;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #F70;
+  padding: 15px;
+  font-size: 18px;
+}
+
+.price-table table th{
+  background: #f70;
+  color: #fff;
+  border: 1px solid #fff;
+  font-size: 20px;
+}
+.price-table .check-icon {
+  padding: 0 10px;
+  font-weight: 20px;
+  font-size: 20px;
+  color: #f70;
+}
+.price-table .price-text {
+  font-size: 24px;
+  color: #f70;
+}
