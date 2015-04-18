@@ -47,6 +47,7 @@ angular.module('dianApp')
                     }else {
                       delete $cookies.token;
                     }
+                    alert('用户名或密码错误，请重试。');
                     // Handle login errors here
                 });
         };
