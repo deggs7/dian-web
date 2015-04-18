@@ -34,8 +34,8 @@ a.part_img_0_6:hover{ background-position: -660px 0; }
 .part_img_1_next:hover{ background-position: left -194px; }
 .part_img_1_container{ width: 2610px; height: 455px; position: absolute; left: 0; top: 0; }
 .part_img_1_container div{ width: 870px; height: 455px; float: left; position: relative; }
-.part_img_1_tab_0{ background: url(../feature_files/index_58.png) no-repeat 50% 0px; height: 600px; }
-.part_img_1_tab_1{ background: url(../feature_files/index_59.png) no-repeat 50% 0px; height: 600px; }
+.part_img_1_tab_0{ background: url(../feature_files/index_58.jpg) no-repeat 50% 0px; height: 600px; }
+.part_img_1_tab_1{ background: url(../feature_files/index_59.jpg) no-repeat 50% 0px; height: 600px; }
 .part_img_1_tab_2{ background: url(../feature_files/index_60.png) no-repeat 50% 0px; height: 600px; }
 .part_img_1_tab_0 p{ position: absolute; width: 300px; padding-top: 120px; top: 100px; right: 100px; text-align: left; background: url(/static/index6/images/index_81.png) no-repeat left top; }
 .part_img_1_tab_1 p{ position: absolute; width: 300px; padding-top: 120px; top: 100px; right: 100px; text-align: left; background: url(/static/index6/images/index_82.png) no-repeat left top; }
@@ -44,8 +44,8 @@ a.part_img_0_6:hover{ background-position: -660px 0; }
 
 .part_2{ height: 750px; padding-top: 80px; border-bottom: 1px solid #eeeeee; }
 .part_img_2{ width: 870px; height: 200px; padding-top: 50px; margin: 0 auto; position: relative; }
-.part_img_2_left{ position: absolute; width: 300px; left: 90px; top: 50px; padding-top: 450px; background: url(../feature_files/index_84.png) no-repeat 10px top; background-size: 250px 450px; }
-.part_img_2_right{ position: absolute; width: 300px; right: 70px; top: 50px; padding-top: 450px; background: url(../feature_files/index_85.png) no-repeat 10px top; background-size: 250px 450px; }
+.part_img_2_left{ position: absolute; width: 300px; left: 90px; top: 50px; padding-top: 450px; background: url(../feature_files/index_84.jpg) no-repeat 10px top; background-size: 250px 450px; }
+.part_img_2_right{ position: absolute; width: 300px; right: 70px; top: 50px; padding-top: 450px; background: url(../feature_files/index_85.jpg) no-repeat 10px top; background-size: 250px 450px; }
 
 
 .part_3{ height: 840px; padding-top: 80px; border-bottom: 1px solid #eeeeee; }
@@ -68,7 +68,7 @@ a.part_img_0_6:hover{ background-position: -660px 0; }
 
 .part_5{ height: 720px; padding-top: 80px; border-bottom: 1px solid #eeeeee; }
 .part_5 p{ margin-bottom: 50px; }
-.part_img_5{ width: 900px; height: 500px; margin: 0 auto; background: url(../feature_files/index_65.png) no-repeat 500px 20px; background-size: 280px 480px; position: relative; }
+.part_img_5{ width: 900px; height: 500px; margin: 0 auto; background: url(../feature_files/index_65.jpg) no-repeat 500px 20px; background-size: 280px 480px; position: relative; }
 .part_img_5 p{ position: absolute; left: 93px; top: 105px; width: 300px; text-align: left; }
 .part_img_5 p span{ margin-left: 120px; }
 
