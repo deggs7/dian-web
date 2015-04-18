@@ -22,6 +22,28 @@ angular
         'mm.foundation'
     ])
 
+    .factory('DataLoadingInterceptor', function ($q, $window) {
+      return {
+        'response': function(response) {
+          $(".page-loading").hide();
+          return response;
+        },
+        'responseError': function(rejection) {
+          $(".page-loading").hide();
+          return $q.reject(rejection);
+        }
+      }
+    })
+
+    .config(function ($httpProvider) {
+      $httpProvider.interceptors.push('DataLoadingInterceptor');
+      var spinnerFunction = function spinnerFunction(data, headersGetter) {
+        $(".page-loading").show();
+        return data;
+      };
+      $httpProvider.defaults.transformRequest.push(spinnerFunction);
+    })
+
     .factory('authInterceptor', ['$q', '$cookies', '$location', 'localStorageService', function ($q, $cookies, $location, localStorageService) {
         return {
             request: function (config) {
