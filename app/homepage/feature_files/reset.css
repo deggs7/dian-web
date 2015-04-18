@@ -1,7 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
 
-@font-face{ font-family: FZLTCXH; src: url(../feature_files/FZLTCXH.TTF); }
 *{background-repeat:no-repeat;}
 body, div, dl, dt, dd, ul, ol, li,h1, h2, h3, h4, h5, h6, pre, code,form, fieldset, legend, input, button,textarea, p, blockquote, th, td { margin: 0;padding: 0;color:#000000;font-family: Arial,"Microsoft YaHei" ,sans-serif;}
 fieldset, img {border: 0;}

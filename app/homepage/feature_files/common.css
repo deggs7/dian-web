@@ -69,5 +69,5 @@ a.bottom_links_last{ border-right: none; }
 .dialog_content embed{}
 .dialog_close{position:absolute;top:-20px;right:-20px;z-index:1001;cursor:pointer;}
 
-.part_title{ font-family: "FZLTCXH","microsoft yahei"; font-size: 50px; font-weight: bold; color: #666666; text-align: center; line-height: 50px; margin-bottom: 30px; }
-.first_title{ font-family: "FZLTCXH","microsoft yahei"; font-size: 50px; font-weight: bold; color: #666666; text-align: center; line-height: 80px; margin-bottom: 60px; margin-top: 60px;}
+.part_title{ font-family: "Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei"; font-size: 50px; font-weight: 100; color: #666666; text-align: center; line-height: 50px; margin-bottom: 30px; }
+.first_title{ font-family: "Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei"; font-size: 50px; font-weight: 100; color: #666666; text-align: center; line-height: 80px; margin-bottom: 60px; margin-top: 60px;}
