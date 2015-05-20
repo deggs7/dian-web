@@ -1,7 +1,8 @@
 <table>
     <thead>
     <tr>
-        <th width="150">手机号</th>
+        <th width="150">取号方式</th>
+        <th width="150">手机/微信</th>
         <th width="150">餐桌类型</th>
         <th width="150">等位号</th>
         <th width="150">取号时间</th>
@@ -11,7 +12,8 @@
     </thead>
     <tbody>
     <tr ng-repeat="reg in registrations">
-        <td>{{ reg.phone }}</td>
+        <td><span ng-if="reg.reg_method==0">手机</span><span ng-if="reg.reg_method==1">微信</span></td>
+        <td><span ng-if="reg.reg_method==0">{{ reg.phone }}</span><span ng-if="reg.reg_method==1">{{ reg.member_display.nickname }}</span></td>
         <td>{{ reg.table_name }}</td>
         <td>{{ reg.queue_number }}</td>
         <td>{{ reg.create_time }}</td>

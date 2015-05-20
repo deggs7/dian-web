@@ -15,7 +15,8 @@
             <thead>
             <tr>
                 <th>等位号</th>
-                <th>手机号</th>
+                <th>取号方式</th>
+                <th>手机/微信</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -32,7 +33,16 @@
                 <td>
                     <span ng-if="table_types[$index].current_registration==null">无</span>
                     <span ng-if="table_types[$index].current_registration">
-                        {{ table_types[$index].current_registration.phone_display }}
+                        <span ng-if="table_types[$index].current_registration.reg_method==0">手机</span>
+                        <span ng-if="table_types[$index].current_registration.reg_method==1">微信</span>
+                    </span>
+                </td>
+
+                <td>
+                    <span ng-if="table_types[$index].current_registration==null">无</span>
+                    <span ng-if="table_types[$index].current_registration">
+                      <span ng-if="table_types[$index].current_registration.reg_method==0">{{ table_types[$index].current_registration.phone_display }}</span>
+                      <span ng-if="table_types[$index].current_registration.reg_method==1">{{ table_types[$index].current_registration.member_display.nickname}}</span>
                     </span>
                 </td>
 
@@ -51,7 +61,8 @@
             <thead>
             <tr>
                 <th>等位号</th>
-                <th>手机号</th>
+                <th>取号方式</th>
+                <th>手机/微信</th>
                 <th>等待时间</th>
             </tr>
             </thead>
@@ -59,7 +70,8 @@
             <tbody>
             <tr ng-repeat="reg in table_types[$index].queue_registrations">
                 <td>{{ reg.queue_number }}</td>
-                <td>{{ reg.phone_display}}</td>
+                <td><span ng-if="reg.reg_method==0">手机</span><span ng-if="reg.reg_method==1">微信</span></td>
+                <td><span ng-if="reg.reg_method==0">{{ reg.phone_display}}</span><span ng-if="reg.reg_method==1">{{ reg.member_display.nickname }}</span></td>
                 <td>{{ reg.waiting_time }}</td>
             </tr>
 
