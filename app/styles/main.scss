@@ -177,16 +177,6 @@ ul.off-canvas-list {
   padding: 10px;
 }
 
-.register-qrcode {
-  display: inline-block;
-  width: 400px;
-  height: 400px;
-  background-color: $white;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  padding: 10px;
-}
-
 .hero-wrap {
   background-color: #FFFFFF;
   opacity: 0.9;
@@ -203,6 +193,20 @@ ul.off-canvas-list {
   button.expand {
     margin: 0;
   }
+
+  .register-qrcode {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background-color: $white;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin: 100px 0 50px;
+  }
+  .register-qrcode + h2{
+    margin-bottom: 50px;
+  }
+
 }
 
 .small-hero-wrap {
