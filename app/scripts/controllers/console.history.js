@@ -20,7 +20,7 @@ angular.module('dianApp')
 
     .controller('HistoryCtrl', ['$scope', '$http', '$modal', '$log', function ($scope, $http, $modal, $log) {
         $http
-            .get(config.api_url + '/restaurant/history/today-registration/')
+            .get(config.api_url + '/registration/history/today-registration/')
             .success(function(data, status, headers, config){
                 $scope.registrations = data;
             })

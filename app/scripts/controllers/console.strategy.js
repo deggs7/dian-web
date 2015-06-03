@@ -22,7 +22,7 @@ angular.module('dianApp')
         function ($scope, $http, $modal, $state, $stateParams, $log) {
             $http(
                 {
-                    url: config.api_url + '/restaurant/strategy/',
+                    url: config.api_url + '/registration/strategy/',
                     method: 'GET'
                 })
                 .success(function(data, status, headers, config){
@@ -40,7 +40,7 @@ angular.module('dianApp')
 
                 strategy_new_modalInstance.result.then(function (data) {
                     $http
-                        .post(config.api_url + '/restaurant/strategy/', data)
+                        .post(config.api_url + '/registration/strategy/', data)
                         .success(function (data, status, headers, config) {
                             $scope.strategies.push(data);
                         })
@@ -65,7 +65,7 @@ angular.module('dianApp')
 
                 strategy_modify_modalInstance.result.then(function (data) {
                     $http
-                        .put(config.api_url + '/restaurant/strategy/' + data.id + '/', data)
+                        .put(config.api_url + '/registration/strategy/' + data.id + '/', data)
                         .success(function (rt_data, status, headers, config) {
                             // 对原对象进行修改
                             strategy.time_wait = data.time_wait;
@@ -88,7 +88,7 @@ angular.module('dianApp')
 
                 strategy_del_modalInstance.result.then(function (data) {
                     $http
-                        .delete(config.api_url + '/restaurant/strategy/' + strategy.id + '/')
+                        .delete(config.api_url + '/registration/strategy/' + strategy.id + '/')
                         .success(function(data, status, headers, config){
                             $state.transitionTo($state.current, $stateParams, {
                                 reload: true,

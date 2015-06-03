@@ -21,7 +21,7 @@ angular.module('dianApp')
     .controller('ReportCtrl', ['$scope', '$http', function($scope, $http){
         // 每天取号数
         $http
-            .post(config.api_url + '/restaurant/statistics/daily-registration/')
+            .post(config.api_url + '/registration/statistics/daily-registration/')
             .success(function(data, status, headers, config){
                 var time_array = [], values_array = [];
                 angular.forEach(data, function(item){
@@ -91,7 +91,7 @@ angular.module('dianApp')
 
         // 每天平均等待时间
         $http
-            .post(config.api_url + '/restaurant/statistics/avg-waiting-time/')
+            .post(config.api_url + '/registration/statistics/avg-waiting-time/')
             .success(function(data, status, headers, config){
                 var time_array = [], values_expired_array = [], values_passed_array = [];
                 angular.forEach(data, function(item){
@@ -174,7 +174,7 @@ angular.module('dianApp')
 
         // 每天过号和就餐数对比
         $http
-            .post(config.api_url + '/restaurant/statistics/daily-type-registration/')
+            .post(config.api_url + '/registration/statistics/daily-type-registration/')
             .success(function(data, status, headers, config){
                 var time_array = [], values_expired_array = [], values_passed_array = [];
                 angular.forEach(data, function(item){

@@ -22,7 +22,7 @@ angular.module('dianApp')
     .controller('OverviewCtrl', ['$scope', '$http', '$cookies', '$state', '$stateParams', '$timeout', '$modal',
         function ($scope, $http, $cookies, $state, $stateParams, $timeout, $modal) {
 
-            $http({url: config.api_url + '/restaurant/table-type-details/', method: 'GET'})
+            $http({url: config.api_url + '/table/table-type-details/', method: 'GET'})
                 .success(function (data, status, headers, config) {
                     $scope.table_types = data;
                     $scope.copy_of_table_types = $scope.table_types;
@@ -32,7 +32,7 @@ angular.module('dianApp')
             var refresh_info = function(){
                 $timeout.cancel($scope.refresh);
 
-                $http({url: config.api_url + '/restaurant/table-type-details/', method: 'GET'})
+                $http({url: config.api_url + '/table/table-type-details/', method: 'GET'})
                     .success(function (data, status, headers, config) {
                         $scope.table_types = data;
                     });
@@ -99,7 +99,7 @@ angular.module('dianApp')
 
             $scope.status_change = function(table, status) {
                 $http
-                    .put(config.api_url + '/restaurant/table/' + table.id + '/', {
+                    .put(config.api_url + '/table/table/' + table.id + '/', {
                         "status": status
                     })
                     .success(function (data, status, headers, config) {
@@ -122,7 +122,7 @@ angular.module('dianApp')
                 reset_modal.result.then(function (data) {
                     angular.forEach($scope.table_types, function(table_type){
                         $http
-                            .put(config.api_url + '/restaurant/table-type/' + table_type.id + '/', {
+                            .put(config.api_url + '/table/table-type/' + table_type.id + '/', {
                                 "next_queue_number": 1
                             })
                             .success(function (data, status, headers, config) {

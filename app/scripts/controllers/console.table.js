@@ -21,7 +21,7 @@ angular.module('dianApp')
     .controller('TableCtrl', ['$scope', '$http', '$modal', '$log', function ($scope, $http, $modal, $log) {
         $http(
             {
-                url: config.api_url + '/restaurant/table-type/',
+                url: config.api_url + '/table/table-type/',
                 method: 'GET'
             })
             .success(function(data, status, headers, config){
@@ -36,7 +36,7 @@ angular.module('dianApp')
 
             table_type_modalInstance.result.then(function (data) {
                 $http
-                    .post(config.api_url + '/restaurant/table-type/', data)
+                    .post(config.api_url + '/table/table-type/', data)
                     .success(function (data, status, headers, config) {
                         $scope.table_types.push(data);
                     })
@@ -60,7 +60,7 @@ angular.module('dianApp')
 
             table_type_modalInstance.result.then(function (data) {
                 $http
-                    .put(config.api_url + '/restaurant/table-type/' + data.id + '/', data)
+                    .put(config.api_url + '/table/table-type/' + data.id + '/', data)
                     .success(function (data, status, headers, config) {
                         angular.forEach($scope.table_types, function(table_type){
                             if (table_type.id == data.id){

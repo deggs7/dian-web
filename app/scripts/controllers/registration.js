@@ -70,7 +70,7 @@ angular.module('dianApp')
         };
         $scope.is_inputting = false;
 
-        $http({url: config.api_url + '/restaurant/table-type-details/', method: 'GET'})
+        $http({url: config.api_url + '/table/table-type-details/', method: 'GET'})
             .success(function(data, status, headders, config){
                 $scope.table_types = data;
                 if ($scope.table_types){
@@ -83,7 +83,7 @@ angular.module('dianApp')
         var refresh_info = function(){
             $timeout.cancel($scope.refresh);
 
-            $http({url: config.api_url + '/restaurant/table-type-details/', method: 'GET'})
+            $http({url: config.api_url + '/table/table-type-details/', method: 'GET'})
                 .success(function (data, status, headers, config) {
                     $scope.update_table_types = data;
                 });
@@ -177,7 +177,7 @@ angular.module('dianApp')
             $scope.registration = registration;
             $scope.restaurant = restaurant;
             $http({
-                url: config.api_url + '/restaurant/table-type/' + $scope.registration.table_type + '/',
+                url: config.api_url + '/table/table-type/' + $scope.registration.table_type + '/',
                 method: 'GET'
             })
                 .success(function(data, status, headers, config){
