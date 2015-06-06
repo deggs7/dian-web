@@ -1,73 +1,79 @@
-<h2>餐桌类型</h2>
+<tabset>
+  <tab heading="餐桌">
+  </tab>
+  <tab heading="类型">
+    <button class="button" ng-click="add()">
+      <i class="fi-plus"></i> 添加
+    </button>
+    <table>
+      <thead>
+        <tr>
+          <th width="200">餐桌类型名称</th>
+          <th width="150">最少就餐人数</th>
+          <th width="150">最多就餐人数</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="table_type in table_types">
+          <td>{{ table_type.name }}</td>
+          <td>{{ table_type.min_seats }}</td>
+          <td>{{ table_type.max_seats }}</td>
+          <td>
+            <button class="button tiny" ng-click="edit(table_type)">编辑</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </tab>
+</tabset>
 
-<button class="button" ng-click="add()">
-    <i class="fi-plus"></i> 添加
-</button>
-<table>
-    <thead>
-    <tr>
-        <th width="200">餐桌类型名称</th>
-        <th width="150">最少就餐人数</th>
-        <th width="150">最多就餐人数</th>
-        <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="table_type in table_types">
-        <td>{{ table_type.name }}</td>
-        <td>{{ table_type.min_seats }}</td>
-        <td>{{ table_type.max_seats }}</td>
-        <td><button class="button tiny" ng-click="edit(table_type)">编辑</button></td>
-    </tr>
-    </tbody>
-</table>
 
 <script type="text/ng-template" id="add_table_type.html">
-    <h4>添加新餐桌类型</h4>
-    <hr>
-    <form>
+  <h4>添加新餐桌类型</h4>
+  <hr>
+  <form>
+    <div class="row">
+      <div class="small-8 columns">
         <div class="row">
-            <div class="small-8 columns">
-                <div class="row">
-                    <div class="small-3 columns">
-                        <label for="type_name" class="right inline">类型名称</label>
-                    </div>
-                    <div class="small-9 columns">
-                        <input type="text" id="type_name" ng-model="type_form.name">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="small-3 columns">
-                        <label for="type_min" class="right inline">最少就餐人数</label>
-                    </div>
-                    <div class="small-9 columns">
-                        <input type="number" id="type_min" ng-model="type_form.min_seats" number="true">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="small-3 columns">
-                        <label for="type_max" class="right inline">最多就餐人数</label>
-                    </div>
-                    <div class="small-9 columns">
-                        <input type="number" id="type_max" ng-model="type_form.max_seats" number="true">
-                        <small class="error" ng-show="type_form.min_seats > type_form.max_seats">最多就餐人数必须大于最少就餐人数</small>
-                    </div>
-                </div>
-            </div>
+          <div class="small-3 columns">
+            <label for="type_name" class="right inline">类型名称</label>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" id="type_name" ng-model="type_form.name">
+          </div>
         </div>
-    </form>
 
-    <hr>
+        <div class="row">
+          <div class="small-3 columns">
+            <label for="type_min" class="right inline">最少就餐人数</label>
+          </div>
+          <div class="small-9 columns">
+            <input type="number" id="type_min" ng-model="type_form.min_seats" number="true">
+          </div>
+        </div>
 
-    <div class="button-group">
-        <button class="button" ng-click="confirm()"
-                ng-disabled="type_form.name=='' ||
+        <div class="row">
+          <div class="small-3 columns">
+            <label for="type_max" class="right inline">最多就餐人数</label>
+          </div>
+          <div class="small-9 columns">
+            <input type="number" id="type_max" ng-model="type_form.max_seats" number="true">
+            <small class="error" ng-show="type_form.min_seats > type_form.max_seats">最多就餐人数必须大于最少就餐人数</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <hr>
+
+  <div class="button-group">
+    <button class="button" ng-click="confirm()" ng-disabled="type_form.name=='' ||
                 type_form.min_seats > type_form.max_seats ||
                 type_form.min_seats==null ||
                 type_form.max_seats==null">确认</button>
-        <button class="button secondary" ng-click="cancel()">取消</button>
-    </div>
+    <button class="button secondary" ng-click="cancel()">取消</button>
+  </div>
 
 </script>
