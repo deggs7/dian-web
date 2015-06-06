@@ -27,6 +27,13 @@ angular.module('dianApp')
             .success(function(data, status, headers, config){
                 $scope.table_types = data;
         });
+        
+        $scope.add_table = function() {
+            var table_modalInstance = $modal.open({
+                templateUrl: 'add_table.html',
+                controller: 'ModalAddTableTypeCtrl'
+            });
+        };
 
         $scope.add = function(){
             var table_type_modalInstance = $modal.open({
