@@ -1,6 +1,6 @@
 <h1>hi</h1>
 <tabset vertical="true" class='registration-table'>
-  <tab active="$first" ng-repeat="just_for_index in copy_of_table_types">
+  <tab active="$first" ng-repeat="just_for_index in copy_of_table_types" select="menu_products(menu_types[$index].restaurant, menu_types[$index].id)">
     <tab-heading>
       {{ menu_types[$index].name }}
     </tab-heading>
