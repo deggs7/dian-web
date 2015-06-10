@@ -1,36 +1,36 @@
-<h1>hi</h1>
+<h1 class="ng-cloak">{{ menu.name }}</h1>
 <tabset vertical="true" class='registration-table'>
-  <tab active="$first" ng-repeat="just_for_index in copy_of_table_types" select="menu_products(menu_types[$index].restaurant, menu_types[$index].id)">
+  <tab active="$first" ng-repeat="category in menu_catogaries" select="get_category_products(category.id)">
     <tab-heading>
-      {{ menu_types[$index].name }}
+      {{ category.name }}
     </tab-heading>
-        <h4>
-          {{ menu_types[$index].name }}
-        </h4>
-        <table>
-            <thead>
-            <tr>
-                <th>图片</th>
-                <th>商品名称</th>
-                <th>价格</th>
-                <th>计量单位</th>
-                <th>操作</th>
-            </tr>
-            </thead>
+    <h4 ng-cloak>
+      {{ category.name }}
+    </h4>
+    <table>
+        <thead>
+        <tr>
+            <th>图片</th>
+            <th>商品名称</th>
+            <th>价格</th>
+            <th>计量单位</th>
+            <th>操作</th>
+        </tr>
+        </thead>
 
-            <tbody>
-            <tr ng-repeat="course in menu_types[$index].list">
-                <td><img ng-src="course.img" alt=""></td>
-                <td>{{ course.name }}</td>
-                <td>{{ course.price }}</td>
-                <td>{{ course.unit }}</td>
-                <td>
-                    <button class="button tiny" ng-click="">编辑</button>
-                    <button class="button tiny" ng-click="">删除</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <tbody>
+        <tr ng-repeat="product in category_products">
+            <td><img ng-src="product.img_key" alt=""></td>
+            <td>{{ product.description}}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.unit }}</td>
+            <td>
+                <button class="button tiny" ng-click="">编辑</button>
+                <button class="button tiny" ng-click="">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
     </tab>
-    <tab heading="+添加新分类"></tab>
+    <tab heading="+添加新分类" select="menu_new()"></tab>
 </tabset>

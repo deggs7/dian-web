@@ -22,14 +22,30 @@ angular.module('dianApp')
       $http.get(config.api_url + '/menu/list-menu/').then(function(res) {
         console.log('list-menu:');
         console.log(res.data);  
-        $scope.copy_of_table_types = $scope.menu_types = res.data;
-      }, function(res) {
+        $scope.menus = res.data;
+        return $scope.menu = $scope.menus[0];
+      }).then(function(menu) {
+        console.log('menu selected:');
+        console.log(arguments);
+        return $http.get(config.api_url + '/menu/list-category-by-menu/' + menu.id + '/')
+      }).then(function(res) {
+        console.log('menu_catogaries:');
+        console.log(res.data);
+        $scope.menu_catogaries = res.data;
+        
       });
-      $scope.menu_products = function(restaurant_id, menu_id) {
-        console.log('menu_products:');
-        console.log(arguments);  
-
-
+      $scope.get_category_products = function(category_id) {
+        $http.get(config.api_url + '/menu/list-product-by-category/' + category_id + '/').then(function(res) {
+          console.log('category_products:');
+          console.log(res.data);
+          $scope.category_products = res.data;
+        }, function(res) {
+          
+        })
+      };
+      $scope.menu_new = function(restaurant_id, menu_id) {
+        console.log('menu_new:');
+        //$http.post(api_url + '/menu/create-menu/', {})  
       };
       /*
       $scope.copy_of_table_types = $scope.menu_types = [{
@@ -45,5 +61,5 @@ angular.module('dianApp')
         ]
       }];
       */
-      
+     
     }]);
