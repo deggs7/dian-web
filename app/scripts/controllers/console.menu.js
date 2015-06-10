@@ -57,9 +57,12 @@ angular.module('dianApp')
 
             product_del_modalInstance.result.then(function (data) {
                 return $http
-                    .get(config.api_url + '/menu/delete-product/' + product_id + '/')
+                    .get(config.api_url + '/menu/delete-product/' + product_id + '/');
             }).then(function(res) {
               console.log('del_product ok');
+              $scope.category_products = _.filter($scope.category_products, function(product) {
+                return product.id !== product_id;
+              });
 
             }, function(res) {
               console.error('del_product error');
