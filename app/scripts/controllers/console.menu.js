@@ -1,5 +1,6 @@
 'use strict';
 
+/* global _, config */
 /**
  * @ngdoc function
  * @name dianApp.controller:MenuCtrl
@@ -23,11 +24,12 @@ angular.module('dianApp')
             console.log('list-menu:');
             console.log(res.data);
             $scope.menus = res.data;
-            return $scope.menu = $scope.menus[0];
+            $scope.menu = $scope.menus[0];
+            return $scope.menu;
         }).then(function(menu) {
             console.log('menu selected:');
             console.log(arguments);
-            return $http.get(config.api_url + '/menu/list-category-by-menu/' + menu.id + '/')
+            return $http.get(config.api_url + '/menu/list-category-by-menu/' + menu.id + '/');
         }).then(function(res) {
             console.log('menu_catogaries:');
             console.log(res.data);
@@ -39,11 +41,11 @@ angular.module('dianApp')
                 console.log('category_products:');
                 console.log(res.data);
                 $scope.category_products = res.data;
-            }, function(res) {
+            }, function() {
 
-            })
+            });
         };
-        $scope.menu_new = function(restaurant_id, menu_id) {
+        $scope.menu_new = function(/* restaurant_id, menu_id */) {
             console.log('menu_new:');
             //$http.post(api_url + '/menu/create-menu/', {})
         };
@@ -55,16 +57,16 @@ angular.module('dianApp')
                 controller: 'ModalDelCtrl'
             });
 
-            product_del_modalInstance.result.then(function (data) {
+            product_del_modalInstance.result.then(function () {
                 return $http
                     .get(config.api_url + '/menu/delete-product/' + product_id + '/');
-            }).then(function(res) {
+            }).then(function() {
               console.log('del_product ok');
               $scope.category_products = _.filter($scope.category_products, function(product) {
                 return product.id !== product_id;
               });
 
-            }, function(res) {
+            }, function() {
               console.error('del_product error');
             });
         };
