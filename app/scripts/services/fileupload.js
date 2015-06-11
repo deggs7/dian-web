@@ -14,11 +14,12 @@ angular.module('dianApp')
 
     //created by back-end for uploading files used by front-end
     this.upload_info = function() {
-        return $http({url: config.api_url + '/restaurant/uptoken-restaurant/', method: 'GET'})
-            .success(function (data) {
+        return $http.get(config.api_url + '/restaurant/uptoken-restaurant/')
+            .then(function (res) {
+                //no check for trust server
                 return {
-                    uptoken: data.uptoken,
-                    file_key: data.file_key
+                    uptoken: res.data.uptoken,
+                    file_key: res.data.file_key
                 };
             });
     };

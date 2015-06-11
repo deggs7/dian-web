@@ -99,11 +99,14 @@ angular.module('dianApp')
                 file_key = $scope.file_key;
                 upload_url = config.qiniu_upload_url;
                 uptoken = $scope.uptoken;
-                file_upload.uploadFileToUrl(file, upload_url, uptoken, file_key, function() {
-                    $scope.upload_status = 2;
-                }, function() {
-                    $scope.upload_status = -1;
-                });
+                if (file) {
+                    file_upload.uploadFileToUrl(file, upload_url, uptoken, file_key, function() {
+                        $scope.upload_status = 2;
+                    }, function() {
+                        $scope.upload_status = -1;
+                    });
+                }
+
 
 
             }, function() {
@@ -131,11 +134,13 @@ angular.module('dianApp')
 
     .controller('ModalProductEditCtrl', ['$scope', '$modalInstance', 'product', function($scope, $modalInstance, product){
 
+        $scope.$on('upload_file_change', function(e, file) {
+            $scope.file = file;
+        });
         $scope.product = product;
         $scope.confirm = function(){
-            $modalInstance.close({
-                product_img: $scope.product_img
-            });
+            $scope.product.product_img = $scope.file;
+            $modalInstance.close($scope.product);
         };
 
         $scope.cancel = function(){

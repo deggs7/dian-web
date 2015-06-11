@@ -17,7 +17,9 @@ angular.module('dianApp')
 
         element.bind('change', function(){
           scope.$apply(function(){
-            modelSetter(scope, element[0].files[0]);
+            var file;
+            modelSetter(scope, file = element[0].files[0]);
+            scope.$emit('upload_file_change', file);
           });
         });
       }
