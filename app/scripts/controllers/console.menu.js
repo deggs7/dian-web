@@ -19,7 +19,7 @@ angular.module('dianApp')
             });
     }])
 
-    .controller('MenuCtrl', ['$scope', '$http', '$modal',  function($scope, $http, $modal) {
+    .controller('MenuCtrl', ['$scope', '$http', '$modal', 'fileUpload', function($scope, $http, $modal, file_upload) {
         $http.get(config.api_url + '/menu/list-menu/').then(function(res) {
             console.log('list-menu:');
             console.log(res.data);
@@ -52,12 +52,12 @@ angular.module('dianApp')
 
 
         $scope.del_product = function(product_id){
-            var product_del_modalInstance = $modal.open({
+            var product_del_modal_instance = $modal.open({
                 templateUrl: 'product_del.html',
                 controller: 'ModalDelCtrl'
             });
 
-            product_del_modalInstance.result.then(function () {
+            product_del_modal_instance.result.then(function () {
                 return $http
                     .get(config.api_url + '/menu/delete-product/' + product_id + '/');
             }).then(function() {
@@ -71,12 +71,71 @@ angular.module('dianApp')
             });
         };
 
+        $scope.edit_product = function(product) {
+            console.log('edit product');
+            console.log(product);
+
+            //提前获取上传文件的token
+            file_upload.upload_info().then(function(info) {
+                $scope.uptoken = info.uptoken;
+                $scope.file_key = info.file_key;
+            });
+
+            var product_edit_modal_instance = $modal.open({
+                templateUrl: 'product_edit.html',
+                controller: 'ModalProductEditCtrl',
+                resolve: {
+                    //only accept function or array
+                    product: function() {
+                        return product;
+                    }
+                }
+            });
+            product_edit_modal_instance.result.then(function (product) {
+                var file, upload_url, uptoken, file_key;
+
+                $scope.upload_status = 1;
+                file = product.product_img;
+                file_key = $scope.file_key;
+                upload_url = config.qiniu_upload_url;
+                uptoken = $scope.uptoken;
+                file_upload.uploadFileToUrl(file, upload_url, uptoken, file_key, function() {
+                    $scope.upload_status = 2;
+                }, function() {
+                    $scope.upload_status = -1;
+                });
+
+
+            }, function() {
+            });
+            /*
+            $http.post(config.api_url + '/menu/update-product/' + product_id + '/').then(function(res) {
+
+            });
+            */
+
+        };
+
     }])
 
     .controller('ModalDelCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance){
 
         $scope.confirm = function(){
             $modalInstance.close();
+        };
+
+        $scope.cancel = function(){
+            $modalInstance.dismiss();
+        };
+    }])
+
+    .controller('ModalProductEditCtrl', ['$scope', '$modalInstance', 'product', function($scope, $modalInstance, product){
+
+        $scope.product = product;
+        $scope.confirm = function(){
+            $modalInstance.close({
+                product_img: $scope.product_img
+            });
         };
 
         $scope.cancel = function(){

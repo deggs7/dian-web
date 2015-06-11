@@ -25,8 +25,8 @@
             <td>{{ product.price }}</td>
             <td>{{ product.unit }}</td>
             <td>
-                <button class="button tiny" ng-click="">编辑</button>
-                <button class="button tiny" ng-click="del_product(product.id)">删除</button>
+                <button class="button tiny" ng-click="edit_product(product)">编辑</button>
+                <button class="button tiny" ng-click="del_product(product)">删除</button>
             </td>
         </tr>
         </tbody>
@@ -44,5 +44,68 @@
         <button class="button" ng-click="confirm()">确认</button>
         <button class="button secondary" ng-click="cancel()">取消</button>
     </div>
+
+</script>
+<script type="text/ng-template" id="product_edit.html">
+  <h4>编辑商品</h4>
+  <hr>
+  <form>
+    <div class="row">
+      <div class="small-8 columns">
+        <div class="row">
+          <div class="small-3 columns">
+            <label for="type_name" class="right inline">图片</label>
+          </div>
+          <div class="small-6 columns">
+            <input type="file" file-upload="product_img" id="type_name">
+          </div>
+          <div class="small-3 columns">
+            <p>
+              <span class="label" ng-show="upload_status==1"><i class="fi-upload"></i> 正在上传...</span>
+              <span class="label success" ng-show="upload_status==2"><i class="fi-check"></i> 上传成功！</span>
+              <span class="label alert" ng-show="upload_status==-1">上传失败，请重试</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="small-3 columns">
+            <label for="type_min" class="right inline">名称</label>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" required id="type_min" ng-model="product.name">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="small-3 columns">
+            <label for="type_max" class="right inline">价格</label>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" id="type_max" required ng-model="product.price">
+            <!--
+            <small class="error" ng-show="type_form.min_seats > type_form.max_seats"></small>
+            -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="small-3 columns">
+            <label for="type_max" class="right inline">计量单位</label>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" id="type_max" ng-model="product.unit" number="true">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <hr>
+
+  <div class="button-group">
+    <button class="button" ng-click="confirm()">确认</button>
+    <button class="button secondary" ng-click="cancel()">取消</button>
+  </div>
 
 </script>
