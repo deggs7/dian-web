@@ -51,7 +51,7 @@ angular.module('dianApp')
         };
 
 
-        $scope.del_product = function(product_id){
+        $scope.del_product = function(product){
             var product_del_modal_instance = $modal.open({
                 templateUrl: 'product_del.html',
                 controller: 'ModalDelCtrl'
@@ -59,11 +59,11 @@ angular.module('dianApp')
 
             product_del_modal_instance.result.then(function () {
                 return $http
-                    .get(config.api_url + '/menu/delete-product/' + product_id + '/');
+                    .get(config.api_url + '/menu/delete-product/' + product.id + '/');
             }).then(function() {
               console.log('del_product ok');
-              $scope.category_products = _.filter($scope.category_products, function(product) {
-                return product.id !== product_id;
+              $scope.category_products = _.filter($scope.category_products, function(p) {
+                return p.id !== product.id;
               });
 
             }, function() {
