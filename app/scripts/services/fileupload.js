@@ -39,6 +39,6 @@ angular.module('dianApp')
       .error(function (data, status, headers, config) {
         error_callback(data, status, headers, config);
       });
-    }
+    };
 
   }]);

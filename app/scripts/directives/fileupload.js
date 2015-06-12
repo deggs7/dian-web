@@ -5,6 +5,8 @@
  * @name dianApp.directive:fileUpload
  * @description
  * # fileUpload
+ * must be obj.property style
+ * @example: <input type="file" file-upload="objInControllerScope.property">
  */
 angular.module('dianApp')
   .directive('fileUpload', ['$parse', function ($parse) {
@@ -19,7 +21,6 @@ angular.module('dianApp')
           scope.$apply(function(){
             var file;
             modelSetter(scope, file = element[0].files[0]);
-            scope.$emit('upload_file_change', file);
           });
         });
       }
