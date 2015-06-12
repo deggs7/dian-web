@@ -74,6 +74,7 @@ angular.module('dianApp')
         $scope.edit_product = function(product) {
             console.log('edit product');
             console.log(product);
+            var old_img_key = product.img_key;
 
             //提前获取上传文件的token
             file_upload.upload_info().then(function(info) {
@@ -99,17 +100,20 @@ angular.module('dianApp')
                 upload_url = config.qiniu_upload_url;
                 uptoken = $scope.uptoken;
                 if (file) {
-                    file_key = product.img_key = $scope.file_key;
+                    file_key = $scope.file_key;
                     file_upload.uploadFileToUrl(file, upload_url, uptoken, file_key, function() {
                         $scope.upload_status = 2;
                     }, function() {
                         $scope.upload_status = -1;
                     });
+                } else {
+                    $scope.file_key = old_img_key;
                 }
 
                 $http.post(config.api_url + '/menu/update-product/' + product.id + '/', product).then(function(res) {
                     console.log('update product');
                     console.log(res);
+                    product.img_key = $scope.file_key;
 
                 }, function(res) {
 

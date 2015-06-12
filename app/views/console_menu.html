@@ -1,49 +1,51 @@
-<h1 class="ng-cloak">{{ menu.name }}</h1>
-<tabset vertical="true" class='registration-table'>
-  <tab active="$first" ng-repeat="category in menu_catogaries" select="get_category_products(category.id)">
-    <tab-heading>
-      {{ category.name }}
-    </tab-heading>
-    <h4 ng-cloak>
-      {{ category.name }}
-    </h4>
-    <table>
+<section id="console-menu">
+  <h1 class="ng-cloak">{{ menu.name }}</h1>
+  <tabset vertical="true" class='registration-table'>
+    <tab active="$first" ng-repeat="category in menu_catogaries" select="get_category_products(category.id)">
+      <tab-heading>
+        {{ category.name }}
+      </tab-heading>
+      <h4 ng-cloak>
+        {{ category.name }}
+      </h4>
+      <table>
         <thead>
         <tr>
-            <th>图片</th>
-            <th>商品名称</th>
-            <th>价格</th>
-            <th>计量单位</th>
-            <th>操作</th>
+          <th>图片</th>
+          <th>商品名称</th>
+          <th>价格</th>
+          <th>计量单位</th>
+          <th>操作</th>
         </tr>
         </thead>
 
         <tbody>
         <tr ng-repeat="product in category_products">
-            <td><img ng-src="product.img_key" alt=""></td>
-            <td>{{ product.description }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.unit }}</td>
-            <td>
-                <button class="button tiny" ng-click="edit_product(product)">编辑</button>
-                <button class="button tiny" ng-click="del_product(product)">删除</button>
-            </td>
+          <td class="product-icon-wrapper"><img img-key="{{ product.img_key }}" alt=""></td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.unit }}</td>
+          <td>
+            <button class="button tiny" ng-click="edit_product(product)">编辑</button>
+            <button class="button tiny" ng-click="del_product(product)">删除</button>
+          </td>
         </tr>
         </tbody>
-    </table>
-    <button class="button expand" ng-click="create_product()">+添加新商品</button>
-    </tab>
-    <tab heading="+添加新分类" select="menu_new()"></tab>
-</tabset>
+      </table>
+      <button class="button expand" ng-click="create_product()">+添加新商品</button>
+      </tab>
+      <tab heading="+添加新分类" select="menu_new()"></tab>
+  </tabset>
 
+</section>
 <script type="text/ng-template" id="product_del.html">
-    <p>确认删除该商品吗？</p>
-    <hr>
+  <p>确认删除该商品吗？</p>
+  <hr>
 
-    <div class="button-group">
-        <button class="button" ng-click="confirm()">确认</button>
-        <button class="button secondary" ng-click="cancel()">取消</button>
-    </div>
+  <div class="button-group">
+    <button class="button" ng-click="confirm()">确认</button>
+    <button class="button secondary" ng-click="cancel()">取消</button>
+  </div>
 
 </script>
 <script type="text/ng-template" id="product_edit.html">
