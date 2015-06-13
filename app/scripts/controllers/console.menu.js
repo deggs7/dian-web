@@ -50,10 +50,21 @@ angular.module('dianApp')
             //$http.post(api_url + '/menu/create-menu/', {})
         };
 
-        $scope.create_product = function() {
+        $scope.create_product = function(category_id) {
             var product_create_modal_instance = $modal.open({
                 templateUrl: 'product_create.html',
-                controller: 'ModalProductCreateCtrl',//use same modal template for edit product
+                controller: 'ModalProductCreateCtrl'//use same modal template for edit product
+            });
+            product_create_modal_instance.result.then(function (product) {
+                console.log('create product');
+
+                product.category = category_id;
+                $http.post(config.api_url + '/menu/create-product/', product).then(function(product) {
+                    $scope.category_products.push(product);
+                }, function() {
+
+                });
+
             });
         };
 
@@ -165,8 +176,10 @@ angular.module('dianApp')
 
     .controller('ModalProductCreateCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance){
 
+        $scope.product = {};
+
         $scope.confirm = function(){
-            $modalInstance.close();
+            $modalInstance.close($scope.product);
         };
 
         $scope.cancel = function(){
