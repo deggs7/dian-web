@@ -45,9 +45,26 @@ angular.module('dianApp')
 
             });
         };
-        $scope.menu_new = function(/* restaurant_id, menu_id */) {
-            console.log('menu_new:');
-            //$http.post(api_url + '/menu/create-menu/', {})
+
+        $scope.create_category = function(menu) {
+            var category_create_modal_instance = $modal.open({
+                templateUrl: 'catogary_create.html',
+                controller: 'ModalCatogaryCreateCtrl'//use same modal template for edit product
+            });
+
+            category_create_modal_instance.result.then(function (category) {
+                console.log('create category');
+
+                category.menu = menu.id;
+                $http.post(config.api_url + '/menu/create-category/', category).then(function(res) {
+                    $scope.menu_catogaries.push(res.data);//res.data is a catogary instance
+                }, function() {
+
+                });
+
+            });
+
+
         };
 
         $scope.create_product = function(category_id) {
@@ -59,8 +76,8 @@ angular.module('dianApp')
                 console.log('create product');
 
                 product.category = category_id;
-                $http.post(config.api_url + '/menu/create-product/', product).then(function(product) {
-                    $scope.category_products.push(product);
+                $http.post(config.api_url + '/menu/create-product/', product).then(function(res) {
+                    $scope.category_products.push(res.data);//res.data is a product instance
                 }, function() {
 
                 });
@@ -167,6 +184,19 @@ angular.module('dianApp')
         $scope.product = product;
         $scope.confirm = function(){
             $modalInstance.close($scope.product);
+        };
+
+        $scope.cancel = function(){
+            $modalInstance.dismiss();
+        };
+    }])
+
+    .controller('ModalCatogaryCreateCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance){
+
+        $scope.category = {};
+
+        $scope.confirm = function(){
+            $modalInstance.close($scope.category);
         };
 
         $scope.cancel = function(){

@@ -34,7 +34,7 @@
       </table>
       <button class="button expand" ng-click="create_product(category.id)">+添加新商品</button>
       </tab>
-      <tab heading="+添加新分类" select="menu_new()"></tab>
+      <tab heading="+添加新分类" select="create_category(menu)"></tab>
   </tabset>
 
 </section>
@@ -119,4 +119,31 @@
 <script type="text/ng-template" id="product_edit.html">
   <h4>编辑商品</h4>
   <ng-include src="'product.html'"></ng-include>
+</script>
+
+
+<script type="text/ng-template" id="catogary_create.html">
+  <h4>创建新分类</h4>
+  <hr>
+  <form>
+    <div class="row">
+      <div class="small-8 columns">
+        <div class="row">
+          <div class="small-3 columns">
+            <label for="type_max" class="right inline">分类名称</label>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" id="type_max" ng-model="category.name">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <hr>
+
+  <div class="button-group">
+    <button class="button" ng-click="confirm()">确认</button>
+    <button class="button secondary" ng-click="cancel()">取消</button>
+  </div>
 </script>
