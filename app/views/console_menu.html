@@ -48,8 +48,7 @@
   </div>
 
 </script>
-<script type="text/ng-template" id="product_edit.html">
-  <h4>编辑商品</h4>
+<script type="text/ng-template" id="product.html">
   <hr>
   <form>
     <div class="row">
@@ -110,4 +109,14 @@
     <button class="button secondary" ng-click="cancel()">取消</button>
   </div>
 
+</script>
+
+<script type="text/ng-template" id="product_create.html">
+  <h4>创建商品</h4>
+  <ng-include src="'product.html'"></ng-include>
+</script>
+
+<script type="text/ng-template" id="product_edit.html">
+  <h4>编辑商品</h4>
+  <ng-include src="'product.html'"></ng-include>
 </script>
