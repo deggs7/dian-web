@@ -34,7 +34,7 @@
       </table>
       <button class="button expand" ng-click="create_product(category.id)">+添加新商品</button>
       </tab>
-      <tab heading="+添加新分类" select="create_category(menu)"></tab>
+      <tab heading="+添加新分类" select="angular.noop()" ng-click="create_category(menu)"></tab>
   </tabset>
 
 </section>
@@ -120,7 +120,6 @@
   <h4>编辑商品</h4>
   <ng-include src="'product.html'"></ng-include>
 </script>
-
 
 <script type="text/ng-template" id="catogary_create.html">
   <h4>创建新分类</h4>
