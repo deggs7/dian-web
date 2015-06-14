@@ -49,7 +49,7 @@ angular.module('dianApp')
                 $http.post(config.api_url + '/table/create-table/', table).then(function(res) {
                     console.log('create table');
                     console.log(res.data);
-                    $scope.table_types = $scope.table_types.concat(angular.isArray(res.data) ? res.data : [res.data]);
+                    $scope.tables = $scope.tables.concat(angular.isArray(res.data) ? res.data : [res.data]);
                 }, function(res) {
                     console.error('create table error');
                 });
