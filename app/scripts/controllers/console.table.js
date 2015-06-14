@@ -168,6 +168,38 @@ angular.module('dianApp')
             });
             */
         };
+
+        $scope.del_table = function(table){
+             ui.confirm({
+                 content: '确认要删除该餐桌吗？'
+             }).then(function() {
+                 $http.get(config.api_url + '/table/delete-table/' + table.id + '/').then(function(res) {
+                     console.log('del table');
+                     console.log(res.data);
+                     $scope.tables = _.without($scope.tables, table);
+                 }, function(res) {
+
+                 });
+
+             }, function() {
+
+             });
+
+            /*
+            product_del_modal_instance.result.then(function () {
+                return $http
+                    .get(config.api_url + '/menu/delete-product/' + product.id + '/');
+            }).then(function() {
+              console.log('del_product ok');
+              $scope.category_products = _.filter($scope.category_products, function(p) {
+                return p.id !== product.id;
+              });
+
+            }, function() {
+              console.error('del_product error');
+            });
+            */
+        };
     }])
 
     .controller('ModalAddTypeCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_types',  function ($scope, $http, $modal, $modalInstance, table_types) {
