@@ -18,7 +18,7 @@ angular.module('dianApp')
 
     }])
 
-    .controller('TableCtrl', ['$scope', '$http', '$modal', '$log', function ($scope, $http, $modal, $log) {
+    .controller('TableCtrl', ['$scope', '$http', '$modal', '$log','ui', function ($scope, $http, $modal, $log, ui) {
         $http({
             url: config.api_url + '/table/table-type/',
             method: 'GET'
@@ -136,6 +136,37 @@ angular.module('dianApp')
                 });
 
             });
+        };
+
+        $scope.del_table_type = function(table_type){
+             ui.confirm({
+                 content: '确认要删除该餐桌类型吗？'
+             }).then(function() {
+                 $http.delete(config.api_url + '/table/table_type/' + table_type.id + '/').then(function(res) {
+                     console.log('del table type');
+                     console.log(res.data);
+                 }, function(res) {
+
+                 });
+
+             }, function() {
+
+             });
+
+            /*
+            product_del_modal_instance.result.then(function () {
+                return $http
+                    .get(config.api_url + '/menu/delete-product/' + product.id + '/');
+            }).then(function() {
+              console.log('del_product ok');
+              $scope.category_products = _.filter($scope.category_products, function(p) {
+                return p.id !== product.id;
+              });
+
+            }, function() {
+              console.error('del_product error');
+            });
+            */
         };
     }])
 
