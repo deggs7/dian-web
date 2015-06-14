@@ -12,9 +12,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="i in [1, 2]">
-          <td>A12</td>
-          <td>小桌1-2人</td>
+        <tr ng-repeat="table in tables">
+          <td>{{ table.name }}</td>
+          <td>{{ table.table_type }}</td>
           <td>
             <button class="button tiny" ng-click="edit(table_type)">编辑</button>
             <button class="button tiny" ng-click="">删除</button>

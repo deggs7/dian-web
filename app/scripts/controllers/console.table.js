@@ -27,10 +27,18 @@ angular.module('dianApp')
             $scope.table_types = data;
         });
 
+        $http({
+            url: config.api_url + '/table/list-table/',
+            method: 'GET'
+        })
+        .success(function(data, status, headers, config){
+            $scope.tables = data;
+        });
+
         $scope.add_table = function() {
             var table_modalInstance = $modal.open({
                 templateUrl: 'add_table.html',
-                controller: 'ModalAddTableTypeCtrl',
+                controller: 'ModalAddTableCtrl',
                 resolve: {
                     table_types: function() {
                         return $scope.table_types;
@@ -121,7 +129,7 @@ angular.module('dianApp')
             $modalInstance.dismiss();
         };
     }])
-    .controller('ModalAddTableTypeCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_types',  function ($scope, $http, $modal, $modalInstance, table_types) {
+    .controller('ModalAddTableCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_types',  function ($scope, $http, $modal, $modalInstance, table_types) {
         var table_type;
 
         $scope.table = {};
