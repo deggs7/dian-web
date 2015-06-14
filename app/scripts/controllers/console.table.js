@@ -41,6 +41,7 @@ angular.module('dianApp')
                 $http.post(config.api_url + '/table/create-table/', table).then(function(res) {
                     console.log('create table');
                     console.log(res.data);
+                    $scope.table_types = $scope.table_types.concat(angular.isArray(res.data) ? res.data : [res.data]);
                 }, function(res) {
                     console.error('create table error');
                 });
@@ -48,10 +49,17 @@ angular.module('dianApp')
             });
         };
 
+        //use to add table type
         $scope.add = function(){
             var table_type_modalInstance = $modal.open({
                 templateUrl: 'add_table_type.html',
-                controller: 'ModalAddTableTypeCtrl'
+                controller: 'ModalAddTypeCtrl',
+                resolve: {
+                    table_types: function() {
+                        return $scope.table_types;
+                    }
+                }
+
             });
 
             table_type_modalInstance.result.then(function (data) {
@@ -98,8 +106,24 @@ angular.module('dianApp')
         };
     }])
 
+    .controller('ModalAddTypeCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_types',  function ($scope, $http, $modal, $modalInstance, table_types) {
+         $scope.type_form = {
+            "name": null,
+            "min_seats": null,
+            "max_seats": null
+        };
+
+        $scope.confirm = function(){
+            $modalInstance.close($scope.type_form);
+        };
+
+        $scope.cancel = function(){
+            $modalInstance.dismiss();
+        };
+    }])
     .controller('ModalAddTableTypeCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_types',  function ($scope, $http, $modal, $modalInstance, table_types) {
         var table_type;
+
         $scope.table = {};
         $scope.table_types = table_types;
         $scope.table.table_type = (table_type = $scope.table_types[0]) && table_type.name || null;
