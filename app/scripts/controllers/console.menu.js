@@ -97,9 +97,7 @@ angular.module('dianApp')
                     .get(config.api_url + '/menu/delete-product/' + product.id + '/');
             }).then(function() {
               console.log('del_product ok');
-              $scope.category_products = _.filter($scope.category_products, function(p) {
-                return p.id !== product.id;
-              });
+              $scope.category_products = _.without($scope.category_products, product);
 
             }, function() {
               console.error('del_product error');
