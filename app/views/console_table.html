@@ -109,7 +109,7 @@
             <label for="table_num" class="right inline">餐桌编号</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" id="table_num" ng-model="table_num.name">
+            <input type="text" id="table_num" ng-model="table.name">
           </div>
         </div>
         <div class="row">
@@ -121,7 +121,8 @@
             <label for="table_type" class="right inline">餐桌类型</label>
           </div>
           <div class="small-9 columns">
-            <select id="" name="table_type" ng-model="table_type_type" ng-options="name as type.name for type in [{name: 'table type 1'}, {name: 'table type 2'}]"></select>
+            <!-- back-end require table_type_id -->
+            <select id="" name="table_type" ng-model="table.table_type" ng-options="table_type.id as table_type.name for table_type in table_types"></select>
           </div>
         </div>
       </div>
@@ -131,10 +132,7 @@
   <hr>
 
   <div class="button-group">
-    <button class="button" ng-click="confirm()" ng-disabled="type_form.name=='' ||
-                type_form.min_seats > type_form.max_seats ||
-                type_form.min_seats==null ||
-                type_form.max_seats==null">确认</button>
+    <button class="button" ng-click="confirm()" ng-disabled="!table.name || !table.table_type">确认</button>
     <button class="button secondary" ng-click="cancel()">取消</button>
   </div>
 

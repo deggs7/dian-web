@@ -103,22 +103,24 @@
   </form>
 
   <hr>
-
-  <div class="button-group">
-    <button class="button" ng-click="confirm()">确认</button>
-    <button class="button secondary" ng-click="cancel()">取消</button>
-  </div>
-
 </script>
 
 <script type="text/ng-template" id="product_create.html">
   <h4>创建商品</h4>
   <ng-include src="'product.html'"></ng-include>
+  <div class="button-group">
+    <button ng-disabled="!product.name || !product.price" class="button" ng-click="confirm()">确认</button>
+    <button class="button secondary" ng-click="cancel()">取消</button>
+  </div>
 </script>
 
 <script type="text/ng-template" id="product_edit.html">
   <h4>编辑商品</h4>
   <ng-include src="'product.html'"></ng-include>
+  <div class="button-group">
+    <button class="button" ng-click="confirm()">确认</button>
+    <button class="button secondary" ng-click="cancel()">取消</button>
+  </div>
 </script>
 
 <script type="text/ng-template" id="catogary_create.html">
@@ -142,7 +144,7 @@
   <hr>
 
   <div class="button-group">
-    <button class="button" ng-click="confirm()">确认</button>
+    <button class="button" ng-disabled="category.name" ng-click="confirm()">确认</button>
     <button class="button secondary" ng-click="cancel()">取消</button>
   </div>
 </script>

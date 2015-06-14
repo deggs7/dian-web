@@ -19,19 +19,32 @@ angular.module('dianApp')
     }])
 
     .controller('TableCtrl', ['$scope', '$http', '$modal', '$log', function ($scope, $http, $modal, $log) {
-        $http(
-            {
-                url: config.api_url + '/table/table-type/',
-                method: 'GET'
-            })
-            .success(function(data, status, headers, config){
-                $scope.table_types = data;
+        $http({
+            url: config.api_url + '/table/table-type/',
+            method: 'GET'
+        })
+        .success(function(data, status, headers, config){
+            $scope.table_types = data;
         });
-        
+
         $scope.add_table = function() {
             var table_modalInstance = $modal.open({
                 templateUrl: 'add_table.html',
-                controller: 'ModalAddTableTypeCtrl'
+                controller: 'ModalAddTableTypeCtrl',
+                resolve: {
+                    table_types: function() {
+                        return $scope.table_types;
+                    }
+                }
+            });
+            table_modalInstance.result.then(function(table) {
+                $http.post(config.api_url + '/table/create-table/', table).then(function(res) {
+                    console.log('create table');
+                    console.log(res.data);
+                }, function(res) {
+                    console.error('create table error');
+                });
+
             });
         };
 
@@ -85,20 +98,19 @@ angular.module('dianApp')
         };
     }])
 
-    .controller('ModalAddTableTypeCtrl', ['$scope', '$http', '$modal', '$modalInstance', function ($scope, $http, $modal, $modalInstance) {
-        $scope.type_form = {
-            "name": null,
-            "min_seats": null,
-            "max_seats": null
-        };
+    .controller('ModalAddTableTypeCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_types',  function ($scope, $http, $modal, $modalInstance, table_types) {
+        var table_type;
+        $scope.table = {};
+        $scope.table_types = table_types;
+        $scope.table.table_type = (table_type = $scope.table_types[0]) && table_type.name || null;
 
         $scope.confirm = function(){
-            $modalInstance.close($scope.type_form);
+            $modalInstance.close($scope.table);
         };
 
         $scope.cancel = function(){
             $modalInstance.dismiss();
-            };
+        };
     }])
 
     .controller('ModalEditTableTypeCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_type',
