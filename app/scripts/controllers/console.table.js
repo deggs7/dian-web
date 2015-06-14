@@ -112,6 +112,31 @@ angular.module('dianApp')
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
+
+        $scope.edit_table = function(table) {
+            var table_modalInstance = $modal.open({
+                templateUrl: 'add_table.html',
+                controller: 'ModalEditTableCtrl',
+                resolve: {
+                    table_types: function() {
+                        return $scope.table_types;
+                    },
+                    table: function() {
+                        return table;
+                    }
+                }
+            });
+
+            table_modalInstance.result.then(function(table) {
+                $http.post(config.api_url + '/table/update-table/' + table.id + '/').then(function(res) {
+                    console.log('edit table');
+                    console.log(res.data);
+                }, function(res) {
+
+                });
+
+            });
+        };
     }])
 
     .controller('ModalAddTypeCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_types',  function ($scope, $http, $modal, $modalInstance, table_types) {
@@ -129,12 +154,28 @@ angular.module('dianApp')
             $modalInstance.dismiss();
         };
     }])
+
     .controller('ModalAddTableCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_types',  function ($scope, $http, $modal, $modalInstance, table_types) {
         var table_type;
 
         $scope.table = {};
         $scope.table_types = table_types;
         $scope.table.table_type = (table_type = $scope.table_types[0]) && table_type.name || null;
+
+        $scope.confirm = function(){
+            $modalInstance.close($scope.table);
+        };
+
+        $scope.cancel = function(){
+            $modalInstance.dismiss();
+        };
+    }])
+
+    .controller('ModalEditTableCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'table_types', 'table', function ($scope, $http, $modal, $modalInstance, table_types, table) {
+        var table_type;
+
+        $scope.table_types = table_types;
+        $scope.table = table;
 
         $scope.confirm = function(){
             $modalInstance.close($scope.table);
@@ -157,4 +198,5 @@ angular.module('dianApp')
             $scope.cancel = function(){
                 $modalInstance.dismiss();
             };
-        }]);
+        }])
+
