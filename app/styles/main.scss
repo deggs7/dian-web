@@ -407,3 +407,19 @@ table.current-registration {
     }
 }
 
+.console-order {
+    .tables {
+        margin: 20px;
+        > li {
+            display: inline-block;
+
+            .tablet {
+                width: 140px;
+                height: 100px;
+                padding: 0;
+                margin: 12px;
+                line-height: 100px;
+            }
+        }
+    }
+}
