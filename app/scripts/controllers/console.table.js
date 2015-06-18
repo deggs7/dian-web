@@ -18,7 +18,7 @@ angular.module('dianApp')
 
     }])
 
-    .controller('TableCtrl', ['$scope', '$http', '$modal', '$log','ui', function ($scope, $http, $modal, $log, ui) {
+    .controller('TableCtrl', ['$scope', '$http', '$modal', '$log','ui', 'fetch', function ($scope, $http, $modal, $log, ui, fetch) {
         $http({
             url: config.api_url + '/table/table-type/',
             method: 'GET'
@@ -27,11 +27,7 @@ angular.module('dianApp')
             $scope.table_types = data;
         });
 
-        $http({
-            url: config.api_url + '/table/list-table/',
-            method: 'GET'
-        })
-        .success(function(data, status, headers, config){
+        fetch('tables').success(function(data, status, headers, config){
             $scope.tables = data;
         });
 

@@ -19,6 +19,10 @@ angular.module('dianApp')
             });
     }])
 
-    .controller('OrderCtrl', ['$scope', '$http', function($scope, $http){
+    .controller('OrderCtrl', ['$scope', '$http', 'fetch', function($scope, $http, fetch){
+        fetch('tables').success(function(data) {
+            console.log('fetch tables');
+            console.log(data);
+        });
     }]);
 
