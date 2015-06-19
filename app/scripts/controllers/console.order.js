@@ -39,11 +39,17 @@ angular.module('dianApp')
             }[order_status_num + ''] || '未下单';
         };
     }])
-    .controller('OrderCtrl', ['$scope', '$http', 'fetch', function($scope, $http, fetch){
+
+    .controller('ModalTableOrderCtrl', ['$scope', 'table', function($scope, table) {
+        $scope.table = table;
+    }])
+
+    .controller('OrderCtrl', ['$modal', '$scope', '$http', 'fetch', function($modal, $scope, $http, fetch){
         fetch('tables').success(function(data) {
             console.log('fetch tables');
             console.log(data);
-            //$scope.tables = data;
+            $scope.tables = data;
+            /*
             $scope.tables = [{
                 order_status: 0
             }, {
@@ -55,6 +61,21 @@ angular.module('dianApp')
             }, {
                 order_status: null
             }]
+            */
         });
+        $scope.table_order = table_order;
+
+        function table_order(table) {
+            console.log('talbe order');
+            $modal.open({
+                templateUrl: 'table_order.html',
+                controller: 'ModalTableOrderCtrl',
+                resolve: {
+                    table: function() {
+                        return table;
+                    }
+                }
+            });
+        }
     }]);
 

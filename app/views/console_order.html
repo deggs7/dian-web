@@ -1,7 +1,7 @@
 <section class="console-order">
   <ul class="tables">
     <li ng-repeat="table in tables">
-    <a href="#" class="button tablet" ng-class=" table.order_status | table_order_class "><span>桌名(餐桌类型名称)<br>{{ table.order_status | order_status }}</span></a>
+    <a href="#" class="button tablet" ng-click="table_order(table)" ng-class=" table.order_status | table_order_class "><span>{{ table.name }}(餐桌类型名称)<br>{{ table.order_status | order_status }}</span></a>
     </li>
     <!--
     <li>
@@ -19,4 +19,15 @@
     -->
   </ul>
 </section>
+
+<script type="text/ng-template" id="table_order.html">
+  <div class="row">
+    <div class="small-6 columns">
+    <h1>{{ table.name }}</h1>
+    </div>
+    <div class="small-6 columns">
+    <h1> {{ table.type }}</h1>
+    </div>
+  </div>
+</script>
 
