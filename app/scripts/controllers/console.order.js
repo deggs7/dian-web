@@ -19,6 +19,16 @@ angular.module('dianApp')
             });
     }])
 
+    .filter('table_order_class', [function() {
+        return function (order_status_num) {
+            return {
+                '0': 'success',
+                '1': 'confirm',
+                '2': 'secondary',
+                '3': 'alert'
+            }[order_status_num + ''] || 'info';
+        };
+    }])
     .filter('order_status', [function() {
         return function (order_status_num) {
             return {
@@ -33,6 +43,18 @@ angular.module('dianApp')
         fetch('tables').success(function(data) {
             console.log('fetch tables');
             console.log(data);
+            //$scope.tables = data;
+            $scope.tables = [{
+                order_status: 0
+            }, {
+                order_status: 1
+            }, {
+                order_status: 2
+            }, {
+                order_status: 3
+            }, {
+                order_status: null
+            }]
         });
     }]);
 

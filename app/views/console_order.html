@@ -1,8 +1,9 @@
 <section class="console-order">
   <ul class="tables">
-    <li>
-    <a href="#" class="button tablet confirm"><span>桌名(餐桌类型名称)<br>{{ null | order_status}}</span></a>
+    <li ng-repeat="table in tables">
+    <a href="#" class="button tablet" ng-class=" table.order_status | table_order_class "><span>桌名(餐桌类型名称)<br>{{ table.order_status | order_status }}</span></a>
     </li>
+    <!--
     <li>
       <a href="#" class="button success tablet checkout"><span>已付款</span></a>
     </li>
@@ -15,6 +16,7 @@
     <li>
       <a href="#" class="button info tablet dish-up"><span>待上菜</span></a>
     </li>
+    -->
   </ul>
 </section>
 
