@@ -19,6 +19,16 @@ angular.module('dianApp')
             });
     }])
 
+    .filter('order_status', [function() {
+        return function (order_status_num) {
+            return {
+                '0': '已下单',
+                '1': '待付款',
+                '2': '已付款',
+                '3': '已取消'
+            }[order_status_num + ''] || '未下单';
+        };
+    }])
     .controller('OrderCtrl', ['$scope', '$http', 'fetch', function($scope, $http, fetch){
         fetch('tables').success(function(data) {
             console.log('fetch tables');
