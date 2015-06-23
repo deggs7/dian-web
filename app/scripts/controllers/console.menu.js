@@ -130,31 +130,32 @@ angular.module('dianApp')
                 }
             });
             product_edit_modal_instance.result.then(function (product) {
-                var file, upload_url, uptoken, file_key;
+                var file;
 
                 $scope.upload_status = 1;
                 file = product.img_file;
-                upload_url = config.qiniu_upload_url;
-                uptoken = $scope.uptoken;
-                if (file) {
-                    file_key = $scope.file_key;
-                    file_upload.uploadFileToUrl(file, upload_url, uptoken, file_key, function() {
+                if (file) { //whether user modifies the img of product?
+                    file_upload.upload_file(file).then(function() {
                         $scope.upload_status = 2;
+                        product.img_key = file_upload.file_key;
+                        post_product();
                     }, function() {
                         $scope.upload_status = -1;
                     });
                 } else {
                     $scope.file_key = old_img_key;
+                    post_product();
                 }
 
-                $http.post(config.api_url + '/menu/update-product/' + product.id + '/', product).then(function(res) {
-                    console.log('update product');
-                    console.log(res);
-                    product.img_key = $scope.file_key;
+                function post_product() {
+                    $http.post(config.api_url + '/menu/update-product/' + product.id + '/', product).then(function(res) {
+                        console.log('update product');
+                        console.log(res);
+                    }, function(res) {
 
-                }, function(res) {
+                    });
+                }
 
-                })
 
 
 
