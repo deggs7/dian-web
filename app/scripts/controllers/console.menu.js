@@ -75,12 +75,16 @@ angular.module('dianApp')
             product_create_modal_instance.result.then(function (product) {
                 console.log('create product');
 
-                product.category = category_id;
-                $http.post(config.api_url + '/menu/create-product/', product).then(function(res) {
-                    $scope.category_products.push(res.data);//res.data is a product instance
-                }, function() {
+                file_upload.upload_file(product.img_file).then(function() {
+                    product.category = category_id;
+                    product.img_key = file_upload.file_key;
+                    $http.post(config.api_url + '/menu/create-product/', product).then(function(res) {
+                        $scope.category_products.push(res.data);//res.data is a product instance
+                    }, function() {
 
-                });
+                    });
+                })
+
 
             });
         };
