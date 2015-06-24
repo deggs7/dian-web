@@ -15,6 +15,7 @@ angular
         'ngRoute',
         'ngSanitize',
         'ngTouch',
+        'ngResource',
         /* 3rd Party Modules */
         'LocalStorageModule',
         'ui.router',
