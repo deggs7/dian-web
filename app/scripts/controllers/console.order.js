@@ -33,6 +33,15 @@ angular.module('dianApp')
             };
         }
     ])
+    .filter('order_time', [function() {
+        return function(order_time_utc) {//2015-03-21T00:00:00Z
+            return extractTime(order_time_utc);
+
+            function extractTime (utc_time) {
+                return angular.isString(utc_time) ? utc_time.match(/T([^Z]*)Z/)[1] : '';
+            }
+        };
+    }])
     .filter('order_status', [
         function() {
             return function(order_status_num) {
@@ -46,20 +55,65 @@ angular.module('dianApp')
         }
     ])
 
-.controller('ModalTableOrderCtrl', ['$scope', 'fetch', 'table',
-    function($scope, fetch, table) {
-        console.log('table detail');
+.controller('ModalTableOrderCtrl', ['$http', '$scope', 'fetch', 'table',
+    function($http, $scope, fetch, table) {
+        console.log('table info');
         console.log(table);
         //$scope.table = table;
-        $scope.table = mock_table();
-        $scope.table.total_price = _.reduce(_.pluck($scope.table.order_items, 'price'), function(memo, num) {
-            return (memo + num) * 1;
-        }, 0);
+        $http.get(config.api_url + '/get-table-detail/' + table.id + '/').then(function(data) {
+            console.log('get table detail');
+            console.log(data);
+            $scope.table = data;//data is an order instance
+            $scope.table.total_price = _.reduce(_.pluck(
+                $scope.table.order_items, 'price'
+            ), function(memo, num) {
+                return (memo + num) * 1;
+            }, 0);
+        }, function(data) {
+            console.warn('get table detail error');
+            console.log(data);
+        });
+        //$scope.table = mock_table(); //after developing, comment this line
+
         /* 目前不需要table-type详细信息
         fetch('table-type').get({id: table['table_type']}, function(ty) {
             $scope.table_type = ty;
         });
         */
+        $scope.rejectOrder = function(table) {
+            $http.get(config.api_url + '/reject-order/' + table.id + '/').then(function(data) {//here table is an order, actually
+                console.log('confirm order');
+                console.log(data);
+                $scope.table.status = 3;//已取消
+            }, function(data) {
+                console.warn('reject order error');
+                console.log(data);
+            });
+            //$scope.table.status = 3;//for debug
+        };
+        $scope.finish_order = function(table) {
+            $http.get(config.api_url + '/finish-order/' + table.id + '/').then(function(data) {//here table is an order, actually
+                console.log('finish order');
+                console.log(data);
+                $scope.table.status = 2;//已付款
+            }, function(data) {
+                console.warn('finish order error');
+                console.log(data);
+            });
+            //$scope.table.status = 2;//for debug
+        };
+
+        $scope.confirmOrder = function(table) {
+            $http.get(config.api_url + '/confirm-order/' + table.id + '/').then(function(data) {//here table is an order, actually
+                console.log('confirm order');
+                console.log(data);
+                $scope.table.status = 1;
+            }, function(data) {
+                console.warn('confirm order error');
+                console.log(data);
+            });
+            //$scope.table.status = 1;//for debug
+        };
 
         function mock_table(table) {
             return {

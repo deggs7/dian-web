@@ -54,34 +54,34 @@
       <h3>状态：{{ table.status | order_status }}</h3>
       </div>
     </div>
-    <div class="row">
+    <div class="row" ng-show="table.status == 0">
       <div class="small-3 columns">待确认</div>
       <div class="small-9 columns">
         <div class="button-group">
-          <button class="button">确认菜单</button>
-          <button class="button">取消菜单</button>
+          <button class="button" ng-click="confirmOrder(table)" ng-show="table.status == 0">确认菜单</button>
+          <button class="button" ng-click="rejectOrder(table)"ng-show="table.status == 0">取消菜单</button>
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" ng-show="table.status == 0 || table.status == 1">
       <div class="small-3 columns">待付款</div>
       <div class="small-9 columns">
         <div class="button-group">
-          <button class="button">已付款</button>
+          <button class="button" ng-disabled="table.status == 2" ng-click="finish_order(table)">已付款</button>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="small-12 columns">情况跟踪</div>
+      <div class="small-12 columns"><h3>情况跟踪</h3></div>
     </div>
     <div class="row">
-      <div class="small-12 columns">下单时间</div>
+      <div class="small-12 columns">下单时间：{{ table.create_time | order_time }}</div>
     </div>
     <div class="row">
-      <div class="small-12 columns">确认时间</div>
+      <div class="small-12 columns">确认时间：{{ table.confirm_time | order_time }}</div>
     </div>
     <div class="row">
-      <div class="small-12 columns">付款时间</div>
+      <div class="small-12 columns">付款时间：{{ table.pay_time | order_time }} </div>
     </div>
   </div>
 </script>
