@@ -23,10 +23,10 @@
 <script type="text/ng-template" id="table_order.html">
   <div class="row">
     <div class="small-6 columns">
-    <h3>{{ table.name }}</h3>
+    <h3>餐桌名称：{{ table.name }}</h3>
     </div>
     <div class="small-6 columns">
-    <h3>小桌不知道多少人</h3>
+    <h3>人数：{{ table.member }}</h3>
     </div>
   </div>
   <div class="row">
@@ -38,20 +38,20 @@
           <th>数量</th>
           <th>单价</th>
         </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <tr ng-repeat="item in table.order_items">
+          <td>{{ item.category }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.count }}</td>
+          <td>{{ item.price }}</td>
         </tr>
       </table>
     </div>
     <div class="row">
       <div class="small-6 columns">
-      <h3>总价：X元</h3>
+      <h3>总价：{{ table.total_price }}元</h3>
       </div>
       <div class="small-6 columns">
-      <h3>状态：待确认</h3>
+      <h3>状态：{{ table.status | order_status }}</h3>
       </div>
     </div>
     <div class="row">

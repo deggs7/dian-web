@@ -45,6 +45,10 @@ angular
       $httpProvider.defaults.transformRequest.push(spinnerFunction);
     })
 
+    .config(['$resourceProvider', function($resourceProvider) {
+        $resourceProvider.defaults.stripTrailingSlashes = false;
+    }])
+
     .factory('authInterceptor', ['$q', '$cookies', '$location', 'localStorageService', function ($q, $cookies, $location, localStorageService) {
         return {
             request: function (config) {
