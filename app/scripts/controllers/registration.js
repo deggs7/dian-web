@@ -55,7 +55,7 @@ angular.module('dianApp')
             });
 
         $http
-            .get(config.api_url + '/wp/register-qrcode/')
+            .get(config.api_url + '/restaurant/register-qrcode/')
             .success(function (data, status, headers, config) {
               $('div.register-qrcode')
                   .css('background-image', 'url(\'' + cdn_file_url + '/'+ data.file_key + '\')');
