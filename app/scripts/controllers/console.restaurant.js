@@ -25,11 +25,21 @@ angular.module('dianApp')
                 $scope.file_key = data.file_key;
             });
 
+        // 临时解决，用同一种获取file_key的方法，来获取微信logo的file_key
+        $http({url: config.api_url + '/restaurant/uptoken-restaurant/', method: 'GET'})
+            .success(function (data, status, headers, config) {
+                $scope.wp_qrcode_uptoken = data.uptoken;
+                $scope.wp_qrcode_file_key = data.file_key;
+            });
+
         $http({url: config.api_url + '/restaurant/default-restaurant/', method: 'GET'})
             .success(function (data, status, headers, config) {
                 $scope.restaurant = data;
                 $scope.restaurant_update = {
-                    "name": $scope.restaurant.name
+                    "name": $scope.restaurant.name,
+                    "wifi_name": $scope.restaurant.wifi_name,
+                    "wifi_password": $scope.restaurant.wifi_password,
+                    "wp_name": $scope.restaurant.wp_name
                 };
             });
 
@@ -38,6 +48,7 @@ angular.module('dianApp')
             // 更新数据库部分
             $scope.restaurant_update['restaurant_id'] = $scope.$parent.restaurant.id;
             $scope.restaurant_update['file_key'] = $scope.file_key;
+            $scope.restaurant_update['wp_qrcode_file_key'] = $scope.wp_qrcode_file_key;
             $http({
                 method: 'PUT',
                 url: config.api_url + '/restaurant/update-restaurant/',
@@ -55,7 +66,7 @@ angular.module('dianApp')
                     console.log(status);
                 });
 
-            // 上传文件部分
+            // 上传文件 - 餐厅背景图
             $scope.upload_status = 1;
             var file = $scope.background;
             var uploadUrl = config.qiniu_upload_url;
@@ -66,5 +77,19 @@ angular.module('dianApp')
             }, function(){
                 $scope.upload_status = -1;
             });
+
+            // 上传文件 - 微信二维码
+            $scope.wp_qrcode_upload_status = 1;
+            var file = $scope.wp_qrcode;
+            var uploadUrl = config.qiniu_upload_url;
+            var key = 'restaurant-' + $scope.$parent.restaurant.id;
+            fileUpload.uploadFileToUrl(file, uploadUrl, $scope.wp_qrcode_uptoken, $scope.wp_qrcode_file_key, function () {
+                // 数据库中的file_key字段或许应该在此处回调
+                $scope.wp_qrcode_upload_status = 2;
+            }, function(){
+                $scope.wp_qrcode_upload_status = -1;
+            });
+
+
         };
     }]);

@@ -2,22 +2,49 @@
 
 <form ng-submit="update()">
 
-    <div class="row">
-        <div class="medium-9 columns">
-            <label>餐厅名称
-                <input type="text" ng-model="restaurant_update.name"/>
-            </label>
-            <label>餐厅背景图
-                <input type="file" file-upload="background"/>
-            </label>
-            <p>
-              <span class="label" ng-show="upload_status==1"><i class="fi-upload"></i> 正在上传...</span>
-              <span class="label success" ng-show="upload_status==2"><i class="fi-check"></i> 上传成功！</span>
-              <span class="label alert" ng-show="upload_status==-1">上传失败，请重试</span>
-            </p>
-            <input type="submit" name="" value="更新" class="button expand tiny"/>
-        </div>
+  <div class="row">
+    <div class="medium-9 columns">
+      <h3>基本信息</h3>
+      <label>餐厅名称
+        <input type="text" ng-model="restaurant_update.name"/>
+      </label>
+      <label>餐厅背景图
+        <input type="file" file-upload="background"/>
+      </label>
+      <p>
+      <span class="label" ng-show="upload_status==1"><i class="fi-upload"></i> 正在上传...</span>
+      <span class="label success" ng-show="upload_status==2"><i class="fi-check"></i> 上传成功！</span>
+      <span class="label alert" ng-show="upload_status==-1">上传失败，请重试</span>
+      </p>
+
+      <hr>
+      <h3>餐厅WiFi</h3>
+      <label>WiFi名称
+        <input type="text" ng-model="restaurant_update.wifi_name"/>
+      </label>
+      <label>WiFi密码
+        <input type="text" ng-model="restaurant_update.wifi_password"/>
+      </label>
+
+      <hr>
+      <h3>餐厅微信公众号</h3>
+      <label>公众号名称
+        <input type="text" ng-model="restaurant_update.wp_name"/>
+      </label>
+      <label>公众号二维码
+        <input type="file" file-upload="wp_qrcode"/>
+      </label>
+      <p>
+      <span class="label" ng-show="wp_qrcode_upload_status==1"><i class="fi-upload"></i> 正在上传...</span>
+      <span class="label success" ng-show="wp_qrcode_upload_status==2"><i class="fi-check"></i> 上传成功！</span>
+      <span class="label alert" ng-show="wp_qrcode_upload_status==-1">上传失败，请重试</span>
+      </p>
+
+
+      <hr>
+      <input type="submit" name="" value="更新" class="button expand tiny"/>
     </div>
+  </div>
 
 
 </form>
