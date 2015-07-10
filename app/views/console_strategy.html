@@ -1,29 +1,66 @@
-<h2>等位奖励</h2>
 
-<button class="button" ng-click="add()">
-    <i class="fi-plus"></i> 添加奖励策略
-</button>
-<table>
-    <thead>
-    <tr>
-        <th width="200">等位时间（分钟）</th>
-        <th width="150">奖励方式</th>
-        <th width="150">奖励内容（礼物或折扣百分比）</th>
-        <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="strategy in strategies">
-        <td>{{ strategy.time_wait }}</td>
-        <td>{{ strategy.reward_type_desc }}</td>
-        <td>{{ strategy.reward_info }}</td>
-        <td>
-            <button class="button tiny" ng-click="modify(strategy)">修改</button>
-            <button class="button tiny" ng-click="del(strategy)">删除</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<tabset>
+  <tab heading="奖励策略">
+    <button class="button" ng-click="add_strategy()">
+      <i class="fi-plus"></i> 新建策略
+    </button>
+    <table>
+      <thead>
+        <tr>
+          <th width="150">类型</th>
+          <th width="200">奖励条件</th>
+          <th width="150">奖品</th>
+          <th width="150">操作</th>
+        </tr>
+      </thead>
+        <tbody>
+        <tr ng-repeat="strategy in strategies">
+            <td><span ng-if="strategy.type==0">排队超时 </span><span ng-if="strategy.type==1">游戏</span><span ng-if="strategy.type==2">图片分享（点赞）</span></td>
+            <td>
+                <span ng-if="strategy.type==0">{{ strategy.count }}（等位超过分钟）</span>
+                <span ng-if="strategy.type==1">{{ strategy.count }}（分数）</span>
+                <span ng-if="strategy.type==2">{{ strategy.count }}（点赞数超过）</span>
+            </td>
+            <td>
+                <span ng-if="strategy.reward.type==0">折扣: {{ strategy.reward.content }}</span>
+                <span ng-if="strategy.reward.type==1">礼物: {{ strategy.reward.content }}</span>
+            </td>
+            <td>
+                <button class="button tiny" ng-click="edit_strategy(strategy)">编辑</button>
+                <button class="button tiny" ng-click="delete_strategy(strategy)">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+  </tab>
+  <tab heading="奖品">
+    <button class="button" ng-click="add_reward()">
+      <i class="fi-plus"></i> 新建奖品
+    </button>
+    <table>
+      <thead>
+        <tr>
+          <th width="150">奖励方式</th>
+          <th width="150">奖励内容</th>
+          <th width="150">操作</th>
+        </tr>
+      </thead>
+        <tbody>
+        <tr ng-repeat="reward in rewards">
+            <td><span ng-if="reward.type==0">折扣</span><span ng-if="reward.type==1">礼物</span></td>
+            <td>
+                <span>{{ reward.content }}</span>
+            </td>
+            <td>
+                <button class="button tiny" ng-click="edit_reward(reward)">编辑</button>
+                <button class="button tiny" ng-click="delete_reward(reward)">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+  </tab>
+</tabset>
+
 
 <script type="text/ng-template" id="strategy_info.html">
     <form>
@@ -31,30 +68,78 @@
             <div class="small-8 columns">
                 <div class="row">
                     <div class="small-4 columns">
-                        <label for="time_wait" class="right inline">等位时间（分钟）</label>
+                        <label for="strategy_type" class="right inline">类型</label>
                     </div>
                     <div class="small-8 columns">
-                        <input type="number" id="time_wait" ng-model="strategy.time_wait" number="true">
+                        <select ng-model="strategy.type" data-ng-options="strategy_type.type as strategy_type.name for strategy_type in strategy_types"
+                                ng-change="strategy.count=0"></select>
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="small-4 columns">
+                        <label for="strategy_count" class="right inline">奖励条件 </label>
+                    </div>
+
+                    <div class="small-8 columns">
+                        <div class="row">
+                                <span class="right inline" ng-show="strategy.type==0">排队时间超过 </span>
+                                <span class="right inline" ng-show="strategy.type==1">游戏分数超过 </span>
+                                <span class="right inline" ng-show="strategy.type==2">点赞次数超过 </span>
+
+                                <input type="text" id="strategy_count" data-ng-model="strategy.count">
+
+                                <span class="right inline" ng-show="strategy.type==0"> 分钟</span>
+                                <span class="right inline" ng-show="strategy.type==1"> 分</span>
+                                <span class="right inline" ng-show="strategy.type==2"> 次</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-4 columns">
+                        <label for="reward" class="right inline">奖品</label>
+                    </div>
+                    <div class="small-8 columns">
+                        <select ng-model="strategy.reward" data-ng-options="reward as reward.name for reward in rewards"></select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+    <hr>
+
+    <div class="button-group">
+        <button class="button" ng-click="confirm()"
+                ng-disabled="strategy.type== null || strategy.count== 0|| strategy.reward==null">确认</button>
+        <button class="button secondary" ng-click="cancel()">取消</button>
+    </div>
+
+</script>
+
+<script type="text/ng-template" id="reward_info.html">
+    <form>
+        <div class="row">
+            <div class="small-8 columns">
                 <div class="row">
                     <div class="small-4 columns">
                         <label for="reward_type" class="right inline">奖励方式</label>
                     </div>
                     <div class="small-8 columns">
-                        <select ng-model="strategy.reward_type" data-ng-options="reward_type.type as reward_type.name for reward_type in reward_types"
-                                ng-change="strategy.reward_info=''"></select>
+                        <select ng-model="reward.type" data-ng-options="reward_type.type as reward_type.name for reward_type in reward_types"
+                                ng-change="reward.content=''"></select>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="small-4 columns">
-                        <label for="reward_info" class="right inline" ng-show="strategy.reward_type=='gift'">礼物名称（例如：小菜一份）</label>
-                        <label for="reward_info" class="right inline" ng-show="strategy.reward_type=='discount'">折扣百分比（范围：1-100）</label>
+                        <label for="reward_info" class="right inline" ng-show="reward.type==1">礼物名称（例如：小菜一份）</label>
+                        <label for="reward_info" class="right inline" ng-show="reward.type==0">折扣百分比（范围：1-100）</label>
                     </div>
                     <div class="small-8 columns">
-                        <input type="text" id="reward_info" data-ng-model="strategy.reward_info">
+                        <input type="text" id="reward_info" data-ng-model="reward.content">
                     </div>
                 </div>
             </div>
@@ -65,20 +150,9 @@
 
     <div class="button-group">
         <button class="button" ng-click="confirm()"
-                ng-disabled="strategy.reward_info == null || strategy.time_wait == null || (strategy.reward_type=='discount' && (strategy.reward_info <1 || strategy.reward_info > 100))">确认</button>
+                ng-disabled="reward.type== null || reward.content== ''|| (reward.type==0 && (reward.content < 1 || reward.content > 100))">确认</button>
         <button class="button secondary" ng-click="cancel()">取消</button>
     </div>
 
 </script>
 
-
-<script type="text/ng-template" id="strategy_del.html">
-    <p>确认删除该策略？</p>
-    <hr>
-
-    <div class="button-group">
-        <button class="button" ng-click="confirm()">确认</button>
-        <button class="button secondary" ng-click="cancel()">取消</button>
-    </div>
-
-</script>

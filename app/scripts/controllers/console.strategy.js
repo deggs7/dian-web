@@ -18,29 +18,108 @@ angular.module('dianApp')
             })
     }])
 
-    .controller('StrategyCtrl', ['$scope', '$http', '$modal', '$state', '$stateParams', '$log',
-        function ($scope, $http, $modal, $state, $stateParams, $log) {
+    .controller('StrategyCtrl', ['$scope', '$http', '$modal', '$state', '$stateParams', '$log', 'ui',
+        function ($scope, $http, $modal, $state, $stateParams, $log, ui) {
             $http(
                 {
-                    url: config.api_url + '/registration/strategy/',
+                    url: config.api_url + '/reward/list-strategy/',
                     method: 'GET'
                 })
                 .success(function(data, status, headers, config){
                     $scope.strategies = data;
                 });
 
-            $scope.add = function(){
+            $http(
+                {
+                    url: config.api_url + '/reward/list-reward/',
+                    method: 'GET'
+                })
+                .success(function(data, status, headers, config){
+                    $scope.rewards = data;
+                });
+
+            $scope.add_reward = function(){
+                console.log('ok');
+                var reward_new_modalInstance = $modal.open({
+                    templateUrl: 'reward_info.html',
+                    controller: 'ModalRewardCtrl',
+                    resolve: {
+                        "reward": null
+                    }
+                });
+
+                reward_new_modalInstance.result.then(function (data) {
+                    $http
+                        .post(config.api_url + '/reward/create-reward/', data)
+                        .success(function (data, status, headers, config) {
+                            $scope.rewards.push(data);
+                        })
+                        .error(function (data, status, headers, config) {
+                        });
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            };
+
+            $scope.edit_reward = function(reward){
+                var reward_modalInstance = $modal.open({
+                    templateUrl: 'reward_info.html',
+                    controller: 'ModalRewardCtrl',
+                    resolve: {
+                        "reward": function(){
+                            return angular.copy(reward);
+                        }
+                    }
+                });
+
+                reward_modalInstance.result.then(function (data) {
+                    $http
+                        .post(config.api_url + '/reward/update-reward/' + data.id + '/', data)
+                        .success(function (data, status, headers, config) {
+                            angular.forEach($scope.rewards, function(reward){
+                                if (reward.id == data.id){
+                                    reward.type = data.type;
+                                    reward.content = data.content;
+                                }
+                            });
+                        })
+                        .error(function (data, status, headers, config) {
+                        });
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            };
+
+            $scope.delete_reward = function(reward){
+                ui.confirm({
+                    content: '确认要删除该奖品吗？'
+                }).then(function() {
+                    $http.post(config.api_url + '/reward/delete-reward/' + reward.id + '/').then(function(res) {
+                        $scope.rewards = _.without($scope.rewards, reward);
+                    }, function(res) {
+
+                    });
+
+                }, function() {
+
+                });
+            };
+
+            $scope.add_strategy = function(){
                 var strategy_new_modalInstance = $modal.open({
                     templateUrl: 'strategy_info.html',
                     controller: 'ModalStrategyCtrl',
                     resolve: {
+                        "rewards": function(){
+                            return $scope.rewards
+                        },
                         "strategy": null
                     }
                 });
 
                 strategy_new_modalInstance.result.then(function (data) {
                     $http
-                        .post(config.api_url + '/registration/strategy/', data)
+                        .post(config.api_url + '/reward/create-strategy/', data)
                         .success(function (data, status, headers, config) {
                             $scope.strategies.push(data);
                         })
@@ -51,82 +130,89 @@ angular.module('dianApp')
                 });
             };
 
-            $scope.modify = function(strategy){
-                var strategy_modify_modalInstance = $modal.open({
+            $scope.edit_strategy = function(strategy){
+                var strategy_modalInstance = $modal.open({
                     templateUrl: 'strategy_info.html',
                     controller: 'ModalStrategyCtrl',
                     resolve: {
+                        "rewards": function(){
+                            return angular.copy($scope.rewards)
+                        },
                         "strategy": function(){
-                            // 需给编辑表单传递原值的copy，不然修改后，取消编辑时，原值的显示也会跟着变
                             return angular.copy(strategy);
                         }
                     }
                 });
 
-                strategy_modify_modalInstance.result.then(function (data) {
+                strategy_modalInstance.result.then(function (data) {
                     $http
-                        .put(config.api_url + '/registration/strategy/' + data.id + '/', data)
-                        .success(function (rt_data, status, headers, config) {
-                            // 对原对象进行修改
-                            strategy.time_wait = data.time_wait;
-                            strategy.reward_type = data.reward_type;
-                            strategy.reward_info = data.reward_info;
+                        .post(config.api_url + '/reward/update-strategy/' + data.id + '/', data)
+                        .success(function (data, status, headers, config) {
+                            angular.forEach($scope.strategies, function(strategy){
+                                if (strategy.id == data.id){
+                                    strategy.type = data.type;
+                                    strategy.count = data.count;
+                                    strategy.reward = data.reward;
+                                }
+                            });
                         })
-                        .error(function (rt_data, status, headers, config) {
+                        .error(function (data, status, headers, config) {
                         });
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });
-
             };
 
-            $scope.del = function(strategy){
-                var strategy_del_modalInstance = $modal.open({
-                    templateUrl: 'strategy_del.html',
-                    controller: 'ModalStrategyDelCtrl'
-                });
+            $scope.delete_strategy = function(strategy){
+                ui.confirm({
+                    content: '确认要删除该奖励策略吗？'
+                }).then(function() {
+                    $http.post(config.api_url + '/reward/delete-strategy/' + strategy.id + '/').then(function(res) {
+                        $scope.strategies = _.without($scope.strategies, strategy);
+                    }, function(res) {
 
-                strategy_del_modalInstance.result.then(function (data) {
-                    $http
-                        .delete(config.api_url + '/registration/strategy/' + strategy.id + '/')
-                        .success(function(data, status, headers, config){
-                            $state.transitionTo($state.current, $stateParams, {
-                                reload: true,
-                                inherit: false,
-                                notify: true
-                            });
-                        })
-                        .error(function(data, status, headers, config){
+                    });
 
-                        })
-                }, function(){
+                }, function() {
 
                 });
-            }
+            };
+
 
         }])
 
-    .controller('ModalStrategyCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'strategy',
-        function ($scope, $http, $modal, $modalInstance, strategy) {
-            $scope.reward_types = [
-                {
-                    "type": "gift",
-                    "name": "赠送礼物"
-                },
-                {
-                    "type": "discount",
-                    "name": "消费折扣"
-                }
-            ];
+    .controller('ModalStrategyCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'strategy', 'rewards',
+        function ($scope, $http, $modal, $modalInstance, strategy, rewards) {
             $scope.strategy = strategy;
+            $scope.rewards = rewards;
+
+            $scope.strategy_types = [
+                {"type": 0, "name": "排队超时"},
+                {"type": 1, "name": "游戏"},
+                {"type": 2, "name": "图片分享"}
+            ];
+            $scope.reward_types = [ "消费折扣", "赠送礼物"];
+            angular.forEach($scope.rewards, function(reward){
+                reward.name = $scope.reward_types[reward.type] + ": " + reward.content;
+            });
 
             if ($scope.strategy == null){
                 $scope.strategy = {
-                    "reward_type": $scope.reward_types[0].type,
-                    "reward_info": '',
-                    "time_wait": null
+                    "type": $scope.strategy_types[0].type,
+                    "count": 0,
+                    "reward": null
                 };
+                if ($scope.rewards.length != 0){
+                    $scope.strategy.reward = $scope.rewards[0];
+                }
+            }else{
+                angular.forEach($scope.rewards, function(reward){
+                    if (reward.id == $scope.strategy.reward.id){
+                        $scope.strategy.reward = reward;
+                    }
+                })
             }
+
 
             $scope.confirm = function(){
                 $modalInstance.close($scope.strategy);
@@ -135,15 +221,31 @@ angular.module('dianApp')
             $scope.cancel = function(){
                 $modalInstance.dismiss();
             };
+
         }])
 
-    .controller('ModalStrategyDelCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance){
+    .controller('ModalRewardCtrl', ['$scope', '$http', '$modal', '$modalInstance', 'reward',
+        function ($scope, $http, $modal, $modalInstance, reward) {
 
-        $scope.confirm = function(){
-            $modalInstance.close();
-        };
+            $scope.reward_types = [
+                {"type": 0, "name": "消费折扣"},
+                {"type": 1, "name": "赠送礼物"}
+            ];
+            $scope.reward = reward;
 
-        $scope.cancel = function(){
-            $modalInstance.dismiss();
-        }
-    }]);
+            if ($scope.reward == null){
+                $scope.reward = {
+                    "type": $scope.reward_types[0].type,
+                    "content": ''
+                };
+            }
+
+            $scope.confirm = function(){
+                $modalInstance.close($scope.reward);
+            };
+
+            $scope.cancel = function(){
+                $modalInstance.dismiss();
+            };
+        }]);
+
