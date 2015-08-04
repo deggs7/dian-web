@@ -41,6 +41,10 @@
         <i class="fi-graph-trend"></i>
         <label for="">点菜</label>
       </a>
+      <a class="item" ui-sref=".exchange" ui-sref-active="active">
+        <i class="fi-graph-trend"></i>
+        <label for="">兑换</label>
+      </a>
       <a class="item" ui-sref=".report" ui-sref-active="active">
         <i class="fi-graph-trend"></i>
         <label for="">统计</label>
@@ -53,22 +57,22 @@
         <i class="fi-volume"></i>
         <label for="">叫号</label>
       </a>
-      <a class="item" ui-sref=".history" ui-sref-active="active">
+      <a class="item" ui-sref=".order" ui-sref-active="active">
         <i class="fi-clock"></i>
-        <label for="">历史</label>
+        <label for="">点菜</label>
       </a>
-      <a class="item" ui-sref=".report" ui-sref-active="active">
+      <a class="item" ui-sref=".exchange" ui-sref-active="active">
         <i class="fi-graph-trend"></i>
-        <label for="">统计</label>
+        <label for="">兑换</label>
       </a>
     </div>
 
     <aside class="right-off-canvas-menu">
       <ul class="off-canvas-list">
-        <li><a ui-sref=".table">餐桌类型</a></li>
-        <li><a ui-sref=".strategy">等位奖励</a></li>
-        <li><a ui-sref=".exchange">奖励兑换</a></li>
+        <li><a ui-sref=".table">餐桌管理</a></li>
+        <li><a ui-sref=".strategy">奖励管理</a></li>
         <li><a ui-sref=".menu">菜单管理</a></li>
+        <li><a ui-sref=".qrcode">二维码</a></li>
         <li><a ui-sref=".restaurant">餐厅配置</a></li>
 
         <li class="divider"></li>
