@@ -1,0 +1,19 @@
+<h2>全部二维码</h2>
+<h4>排队二维码(贴于餐厅)</h4>
+
+<div>
+  <h5>{{queue.restaurant_name}}</h5>
+  <div class="normal-qrcode" style="background-image:url('{{cdn_file_url}}/{{queue.file_key}}')"></div>
+</div>
+
+<h4>点菜二维码(贴于餐桌)</h4>
+
+<ul>
+  <li ng-repeat="item in menu">
+    <h5>{{item.table_name}}</h5>
+    <div class="normal-qrcode" style="background-image:url('{{cdn_file_url}}/{{item.file_key}}')"></div>
+  </li>
+</ul>
+
+
+

@@ -430,3 +430,14 @@ table.current-registration {
         }
     }
 }
+
+/* console_qrcode.html */
+
+  .normal-qrcode {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background-color: $white;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
