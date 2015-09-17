@@ -71,7 +71,7 @@
             <tr ng-repeat="reg in table_types[$index].queue_registrations">
                 <td>{{ reg.queue_number }}</td>
                 <td><span ng-if="reg.reg_method==0">手机</span><span ng-if="reg.reg_method==1">微信</span></td>
-                <td><span ng-if="reg.reg_method==0">{{ reg.phone_display}}</span><span ng-if="reg.reg_method==1">{{ reg.member_display.nickname }}</span></td>
+                <td><span ng-if="reg.reg_method==0">{{ reg.member_display.phone}}</span><span ng-if="reg.reg_method==1">{{ reg.member_display.nickname }}</span></td>
                 <td>{{ reg.waiting_time }}</td>
             </tr>
 
