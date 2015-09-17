@@ -140,8 +140,8 @@ angular.module('dianApp')
                 return;
             };
             $http
-                .post(config.api_url + '/registration/registration/', {
-                    "table_type": $scope.my_form.table_type.id,
+                .post(config.api_url + '/registration/join-queue/', {
+                    "table_type_id": $scope.my_form.table_type.id,
                     "phone": $scope.my_form.phone
                 })
                 .success(function (data, status, headers, config) {
