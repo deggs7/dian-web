@@ -33,24 +33,41 @@
                 <td>
                     <span ng-if="table_types[$index].current_registration==null">无</span>
                     <span ng-if="table_types[$index].current_registration">
-                        <span ng-if="table_types[$index].current_registration.reg_method==0">手机</span>
-                        <span ng-if="table_types[$index].current_registration.reg_method==1">微信</span>
+                        <span ng-if="table_types[$index].current_registration.reg_method==0">
+                          手机
+                        </span>
+                        <span ng-if="table_types[$index].current_registration.reg_method==1">
+                          微信
+                        </span>
                     </span>
                 </td>
 
                 <td>
                     <span ng-if="table_types[$index].current_registration==null">无</span>
                     <span ng-if="table_types[$index].current_registration">
-                      <span ng-if="table_types[$index].current_registration.reg_method==0">{{ table_types[$index].current_registration.phone_display }}</span>
-                      <span ng-if="table_types[$index].current_registration.reg_method==1">{{ table_types[$index].current_registration.member_display.nickname}}</span>
+                      <span ng-if="table_types[$index].current_registration.reg_method==0">
+                        {{ table_types[$index].current_registration.member_display.phone}}
+                      </span>
+                      <span ng-if="table_types[$index].current_registration.reg_method==1">
+                        {{ table_types[$index].current_registration.member_display.nickname}}
+                      </span>
                     </span>
                 </td>
 
                 <td>
-                    <span ng-if="table_types[$index].queue_registrations.length==0 && table_types[$index].current_registration==null">无</span>
-                    <button class="button success tiny" ng-if="table_types[$index].current_registration==null && table_types[$index].queue_registrations.length != 0" ng-click="next_reg('start', table_types[$index])"><i class="fi-play"></i> 开始叫号</button>
-                    <button class="button success tiny" ng-if="table_types[$index].current_registration!=null" ng-click="next_reg('expired', table_types[$index])"><i class="fi-check"></i> 就餐</button>
-                    <button class="button alert tiny" ng-if="table_types[$index].current_registration!=null" ng-click="next_reg('passed', table_types[$index])"><i class="fi-eject"></i> 过号</button>
+                    <span ng-if="table_types[$index].current_registration==null">
+                      无
+                    </span>
+                    <button class="button success tiny"
+                      ng-if="table_types[$index].current_registration!=null"
+                      ng-click="make_repast(table_types[$index].current_registration)">
+                      <i class="fi-check"></i> 就餐
+                    </button>
+                    <button class="button alert tiny"
+                      ng-if="table_types[$index].current_registration!=null"
+                      ng-click="make_expired(table_types[$index].current_registration)">
+                      <i class="fi-eject"></i> 过号
+                    </button>
                 </td>
             </tr>
             </tbody>
@@ -70,8 +87,14 @@
             <tbody>
             <tr ng-repeat="reg in table_types[$index].queue_registrations">
                 <td>{{ reg.queue_number }}</td>
-                <td><span ng-if="reg.reg_method==0">手机</span><span ng-if="reg.reg_method==1">微信</span></td>
-                <td><span ng-if="reg.reg_method==0">{{ reg.member_display.phone}}</span><span ng-if="reg.reg_method==1">{{ reg.member_display.nickname }}</span></td>
+                <td>
+                  <span ng-if="reg.reg_method==0">手机</span>
+                  <span ng-if="reg.reg_method==1">微信</span>
+                </td>
+                <td>
+                  <span ng-if="reg.reg_method==0">{{ reg.member_display.phone}}</span>
+                  <span ng-if="reg.reg_method==1">{{ reg.member_display.nickname }}</span>
+                </td>
                 <td>{{ reg.waiting_time }}</td>
             </tr>
 
@@ -88,5 +111,4 @@
         <button class="button" ng-click="confirm()">确认</button>
         <button class="button secondary" ng-click="cancel()">取消</button>
     </div>
-
 </script>
