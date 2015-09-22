@@ -60,10 +60,12 @@ angular.module('dianApp')
         console.log('table info');
         console.log(table);
         //$scope.table = table;
-        $http.get(config.api_url + '/get-table-detail/' + table.id + '/').then(function(data) {
+        $http.get(config.api_url + '/table/get-table-detail/' + table.id + '/').then(function(res) {
+            var data = res.data;
             console.log('get table detail');
+            debugger;
             console.log(data);
-            $scope.table = data;//data is an order instance
+            $scope.table = data.order;//data is an order instance
             $scope.table.total_price = _.reduce(_.pluck(
                 $scope.table.order_items, 'price'
             ), function(memo, num) {
@@ -81,7 +83,7 @@ angular.module('dianApp')
         });
         */
         $scope.rejectOrder = function(table) {
-            $http.get(config.api_url + '/reject-order/' + table.id + '/').then(function(data) {//here table is an order, actually
+            $http.get(config.api_url + '/trade/reject-order/' + table.id + '/').then(function(data) {//here table is an order, actually
                 console.log('confirm order');
                 console.log(data);
                 $scope.table.status = 3;//已取消
@@ -92,7 +94,7 @@ angular.module('dianApp')
             //$scope.table.status = 3;//for debug
         };
         $scope.finish_order = function(table) {
-            $http.get(config.api_url + '/finish-order/' + table.id + '/').then(function(data) {//here table is an order, actually
+            $http.get(config.api_url + '/trade/finish-order/' + table.id + '/').then(function(data) {//here table is an order, actually
                 console.log('finish order');
                 console.log(data);
                 $scope.table.status = 2;//已付款
@@ -104,7 +106,7 @@ angular.module('dianApp')
         };
 
         $scope.confirmOrder = function(table) {
-            $http.get(config.api_url + '/confirm-order/' + table.id + '/').then(function(data) {//here table is an order, actually
+            $http.get(config.api_url + '/trade/confirm-order/' + table.id + '/').then(function(data) {//here table is an order, actually
                 console.log('confirm order');
                 console.log(data);
                 $scope.table.status = 1;
@@ -115,29 +117,29 @@ angular.module('dianApp')
             //$scope.table.status = 1;//for debug
         };
 
-        function mock_table(table) {
-            return {
-                "id": 1,
-                "restaurant": 1,
-                "member": 1,
-                "create_time": "2015-06-24T16:04:49Z",
-                "confirm_time": "2015-06-25T00:05:39Z",
-                "pay_time": "2015-06-25T00:05:48Z",
-                "status": 0,
-                "price": "0.000",
-                "order_items": [{
-                    "id": 1,
-                    "order": 1,
-                    "category": "\u9ed8\u8ba4\u5206\u7c7b",
-                    "name": "sdfdsf",
-                    "img_key": "",
-                    "price": "12.000",
-                    "unit": "\u4efd",
-                    "description": "",
-                    "count": 1
-                }]
-            };
-        }
+        // function mock_table(table) {
+        //     return {
+        //         "id": 1,
+        //         "restaurant": 1,
+        //         "member": 1,
+        //         "create_time": "2015-06-24T16:04:49Z",
+        //         "confirm_time": "2015-06-25T00:05:39Z",
+        //         "pay_time": "2015-06-25T00:05:48Z",
+        //         "status": 0,
+        //         "price": "0.000",
+        //         "order_items": [{
+        //             "id": 1,
+        //             "order": 1,
+        //             "category": "\u9ed8\u8ba4\u5206\u7c7b",
+        //             "name": "sdfdsf",
+        //             "img_key": "",
+        //             "price": "12.000",
+        //             "unit": "\u4efd",
+        //             "description": "",
+        //             "count": 1
+        //         }]
+        //     };
+        // }
     }
 ])
 
