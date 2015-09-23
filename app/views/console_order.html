@@ -1,32 +1,25 @@
 <section class="console-order">
   <ul class="tables">
     <li ng-repeat="table in tables">
-    <a href="#" class="button tablet" ng-click="table_order(table)" ng-class=" table.order_status | table_order_class "><span>{{ table.name }}(餐桌类型名称)<br>{{ table.order_status | order_status }}</span></a>
+      <a href="#" class="button tablet"
+        ng-click="table_order(table)"
+        ng-class=" table.order_status | table_order_class ">
+        <span>
+          {{ table.name }}(餐桌类型名称)<br>
+          {{ table.order_status | order_status }}
+        </span>
+      </a>
     </li>
-    <!--
-    <li>
-      <a href="#" class="button success tablet checkout"><span>已付款</span></a>
-    </li>
-    <li>
-      <a href="#" class="button secondary tablet pre-order"><span>待下单</span></a>
-    </li>
-    <li>
-      <a href="#" class="button alert tablet pre-checkout"><span>待付款</span></a>
-    </li>
-    <li>
-      <a href="#" class="button info tablet dish-up"><span>待上菜</span></a>
-    </li>
-    -->
   </ul>
 </section>
 
 <script type="text/ng-template" id="table_order.html">
   <div class="row">
     <div class="small-6 columns">
-    <h3>餐桌名称：{{ table.name }}</h3>
+    <h3>桌号：{{ table.name }}</h3>
     </div>
     <div class="small-6 columns">
-    <h3>人数：{{ table.member }}</h3>
+    <h3>类型：{{ table.table_type_desc}}</h3>
     </div>
   </div>
   <div class="row">
@@ -38,7 +31,7 @@
           <th>数量</th>
           <th>单价</th>
         </tr>
-        <tr ng-repeat="item in table.order_items">
+        <tr ng-repeat="item in table.order.order_items">
           <td>{{ item.category }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.count }}</td>
@@ -51,23 +44,21 @@
       <h3>总价：{{ table.total_price }}元</h3>
       </div>
       <div class="small-6 columns">
-      <h3>状态：{{ table.status | order_status }}</h3>
+      <h3>状态：{{ table.order.status | order_status }}</h3>
       </div>
     </div>
-    <div class="row" ng-show="table.status == 0">
-      <div class="small-3 columns">待确认</div>
+    <div class="row" ng-show="table.order.status == 0">
       <div class="small-9 columns">
         <div class="button-group">
-          <button class="button" ng-click="confirmOrder(table)" ng-show="table.status == 0">确认菜单</button>
-          <button class="button" ng-click="rejectOrder(table)"ng-show="table.status == 0">取消菜单</button>
+          <button class="button" ng-click="confirmOrder(table.order.id)" ng-show="table.order.status == 0">确认菜单</button>
+          <button class="button" ng-click="rejectOrder(table.order.id)"ng-show="table.order.status == 0">取消菜单</button>
         </div>
       </div>
     </div>
-    <div class="row" ng-show="table.status == 0 || table.status == 1">
-      <div class="small-3 columns">待付款</div>
+    <div class="row" ng-show="table.order.status == 1">
       <div class="small-9 columns">
         <div class="button-group">
-          <button class="button" ng-disabled="table.status == 2" ng-click="finish_order(table)">已付款</button>
+          <button class="button" ng-disabled="table.order.status == 2" ng-click="finish_order(table.order.id)">已付款</button>
         </div>
       </div>
     </div>
@@ -75,13 +66,13 @@
       <div class="small-12 columns"><h3>情况跟踪</h3></div>
     </div>
     <div class="row">
-      <div class="small-12 columns">下单时间：{{ table.create_time | order_time }}</div>
+      <div class="small-12 columns">下单时间：{{ table.order.create_time | order_time }}</div>
     </div>
     <div class="row">
-      <div class="small-12 columns">确认时间：{{ table.confirm_time | order_time }}</div>
+      <div class="small-12 columns">确认时间：{{ table.order.confirm_time | order_time }}</div>
     </div>
     <div class="row">
-      <div class="small-12 columns">付款时间：{{ table.pay_time | order_time }} </div>
+      <div class="small-12 columns">付款时间：{{ table.order.pay_time | order_time }} </div>
     </div>
   </div>
 </script>
