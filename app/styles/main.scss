@@ -433,11 +433,19 @@ table.current-registration {
 
 /* console_qrcode.html */
 
-  .normal-qrcode {
-    display: inline-block;
+ul.menu-qrcode-list {
+  li {
+    float: left;
     width: 200px;
-    height: 200px;
-    background-color: $white;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    margin-right: 50px;
   }
+}
+
+.normal-qrcode {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  background-color: $white;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
