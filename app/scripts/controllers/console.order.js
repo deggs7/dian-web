@@ -56,8 +56,8 @@ angular.module('dianApp')
         }
     ])
 
-.controller('ModalTableOrderCtrl', ['$http', '$scope', 'fetch', 'table',
-    function($http, $scope, fetch, table) {
+.controller('ModalTableOrderCtrl', ['$http', '$modalInstance', '$scope', 'fetch', 'table',
+    function($http, $modalInstance, $scope, fetch, table) {
         console.log('table info');
         console.log(table);
         $http.get(config.api_url + '/table/get-table-detail/' + table.id + '/').then(function(res) {
@@ -113,6 +113,10 @@ angular.module('dianApp')
                 console.warn('confirm order error');
                 console.log(res);
             });
+        };
+
+        $scope.cancel = function(){
+            $modalInstance.dismiss();
         };
     }
 ])
