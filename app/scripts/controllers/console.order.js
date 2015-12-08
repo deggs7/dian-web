@@ -121,27 +121,48 @@ angular.module('dianApp')
     }
 ])
 
-.controller('OrderCtrl', ['$modal', '$scope', '$http', 'fetch',
-    function($modal, $scope, $http, fetch) {
-        fetch('tables').success(function(data) {
-            console.log('fetch tables');
-            console.log(data);
-            $scope.tables = data;
-        });
-        $scope.table_order = table_order;
+.controller('OrderCtrl', ['$modal', '$scope', '$http', 'fetch', '$timeout',
+  function($modal, $scope, $http, fetch, $timeout) {
+    var fetchData = function () {
+      fetch('tables').success(function(data) {
+        console.log('fetch tables');
+        $scope.tables = data;
+      });
+    };
+    fetchData();
 
-        function table_order(table) {
-            console.log('talbe order');
-            $modal.open({
-                templateUrl: 'table_order.html',
-                controller: 'ModalTableOrderCtrl',
-                resolve: {
-                    table: function() {
-                        return table;
-                    }
-                }
-            });
+    // 定时刷新器
+    var refresh_info = function(){
+      $timeout.cancel($scope.refresh);
+      fetchData();
+      $scope.refresh = $timeout(refresh_info, config.interval);
+    };
+    $scope.refresh = $timeout(refresh_info, config.interval);
+
+    // 记得销毁
+    $scope.$on('$destroy', function(){
+      $timeout.cancel($scope.refresh);
+    });
+
+    $scope.table_order = table_order;
+
+    function table_order(table) {
+      console.log('talbe order');
+      var modalInstance = $modal.open({
+        templateUrl: 'table_order.html',
+        controller: 'ModalTableOrderCtrl',
+        resolve: {
+          table: function() {
+            return table;
+          }
         }
-    }
+      });
+      modalInstance.result.then(function (data) {
+      }, function () {
+        fetchData();
+      });
+    };
+
+  }
 ]);
 
